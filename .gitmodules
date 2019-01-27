@@ -1,0 +1,6 @@
+[submodule "blink1-tool"]
+	path = blink1-tool
+	url = git@github.com:todbot/blink1-tool.git
+[submodule "pugixml"]
+	path = pugixml
+	url = git@github.com:zeux/pugixml.git
