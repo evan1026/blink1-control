@@ -1,9 +1,9 @@
 [submodule "blink1-tool"]
-	path = blink1-tool
+	path = lib/blink1-tool
 	url = git@github.com:todbot/blink1-tool.git
 [submodule "pugixml"]
-	path = pugixml
+	path = lib/pugixml
 	url = git@github.com:zeux/pugixml.git
 [submodule "Maybe.h"]
-	path = Maybe.h
+	path = lib/Maybe.h
 	url = git@github.com:evan1026/Maybe.h.git
