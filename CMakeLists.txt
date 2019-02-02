@@ -1,17 +1,19 @@
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.10)
 
 project(blink1-control)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Werror -DDEBUG")
-set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 ##################
 # BLINK1-CONTROL #
 ##################
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall -Werror -DDEBUG -g")
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+include_directories(${SOURCE_DIR})
 set(EXECUTABLE_NAME "blink1-control")
-add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp
-                                  ${SOURCE_DIR}/Blink1Device.cpp)
+set(SOURCES ${SOURCE_DIR}/Blink1Device.cpp)
+add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
 ###########
 # DOXYGEN #
@@ -30,18 +32,18 @@ endif(DOXYGEN_FOUND)
 ###########
 # PUGIXML #
 ###########
-add_subdirectory(pugixml)
+add_subdirectory(${LIB_DIR}/pugixml)
 target_link_libraries(${EXECUTABLE_NAME} pugixml)
 
 ###########
 # MAYBE.H #
 ###########
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Maybe.h)
+include_directories(${LIB_DIR}/Maybe.h)
 
 ###############
 # BLINK1-TOOL #
 ###############
-set(BLINK1_DIR ${CMAKE_CURRENT_SOURCE_DIR}/blink1-tool)
+set(BLINK1_DIR ${LIB_DIR}/blink1-tool)
 set(LIB_BLINK1_LOC ${BLINK1_DIR}/libblink1.so)
 
 add_definitions(-DUSE_HIDAPI)
@@ -56,3 +58,25 @@ add_library(libblink1 STATIC IMPORTED GLOBAL)
 set_target_properties(libblink1 PROPERTIES IMPORTED_LOCATION ${LIB_BLINK1_LOC})
 add_dependencies(libblink1 libblink1_target)
 target_link_libraries(${EXECUTABLE_NAME} libblink1)
+
+###########
+# Testing #
+###########
+add_subdirectory(${LIB_DIR}/googletest)
+include(GoogleTest)
+set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
+set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
+add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCE_DIR}/test_test.cpp ${SOURCES})
+target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main pugixml libblink1)
+gtest_discover_tests(${TEST_EXECUTABLE_NAME})
+
+# Coverage
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
+    include(CodeCoverage)
+    APPEND_COVERAGE_COMPILER_FLAGS()
+    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}')
+    SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME ${PROJECT_NAME}_coverage
+                                         EXECUTABLE ${TEST_EXECUTABLE_NAME}
+                                         DEPENDENCIES ${TEST_EXECUTABLE_NAME})
+endif (CMAKE_BUILD_TYPE MATCHES Debug)

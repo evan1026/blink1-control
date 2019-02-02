@@ -7,3 +7,9 @@
 [submodule "Maybe.h"]
 	path = lib/Maybe.h
 	url = git@github.com:evan1026/Maybe.h.git
+[submodule "cmake-modules"]
+	path = cmake-modules
+	url = git@github.com:bilke/cmake-modules.git
+[submodule "lib/googletest"]
+	path = lib/googletest
+	url = git@github.com:google/googletest.git
