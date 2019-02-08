@@ -10,9 +10,18 @@ set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall -Werror -DDEBUG -g")
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-include_directories(${SOURCE_DIR})
+set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${INCLUDE_DIR})
 set(EXECUTABLE_NAME "blink1-control")
-set(SOURCES ${SOURCE_DIR}/Blink1Device.cpp)
+
+set(SOURCES
+    ${SOURCE_DIR}/Blink1Device.cpp
+    ${SOURCE_DIR}/PatternLine.cpp
+    ${SOURCE_DIR}/PatternLineN.cpp
+    ${SOURCE_DIR}/PlayState.cpp
+    ${SOURCE_DIR}/RGB.cpp
+    ${SOURCE_DIR}/RGBN.cpp
+)
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
 ###########
@@ -66,7 +75,16 @@ add_subdirectory(${LIB_DIR}/googletest)
 include(GoogleTest)
 set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
-add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCE_DIR}/test_test.cpp ${SOURCES})
+
+set(TEST_SOURCES
+    ${TEST_SOURCE_DIR}/PatternLineN_test.cpp
+    ${TEST_SOURCE_DIR}/PatternLine_test.cpp
+    ${TEST_SOURCE_DIR}/PlayState_test.cpp
+    ${TEST_SOURCE_DIR}/RGBN_test.cpp
+    ${TEST_SOURCE_DIR}/RGB_test.cpp
+)
+
+add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
 target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main pugixml libblink1)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
 
@@ -75,7 +93,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
     include(CodeCoverage)
     APPEND_COVERAGE_COMPILER_FLAGS()
-    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}')
+    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}')
     SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME ${PROJECT_NAME}_coverage
                                          EXECUTABLE ${TEST_EXECUTABLE_NAME}
                                          DEPENDENCIES ${TEST_EXECUTABLE_NAME})

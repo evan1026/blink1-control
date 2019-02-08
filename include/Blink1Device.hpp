@@ -6,8 +6,10 @@
 #include <Maybe.h>
 
 #include "RGB.hpp"
+#include "RGBN.hpp"
 #include "PlayState.hpp"
 #include "PatternLine.hpp"
+#include "PatternLineN.hpp"
 
 namespace blink1_control {
     class Blink1Device {
