@@ -77,6 +77,8 @@ set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
+    ${TEST_SOURCE_DIR}/Blink1Device_GoodInit_test.cpp
+    ${TEST_SOURCE_DIR}/FakeBlink1Lib.cpp
     ${TEST_SOURCE_DIR}/PatternLineN_test.cpp
     ${TEST_SOURCE_DIR}/PatternLine_test.cpp
     ${TEST_SOURCE_DIR}/PlayState_test.cpp
@@ -84,8 +86,9 @@ set(TEST_SOURCES
     ${TEST_SOURCE_DIR}/RGB_test.cpp
 )
 
+enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main pugixml libblink1)
+target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main pugixml)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
 
 # Coverage
@@ -94,7 +97,12 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     include(CodeCoverage)
     APPEND_COVERAGE_COMPILER_FLAGS()
     set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}')
-    SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME ${PROJECT_NAME}_coverage
+    SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME coverage
                                          EXECUTABLE ${TEST_EXECUTABLE_NAME}
                                          DEPENDENCIES ${TEST_EXECUTABLE_NAME})
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
+
+add_custom_target(run_tests ALL DEPENDS ${TEST_EXECUTABLE_NAME})
+add_custom_command(TARGET run_tests
+                   POST_BUILD
+                   COMMAND ctest)

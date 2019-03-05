@@ -1,4 +1,3 @@
-
 #include <sstream>
 
 #include "gtest/gtest.h"
@@ -12,17 +11,17 @@ TEST(SUITE_NAME, TestConstructor) {
     PlayState playState1;
     PlayState playState2(true, 1, 2, 3, 4);
 
-    ASSERT_EQ(false, playState1.playing);
-    ASSERT_EQ(0, playState1.playStart);
-    ASSERT_EQ(0, playState1.playEnd);
-    ASSERT_EQ(0, playState1.playCount);
-    ASSERT_EQ(0, playState1.playPos);
+    EXPECT_EQ(false, playState1.playing);
+    EXPECT_EQ(0, playState1.playStart);
+    EXPECT_EQ(0, playState1.playEnd);
+    EXPECT_EQ(0, playState1.playCount);
+    EXPECT_EQ(0, playState1.playPos);
 
-    ASSERT_EQ(true, playState2.playing);
-    ASSERT_EQ(1, playState2.playStart);
-    ASSERT_EQ(2, playState2.playEnd);
-    ASSERT_EQ(3, playState2.playCount);
-    ASSERT_EQ(4, playState2.playPos);
+    EXPECT_EQ(true, playState2.playing);
+    EXPECT_EQ(1, playState2.playStart);
+    EXPECT_EQ(2, playState2.playEnd);
+    EXPECT_EQ(3, playState2.playCount);
+    EXPECT_EQ(4, playState2.playPos);
 }
 
 TEST(SUITE_NAME, TestEqual) {
@@ -34,12 +33,12 @@ TEST(SUITE_NAME, TestEqual) {
     PlayState notEqualPlayState4(false, 1, 2, 4, 4);
     PlayState notEqualPlayState5(false, 1, 2, 3, 5);
 
-    ASSERT_EQ(playState, equalPlayState);
-    ASSERT_NE(playState, notEqualPlayState1);
-    ASSERT_NE(playState, notEqualPlayState2);
-    ASSERT_NE(playState, notEqualPlayState3);
-    ASSERT_NE(playState, notEqualPlayState4);
-    ASSERT_NE(playState, notEqualPlayState5);
+    EXPECT_EQ(playState, equalPlayState);
+    EXPECT_NE(playState, notEqualPlayState1);
+    EXPECT_NE(playState, notEqualPlayState2);
+    EXPECT_NE(playState, notEqualPlayState3);
+    EXPECT_NE(playState, notEqualPlayState4);
+    EXPECT_NE(playState, notEqualPlayState5);
 }
 
 TEST(SUITE_NAME, TestOutputOperator) {
@@ -47,10 +46,10 @@ TEST(SUITE_NAME, TestOutputOperator) {
     std::stringstream ss;
 
     ss << playState;
-    ASSERT_EQ("PlayState{playing=true, playStart=1, playEnd=2, playCount=3, playPos=4}", ss.str());
+    EXPECT_EQ("PlayState{playing=true, playStart=1, playEnd=2, playCount=3, playPos=4}", ss.str());
 
     ss.str("");
     playState.playing = false;
     ss << playState;
-    ASSERT_EQ("PlayState{playing=false, playStart=1, playEnd=2, playCount=3, playPos=4}", ss.str());
+    EXPECT_EQ("PlayState{playing=false, playStart=1, playEnd=2, playCount=3, playPos=4}", ss.str());
 }

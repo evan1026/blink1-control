@@ -11,14 +11,14 @@ TEST(SUITE_NAME, TestConstructor) {
     RGBN rgbn1;
     RGBN rgbn2(123, 231, 144, 255);
 
-    ASSERT_EQ(0, rgbn1.r);
-    ASSERT_EQ(0, rgbn1.g);
-    ASSERT_EQ(0, rgbn1.b);
-    ASSERT_EQ(0, rgbn1.n);
-    ASSERT_EQ(123, rgbn2.r);
-    ASSERT_EQ(231, rgbn2.g);
-    ASSERT_EQ(144, rgbn2.b);
-    ASSERT_EQ(255, rgbn2.n);
+    EXPECT_EQ(0, rgbn1.r);
+    EXPECT_EQ(0, rgbn1.g);
+    EXPECT_EQ(0, rgbn1.b);
+    EXPECT_EQ(0, rgbn1.n);
+    EXPECT_EQ(123, rgbn2.r);
+    EXPECT_EQ(231, rgbn2.g);
+    EXPECT_EQ(144, rgbn2.b);
+    EXPECT_EQ(255, rgbn2.n);
 }
 
 TEST(SUITE_NAME, TestEqual) {
@@ -29,11 +29,11 @@ TEST(SUITE_NAME, TestEqual) {
     RGBN notEqualRGBN3(222, 111, 3, 25);
     RGBN notEqualRGBN4(222, 111, 0, 18);
 
-    ASSERT_EQ(rgbn, equalRGBN);
-    ASSERT_NE(rgbn, notEqualRGBN1);
-    ASSERT_NE(rgbn, notEqualRGBN2);
-    ASSERT_NE(rgbn, notEqualRGBN3);
-    ASSERT_NE(rgbn, notEqualRGBN4);
+    EXPECT_EQ(rgbn, equalRGBN);
+    EXPECT_NE(rgbn, notEqualRGBN1);
+    EXPECT_NE(rgbn, notEqualRGBN2);
+    EXPECT_NE(rgbn, notEqualRGBN3);
+    EXPECT_NE(rgbn, notEqualRGBN4);
 }
 
 TEST(SUITE_NAME, TestOutputOperator) {
@@ -42,5 +42,5 @@ TEST(SUITE_NAME, TestOutputOperator) {
 
     ss << rgbn;
 
-    ASSERT_EQ("RGBN{r=5, g=6, b=7, n=8}", ss.str());
+    EXPECT_EQ("RGBN{r=5, g=6, b=7, n=8}", ss.str());
 }

@@ -12,20 +12,20 @@ TEST(SUITE_NAME, TestConstructor) {
     PatternLine patternLine2(RGB(1, 2, 3), 4);
     PatternLine patternLine3(5, 6, 7, 8);
 
-    ASSERT_EQ(0, patternLine1.rgb.r);
-    ASSERT_EQ(0, patternLine1.rgb.g);
-    ASSERT_EQ(0, patternLine1.rgb.b);
-    ASSERT_EQ(0, patternLine1.fadeMillis);
+    EXPECT_EQ(0, patternLine1.rgb.r);
+    EXPECT_EQ(0, patternLine1.rgb.g);
+    EXPECT_EQ(0, patternLine1.rgb.b);
+    EXPECT_EQ(0, patternLine1.fadeMillis);
 
-    ASSERT_EQ(1, patternLine2.rgb.r);
-    ASSERT_EQ(2, patternLine2.rgb.g);
-    ASSERT_EQ(3, patternLine2.rgb.b);
-    ASSERT_EQ(4, patternLine2.fadeMillis);
+    EXPECT_EQ(1, patternLine2.rgb.r);
+    EXPECT_EQ(2, patternLine2.rgb.g);
+    EXPECT_EQ(3, patternLine2.rgb.b);
+    EXPECT_EQ(4, patternLine2.fadeMillis);
 
-    ASSERT_EQ(5, patternLine3.rgb.r);
-    ASSERT_EQ(6, patternLine3.rgb.g);
-    ASSERT_EQ(7, patternLine3.rgb.b);
-    ASSERT_EQ(8, patternLine3.fadeMillis);
+    EXPECT_EQ(5, patternLine3.rgb.r);
+    EXPECT_EQ(6, patternLine3.rgb.g);
+    EXPECT_EQ(7, patternLine3.rgb.b);
+    EXPECT_EQ(8, patternLine3.fadeMillis);
 }
 
 TEST(SUITE_NAME, TestEqual) {
@@ -36,11 +36,11 @@ TEST(SUITE_NAME, TestEqual) {
     PatternLine notEqualPatternLine3(1, 2, 4, 4);
     PatternLine notEqualPatternLine4(1, 2, 3, 5);
 
-    ASSERT_EQ(patternLine, equalPatternLine);
-    ASSERT_NE(patternLine, notEqualPatternLine1);
-    ASSERT_NE(patternLine, notEqualPatternLine2);
-    ASSERT_NE(patternLine, notEqualPatternLine3);
-    ASSERT_NE(patternLine, notEqualPatternLine4);
+    EXPECT_EQ(patternLine, equalPatternLine);
+    EXPECT_NE(patternLine, notEqualPatternLine1);
+    EXPECT_NE(patternLine, notEqualPatternLine2);
+    EXPECT_NE(patternLine, notEqualPatternLine3);
+    EXPECT_NE(patternLine, notEqualPatternLine4);
 }
 
 TEST(SUITE_NAME, TestOutputOperator) {
@@ -49,5 +49,5 @@ TEST(SUITE_NAME, TestOutputOperator) {
 
     ss << patternLine;
 
-    ASSERT_EQ("PatternLine{rgb=RGB{r=1, g=2, b=3}, fadeMillis=4}", ss.str());
+    EXPECT_EQ("PatternLine{rgb=RGB{r=1, g=2, b=3}, fadeMillis=4}", ss.str());
 }

@@ -11,12 +11,12 @@ TEST(SUITE_NAME, TestConstructor) {
     RGB rgb1;
     RGB rgb2(123, 231, 144);
 
-    ASSERT_EQ(0, rgb1.r);
-    ASSERT_EQ(0, rgb1.g);
-    ASSERT_EQ(0, rgb1.b);
-    ASSERT_EQ(123, rgb2.r);
-    ASSERT_EQ(231, rgb2.g);
-    ASSERT_EQ(144, rgb2.b);
+    EXPECT_EQ(0, rgb1.r);
+    EXPECT_EQ(0, rgb1.g);
+    EXPECT_EQ(0, rgb1.b);
+    EXPECT_EQ(123, rgb2.r);
+    EXPECT_EQ(231, rgb2.g);
+    EXPECT_EQ(144, rgb2.b);
 }
 
 TEST(SUITE_NAME, TestEqual) {
@@ -26,10 +26,10 @@ TEST(SUITE_NAME, TestEqual) {
     RGB notEqualRGB2(222, 112, 0);
     RGB notEqualRGB3(222, 111, 3);
 
-    ASSERT_EQ(rgb, equalRGB);
-    ASSERT_NE(rgb, notEqualRGB1);
-    ASSERT_NE(rgb, notEqualRGB2);
-    ASSERT_NE(rgb, notEqualRGB3);
+    EXPECT_EQ(rgb, equalRGB);
+    EXPECT_NE(rgb, notEqualRGB1);
+    EXPECT_NE(rgb, notEqualRGB2);
+    EXPECT_NE(rgb, notEqualRGB3);
 }
 
 TEST(SUITE_NAME, TestOutputOperator) {
@@ -38,5 +38,5 @@ TEST(SUITE_NAME, TestOutputOperator) {
 
     ss << rgb;
 
-    ASSERT_EQ("RGB{r=5, g=6, b=7}", ss.str());
+    EXPECT_EQ("RGB{r=5, g=6, b=7}", ss.str());
 }
