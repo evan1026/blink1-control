@@ -23,6 +23,7 @@ int fake_blink1_lib::patternLineLEDN = 0;
 blink1_control::PlayState fake_blink1_lib::playState;
 int fake_blink1_lib::blink1Version = 0;
 bool fake_blink1_lib::successfulOperation = false;
+bool fake_blink1_lib::successfulInit = false;
 bool fake_blink1_lib::degammaEnabled = false;
 int fake_blink1_lib::vid = 0;
 int fake_blink1_lib::pid = 0;
@@ -48,6 +49,7 @@ void fake_blink1_lib::CLEAR_ALL() {
     playState = blink1_control::PlayState();
     blink1Version = 0;
     successfulOperation = false;
+    successfulInit = false;
     degammaEnabled = false;
     vid = 0;
     pid = 0;
@@ -63,6 +65,10 @@ void fake_blink1_lib::SET_BLINK1_VERSION(int version) {
 
 void fake_blink1_lib::SET_BLINK1_SUCCESSFUL_OPERATION(bool op) {
     successfulOperation = op;
+}
+
+void fake_blink1_lib::SET_BLINK1_SUCCESSFUL_INIT(bool init) {
+    successfulInit = init;
 }
 
 void fake_blink1_lib::SET_BLINK1_VID(int _vid) {
@@ -138,7 +144,7 @@ void fake_blink1_lib::SET_PLAY_STATE(PlayState state) {
  ******************/
 
 blink1_device* blink1_open() {
-    if (fake_blink1_lib::successfulOperation) {
+    if (fake_blink1_lib::successfulInit) {
         blink1_device* newDevice = new blink1_device();
         fake_blink1_lib::blink1_devices.push_back(newDevice);
         return newDevice;
@@ -171,7 +177,14 @@ void blink1_close(blink1_device* dev) {
 }
 
 int blink1_getVersion(blink1_device* dev) {
-    return fake_blink1_lib::blink1Version;
+    auto loc = std::find(fake_blink1_lib::blink1_devices.begin(), fake_blink1_lib::blink1_devices.end(), dev);
+    if (loc != fake_blink1_lib::blink1_devices.end()) {
+        return fake_blink1_lib::blink1Version;
+    } else {
+        //TODO docs don't specify failure case, just that device must be initialized
+        ADD_FAILURE() << "Getting version from uninitialized device.";
+        return -1;
+    }
 }
 
 // This does LED 0 which actually sets all LEDs

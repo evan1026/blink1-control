@@ -77,7 +77,9 @@ set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
+    ${TEST_SOURCE_DIR}/Blink1Device_BadInit_test.cpp
     ${TEST_SOURCE_DIR}/Blink1Device_GoodInit_test.cpp
+    ${TEST_SOURCE_DIR}/Blink1Device_GoodInitBadFunction_test.cpp
     ${TEST_SOURCE_DIR}/FakeBlink1Lib.cpp
     ${TEST_SOURCE_DIR}/PatternLineN_test.cpp
     ${TEST_SOURCE_DIR}/PatternLine_test.cpp
@@ -88,7 +90,7 @@ set(TEST_SOURCES
 
 enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main pugixml)
+target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main pugixml)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
 
 # Coverage
@@ -101,8 +103,3 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
                                          EXECUTABLE ${TEST_EXECUTABLE_NAME}
                                          DEPENDENCIES ${TEST_EXECUTABLE_NAME})
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
-
-add_custom_target(run_tests ALL DEPENDS ${TEST_EXECUTABLE_NAME})
-add_custom_command(TARGET run_tests
-                   POST_BUILD
-                   COMMAND ctest)

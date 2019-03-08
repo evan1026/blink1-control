@@ -25,6 +25,7 @@ namespace fake_blink1_lib {
     extern blink1_control::PlayState playState;
     extern int blink1Version;
     extern bool successfulOperation;
+    extern bool successfulInit;
     extern bool degammaEnabled;
     extern int vid;
     extern int pid;
@@ -36,6 +37,7 @@ namespace fake_blink1_lib {
     void SET_BLINK1_VERSION(int version);
 
     void SET_BLINK1_SUCCESSFUL_OPERATION(bool op);
+    void SET_BLINK1_SUCCESSFUL_INIT(bool init);
 
     void SET_BLINK1_VID(int _vid);
 
