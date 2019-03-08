@@ -98,7 +98,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
     include(CodeCoverage)
     APPEND_COVERAGE_COMPILER_FLAGS()
-    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}')
+    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}' '${SOURCE_DIR}/main.cpp')
     SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME coverage
                                          EXECUTABLE ${TEST_EXECUTABLE_NAME}
                                          DEPENDENCIES ${TEST_EXECUTABLE_NAME})
