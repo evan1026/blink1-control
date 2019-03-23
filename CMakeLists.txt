@@ -7,7 +7,6 @@ set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 ##################
 # BLINK1-CONTROL #
 ##################
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall -Werror -DDEBUG -g")
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -23,6 +22,9 @@ set(SOURCES
     ${SOURCE_DIR}/RGBN.cpp
 )
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
+
+set(CXX_STANDARD_REQUIRED ON)
+set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
 
 ###########
 # DOXYGEN #
@@ -43,11 +45,6 @@ endif(DOXYGEN_FOUND)
 ###########
 add_subdirectory(${LIB_DIR}/pugixml)
 target_link_libraries(${EXECUTABLE_NAME} pugixml)
-
-###########
-# MAYBE.H #
-###########
-include_directories(${LIB_DIR}/Maybe.h)
 
 ###############
 # BLINK1-TOOL #
@@ -92,6 +89,7 @@ enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
 target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main pugixml)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
+set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
 
 # Coverage
 if (CMAKE_BUILD_TYPE MATCHES Debug)

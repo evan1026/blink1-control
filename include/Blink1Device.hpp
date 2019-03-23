@@ -3,7 +3,7 @@
 #include <blink1-lib.h>
 #include <memory>
 #include <functional>
-#include <Maybe.h>
+#include <optional>
 
 #include "RGB.hpp"
 #include "RGBN.hpp"
@@ -27,24 +27,24 @@ namespace blink1_control {
             bool good() const;
             operator bool() const;
 
-            Maybe<int> getVersion() const;
+            std::optional<int> getVersion() const;
 
             bool fadeToRGB(std::uint16_t fadeMillis, RGB rgb);
             bool fadeToRGBN(std::uint16_t fadeMillis, RGBN rgbn);
             bool setRGB(RGB rgb);
             bool setRGBN(RGBN rgbn);
-            Maybe<PatternLine> readRGBWithFade(std::uint8_t ledn) const;
-            Maybe<RGB> readRGB(std::uint8_t ledn) const;
+            std::optional<PatternLine> readRGBWithFade(std::uint8_t ledn) const;
+            std::optional<RGB> readRGB(std::uint8_t ledn) const;
 
             bool play(std::uint8_t pos);
             bool playLoop(std::uint8_t startpos, std::uint8_t endpos, std::uint8_t count);
             bool stop();
-            Maybe<PlayState> readPlayState() const;
+            std::optional<PlayState> readPlayState() const;
 
             bool writePatternLine(PatternLine line, std::uint8_t pos);
             bool writePatternLineN(PatternLineN line, std::uint8_t pos);
-            Maybe<PatternLine> readPatternLine(std::uint8_t pos) const;
-            Maybe<PatternLineN> readPatternLineN(std::uint8_t pos) const;
+            std::optional<PatternLine> readPatternLine(std::uint8_t pos) const;
+            std::optional<PatternLineN> readPatternLineN(std::uint8_t pos) const;
             bool savePattern();
 
             static void enableDegamma();
@@ -53,11 +53,11 @@ namespace blink1_control {
             static int vid();
             static int pid();
 
-            Maybe<int> getCacheIndex() const;
-            Maybe<int> clearCache();
+            std::optional<int> getCacheIndex() const;
+            std::optional<int> clearCache();
 
-            Maybe<std::string> getSerial() const;
+            std::optional<std::string> getSerial() const;
 
-            Maybe<bool> isMk2() const;
+            std::optional<bool> isMk2() const;
     };
 }

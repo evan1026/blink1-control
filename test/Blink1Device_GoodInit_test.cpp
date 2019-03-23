@@ -47,7 +47,7 @@ TEST_F(SUITE_NAME, TestGetVersion) {
         auto deviceVersion = device.getVersion();
         EXPECT_TRUE(deviceVersion) << "Expected device version to be present";
         if (deviceVersion) { // Avoid throwing exception if it's not present
-            EXPECT_EQ(1337, deviceVersion());
+            EXPECT_EQ(1337, *deviceVersion);
         }
     }
     checkDevicesFreed();
@@ -126,12 +126,12 @@ TEST_F(SUITE_NAME, TestReadRGBWithFade) {
         fake_blink1_lib::SET_RGB(rgb, 20);
         fake_blink1_lib::SET_FADE_MILLIS(fadeMillis, 20);
 
-        Maybe<PatternLine> actualline = device.readRGBWithFade(20);
+        auto actualline = device.readRGBWithFade(20);
         PatternLine expectLine(rgb.r, rgb.g, rgb.b, fadeMillis);
 
         EXPECT_TRUE(actualline) << "Expected actualline to be present";
         if (actualline) {
-            EXPECT_EQ(expectLine, actualline());
+            EXPECT_EQ(expectLine, *actualline);
         }
     }
     checkDevicesFreed();
@@ -146,11 +146,11 @@ TEST_F(SUITE_NAME, TestReadRGB) {
         fake_blink1_lib::SET_RGB(rgb, 20);
         fake_blink1_lib::SET_FADE_MILLIS(fadeMillis, 20); // underlying blink1-lib function reads millis as well
 
-        Maybe<RGB> actualrgb = device.readRGB(20);
+        auto actualrgb = device.readRGB(20);
 
         EXPECT_TRUE(actualrgb) << "Expected actualrgb to be present";
         if (actualrgb) {
-            EXPECT_EQ(rgb, actualrgb());
+            EXPECT_EQ(rgb, *actualrgb);
         }
     }
     checkDevicesFreed();
@@ -209,15 +209,15 @@ TEST_F(SUITE_NAME, TestReadPlayState) {
         PlayState state(true, 2, 3, 4, 5);
         fake_blink1_lib::SET_PLAY_STATE(state);
 
-        Maybe<PlayState> actualState = device.readPlayState();
+        auto actualState = device.readPlayState();
 
         EXPECT_TRUE(actualState);
         if (actualState) {
-            EXPECT_TRUE(actualState().playing);
-            EXPECT_EQ(2, actualState().playStart);
-            EXPECT_EQ(3, actualState().playEnd);
-            EXPECT_EQ(4, actualState().playCount);
-            EXPECT_EQ(5, actualState().playPos);
+            EXPECT_TRUE(actualState->playing);
+            EXPECT_EQ(2, actualState->playStart);
+            EXPECT_EQ(3, actualState->playEnd);
+            EXPECT_EQ(4, actualState->playCount);
+            EXPECT_EQ(5, actualState->playPos);
         }
     }
     checkDevicesFreed();
@@ -267,13 +267,13 @@ TEST_F(SUITE_NAME, TestReadPatternLine) {
         PatternLineN line(1, 2, 3, 4, 5);
         fake_blink1_lib::SET_PATTERN_LINE(line, 20);
 
-        Maybe<PatternLine> actualLine = device.readPatternLine(20);
+        auto actualLine = device.readPatternLine(20);
         EXPECT_TRUE(actualLine);
         if (actualLine) {
-            EXPECT_EQ(1, actualLine().rgb.r);
-            EXPECT_EQ(2, actualLine().rgb.g);
-            EXPECT_EQ(3, actualLine().rgb.b);
-            EXPECT_EQ(5, actualLine().fadeMillis);
+            EXPECT_EQ(1, actualLine->rgb.r);
+            EXPECT_EQ(2, actualLine->rgb.g);
+            EXPECT_EQ(3, actualLine->rgb.b);
+            EXPECT_EQ(5, actualLine->fadeMillis);
         }
     }
     checkDevicesFreed();
@@ -286,14 +286,14 @@ TEST_F(SUITE_NAME, TestReadPatternLineN) {
         PatternLineN line(1, 2, 3, 4, 5);
         fake_blink1_lib::SET_PATTERN_LINE(line, 20);
 
-        Maybe<PatternLineN> actualLine = device.readPatternLineN(20);
+        auto actualLine = device.readPatternLineN(20);
         EXPECT_TRUE(actualLine);
         if (actualLine) {
-            EXPECT_EQ(1, actualLine().rgbn.r);
-            EXPECT_EQ(2, actualLine().rgbn.g);
-            EXPECT_EQ(3, actualLine().rgbn.b);
-            EXPECT_EQ(4, actualLine().rgbn.n);
-            EXPECT_EQ(5, actualLine().fadeMillis);
+            EXPECT_EQ(1, actualLine->rgbn.r);
+            EXPECT_EQ(2, actualLine->rgbn.g);
+            EXPECT_EQ(3, actualLine->rgbn.b);
+            EXPECT_EQ(4, actualLine->rgbn.n);
+            EXPECT_EQ(5, actualLine->fadeMillis);
         }
     }
     checkDevicesFreed();
@@ -342,11 +342,11 @@ TEST_F(SUITE_NAME, TestGetCacheIndex) {
         Blink1Device device;
 
         fake_blink1_lib::SET_CACHE_INDEX(98);
-        Maybe<int> actualIndex = device.getCacheIndex();
+        auto actualIndex = device.getCacheIndex();
 
         EXPECT_TRUE(actualIndex);
         if (actualIndex) {
-            EXPECT_EQ(98, actualIndex());
+            EXPECT_EQ(98, *actualIndex);
         }
     }
     checkDevicesFreed();
@@ -357,11 +357,11 @@ TEST_F(SUITE_NAME, TestClearCache) {
         Blink1Device device;
 
         fake_blink1_lib::SET_CACHE_INDEX(98);
-        Maybe<int> actualIndex = device.clearCache();
+        auto actualIndex = device.clearCache();
 
         EXPECT_TRUE(actualIndex);
         if (actualIndex) {
-            EXPECT_EQ(98, actualIndex());
+            EXPECT_EQ(98, *actualIndex);
         }
     }
     checkDevicesFreed();
@@ -372,11 +372,11 @@ TEST_F(SUITE_NAME, TestGetSerial) {
         Blink1Device device;
 
         fake_blink1_lib::SET_SERIAL("SERIAL");
-        Maybe<std::string> actualSerial = device.getSerial();
+        auto actualSerial = device.getSerial();
 
         EXPECT_TRUE(actualSerial);
         if (actualSerial) {
-            EXPECT_EQ("SERIAL", actualSerial());
+            EXPECT_EQ("SERIAL", *actualSerial);
         }
     }
     checkDevicesFreed();
@@ -387,24 +387,24 @@ TEST_F(SUITE_NAME, TestIsMk2) {
         Blink1Device device;
 
         fake_blink1_lib::SET_IS_MK2(true);
-        Maybe<bool> actualMk2 = device.isMk2();
+        auto actualMk2 = device.isMk2();
         EXPECT_TRUE(actualMk2);
         if (actualMk2) {
-            EXPECT_TRUE(actualMk2());
+            EXPECT_TRUE(*actualMk2);
         }
 
         fake_blink1_lib::SET_IS_MK2(false);
         actualMk2 = device.isMk2();
         EXPECT_TRUE(actualMk2);
         if (actualMk2) {
-            EXPECT_FALSE(actualMk2());
+            EXPECT_FALSE(*actualMk2);
         }
 
         fake_blink1_lib::SET_IS_MK2(true);
         actualMk2 = device.isMk2();
         EXPECT_TRUE(actualMk2);
         if (actualMk2) {
-            EXPECT_TRUE(actualMk2());
+            EXPECT_TRUE(*actualMk2);
         }
     }
     checkDevicesFreed();

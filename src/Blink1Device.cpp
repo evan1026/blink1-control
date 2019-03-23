@@ -31,11 +31,11 @@ namespace blink1_control {
         return good();
     }
 
-    Maybe<int> Blink1Device::getVersion() const {
+    std::optional<int> Blink1Device::getVersion() const {
         if (good()) {
             return blink1_getVersion(device.get());
         }
-        return nullptr;
+        return std::nullopt;
     }
 
     bool Blink1Device::fadeToRGB(std::uint16_t fadeMillis, RGB rgb) {
@@ -66,7 +66,7 @@ namespace blink1_control {
         return fadeToRGBN(0, rgbn);
     }
 
-    Maybe<PatternLine> Blink1Device::readRGBWithFade(std::uint8_t ledn) const {
+    std::optional<PatternLine> Blink1Device::readRGBWithFade(std::uint8_t ledn) const {
         if (good()) {
             PatternLine line;
             int retVal = blink1_readRGB(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, ledn);
@@ -74,15 +74,15 @@ namespace blink1_control {
                 return line;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
-    Maybe<RGB> Blink1Device::readRGB(std::uint8_t ledn) const {
-        Maybe<PatternLine> pLine = readRGBWithFade(ledn);
+    std::optional<RGB> Blink1Device::readRGB(std::uint8_t ledn) const {
+        std::optional<PatternLine> pLine = readRGBWithFade(ledn);
         if (pLine) {
-            return pLine().rgb;
+            return pLine->rgb;
         }
-        return nullptr;
+        return std::nullopt;
     }
 
     bool Blink1Device::play(std::uint8_t pos) {
@@ -109,7 +109,7 @@ namespace blink1_control {
         return false;
     }
 
-    Maybe<PlayState> Blink1Device::readPlayState() const {
+    std::optional<PlayState> Blink1Device::readPlayState() const {
         if (good()) {
             PlayState state;
             std::uint8_t playing;
@@ -119,7 +119,7 @@ namespace blink1_control {
                 return state;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
     bool Blink1Device::writePatternLine(PatternLine line, std::uint8_t pos) {
@@ -139,7 +139,7 @@ namespace blink1_control {
         return false;
     }
 
-    Maybe<PatternLine> Blink1Device::readPatternLine(std::uint8_t pos) const {
+    std::optional<PatternLine> Blink1Device::readPatternLine(std::uint8_t pos) const {
         if (good()) {
             PatternLine line;
             int retVal = blink1_readPatternLine(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, pos);
@@ -147,10 +147,10 @@ namespace blink1_control {
                 return line;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
-    Maybe<PatternLineN> Blink1Device::readPatternLineN(std::uint8_t pos) const {
+    std::optional<PatternLineN> Blink1Device::readPatternLineN(std::uint8_t pos) const {
         if (good()) {
             PatternLineN line;
             int retVal = blink1_readPatternLineN(device.get(), &line.fadeMillis, &line.rgbn.r, &line.rgbn.g, &line.rgbn.b, &line.rgbn.n, pos);
@@ -158,7 +158,7 @@ namespace blink1_control {
                 return line;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
     bool Blink1Device::savePattern() {
@@ -185,41 +185,41 @@ namespace blink1_control {
         return blink1_pid();
     }
 
-    Maybe<int> Blink1Device::getCacheIndex() const {
+    std::optional<int> Blink1Device::getCacheIndex() const {
         if (good()) {
             int cacheIndex = blink1_getCacheIndexByDev(device.get());
             if (cacheIndex != -1) {
                 return cacheIndex;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
-    Maybe<int> Blink1Device::clearCache() {
+    std::optional<int> Blink1Device::clearCache() {
         if (good()) {
             int cacheIndex = blink1_clearCacheDev(device.get());
             if (cacheIndex != -1) {
                 return cacheIndex;
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
-    Maybe<std::string> Blink1Device::getSerial() const {
+    std::optional<std::string> Blink1Device::getSerial() const {
         if (good()) {
             const char* serial = blink1_getSerialForDev(device.get());
             if (serial != nullptr) {
                 return std::string(serial);
             }
         }
-        return nullptr;
+        return std::nullopt;
     }
 
-    Maybe<bool> Blink1Device::isMk2() const {
+    std::optional<bool> Blink1Device::isMk2() const {
         if (good()) {
             int deviceIsMk2 = blink1_isMk2(device.get());
             return deviceIsMk2 == 1;
         }
-        return nullptr;
+        return std::nullopt;
     }
 }

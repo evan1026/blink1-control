@@ -4,9 +4,6 @@
 [submodule "pugixml"]
 	path = lib/pugixml
 	url = git@github.com:zeux/pugixml.git
-[submodule "Maybe.h"]
-	path = lib/Maybe.h
-	url = git@github.com:evan1026/Maybe.h.git
 [submodule "cmake-modules"]
 	path = cmake-modules
 	url = git@github.com:bilke/cmake-modules.git
