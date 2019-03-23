@@ -1,14 +1,14 @@
 #include "RGB.hpp"
 
 namespace blink1_control {
-    RGB::RGB(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b) : r(_r), g(_g), b(_b) {}
-    RGB::RGB() : r(0), g(0), b(0) {}
+    RGB::RGB(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b) noexcept : r(_r), g(_g), b(_b) {}
+    RGB::RGB() noexcept : r(0), g(0), b(0) {}
 
-    bool RGB::operator==(const RGB& other) const {
+    bool RGB::operator==(const RGB& other) const noexcept {
         return r == other.r && g == other.g && b == other.b;
     }
 
-    bool RGB::operator!=(const RGB& other) const {
+    bool RGB::operator!=(const RGB& other) const noexcept {
         return !(*this == other);
     }
 

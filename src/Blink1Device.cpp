@@ -1,13 +1,13 @@
 #include "Blink1Device.hpp"
 
 namespace blink1_control {
-    Blink1Device::Blink1Device() : device(blink1_open(), Blink1Device::destroyBlinkDevice) {}
+    Blink1Device::Blink1Device() noexcept : device(blink1_open(), Blink1Device::destroyBlinkDevice) {}
 
-    Blink1Device::Blink1Device(int id) : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
+    Blink1Device::Blink1Device(int id) noexcept : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
 
-    Blink1Device::Blink1Device(const std::string& stringInitializer, STRING_INIT_TYPE initType) : Blink1Device(stringInitializer.c_str(), initType) {}
+    Blink1Device::Blink1Device(const std::string& stringInitializer, STRING_INIT_TYPE initType) noexcept : Blink1Device(stringInitializer.c_str(), initType) {}
 
-    Blink1Device::Blink1Device(const char* stringInitializer, STRING_INIT_TYPE initType) {
+    Blink1Device::Blink1Device(const char* stringInitializer, STRING_INIT_TYPE initType) noexcept {
         switch (initType) {
             case STRING_INIT_TYPE::PATH:
                 device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openByPath(stringInitializer), Blink1Device::destroyBlinkDevice);
@@ -21,51 +21,51 @@ namespace blink1_control {
         }
     }
 
-    void Blink1Device::destroyBlinkDevice(blink1_device* device) {
+    void Blink1Device::destroyBlinkDevice(blink1_device* device) noexcept {
         blink1_close(device);
     }
 
-    bool Blink1Device::good() const {
+    bool Blink1Device::good() const noexcept {
         return device != nullptr;
     }
 
-    Blink1Device::operator bool() const {
+    Blink1Device::operator bool() const noexcept {
         return good();
     }
 
-    std::optional<int> Blink1Device::getVersion() const {
+    std::optional<int> Blink1Device::getVersion() const noexcept {
         if (good()) {
             return blink1_getVersion(device.get());
         }
         return std::nullopt;
     }
 
-    bool Blink1Device::fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) {
+    bool Blink1Device::fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) noexcept {
         if (good()) {
             return 0 == blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
         }
         return false;
     }
 
-    bool Blink1Device::fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) {
+    bool Blink1Device::fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) noexcept {
         if (good()) {
             return 0 == blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
         }
         return false;
     }
 
-    bool Blink1Device::setRGB(const RGB& rgb) {
+    bool Blink1Device::setRGB(const RGB& rgb) noexcept {
         if (good()) {
             return 0 == blink1_setRGB(device.get(), rgb.r, rgb.g, rgb.b);
         }
         return false;
     }
 
-    bool Blink1Device::setRGBN(const RGBN& rgbn) {
+    bool Blink1Device::setRGBN(const RGBN& rgbn) noexcept {
         return fadeToRGBN(0, rgbn);
     }
 
-    std::optional<PatternLine> Blink1Device::readRGBWithFade(const std::uint8_t ledn) const {
+    std::optional<PatternLine> Blink1Device::readRGBWithFade(const std::uint8_t ledn) const noexcept {
         if (good()) {
             PatternLine line;
             const auto retVal = blink1_readRGB(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, ledn);
@@ -76,7 +76,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<RGB> Blink1Device::readRGB(const std::uint8_t ledn) const {
+    std::optional<RGB> Blink1Device::readRGB(const std::uint8_t ledn) const noexcept {
         const auto pLine = readRGBWithFade(ledn);
         if (pLine) {
             return pLine->rgb;
@@ -84,28 +84,28 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    bool Blink1Device::play(const std::uint8_t pos) {
+    bool Blink1Device::play(const std::uint8_t pos) noexcept {
         if (good()) {
             return 0 == blink1_play(device.get(), 1, pos);
         }
         return false;
     }
 
-    bool Blink1Device::playLoop(std::uint8_t startpos, std::uint8_t endpos, std::uint8_t count) {
+    bool Blink1Device::playLoop(std::uint8_t startpos, std::uint8_t endpos, std::uint8_t count) noexcept {
         if (good()) {
             return 0 == blink1_playloop(device.get(), 1, startpos, endpos, count);
         }
         return false;
     }
 
-    bool Blink1Device::stop() {
+    bool Blink1Device::stop() noexcept {
         if (good()) {
             return 0 == blink1_play(device.get(), 0, 0);
         }
         return false;
     }
 
-    std::optional<PlayState> Blink1Device::readPlayState() const {
+    std::optional<PlayState> Blink1Device::readPlayState() const noexcept {
         if (good()) {
             PlayState state;
             std::uint8_t playing;
@@ -118,14 +118,14 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    bool Blink1Device::writePatternLine(const PatternLine& line, const std::uint8_t pos) {
+    bool Blink1Device::writePatternLine(const PatternLine& line, const std::uint8_t pos) noexcept {
         if (good()) {
             return 0 == blink1_writePatternLine(device.get(), line.fadeMillis, line.rgb.r, line.rgb.g, line.rgb.b, pos);
         }
         return false;
     }
 
-    bool Blink1Device::writePatternLineN(const PatternLineN& line, const std::uint8_t pos) {
+    bool Blink1Device::writePatternLineN(const PatternLineN& line, const std::uint8_t pos) noexcept {
         if (good()) {
             const auto retVal1 = blink1_setLEDN(device.get(), line.rgbn.n);
             const auto retVal2 = blink1_writePatternLine(device.get(), line.fadeMillis, line.rgbn.r, line.rgbn.g, line.rgbn.b, pos);
@@ -134,7 +134,7 @@ namespace blink1_control {
         return false;
     }
 
-    std::optional<PatternLine> Blink1Device::readPatternLine(const std::uint8_t pos) const {
+    std::optional<PatternLine> Blink1Device::readPatternLine(const std::uint8_t pos) const noexcept {
         if (good()) {
             PatternLine line;
             int retVal = blink1_readPatternLine(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, pos);
@@ -145,7 +145,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<PatternLineN> Blink1Device::readPatternLineN(const std::uint8_t pos) const {
+    std::optional<PatternLineN> Blink1Device::readPatternLineN(const std::uint8_t pos) const noexcept {
         if (good()) {
             PatternLineN line;
             int retVal = blink1_readPatternLineN(device.get(), &line.fadeMillis, &line.rgbn.r, &line.rgbn.g, &line.rgbn.b, &line.rgbn.n, pos);
@@ -156,30 +156,30 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    bool Blink1Device::savePattern() {
+    bool Blink1Device::savePattern() noexcept {
         if (good()) {
             return 0 == blink1_savePattern(device.get());
         }
         return false;
     }
 
-    void Blink1Device::enableDegamma() {
+    void Blink1Device::enableDegamma() noexcept {
         blink1_enableDegamma();
     }
 
-    void Blink1Device::disableDegamma() {
+    void Blink1Device::disableDegamma() noexcept {
         blink1_disableDegamma();
     }
 
-    int Blink1Device::vid() {
+    int Blink1Device::vid() noexcept {
         return blink1_vid();
     }
 
-    int Blink1Device::pid() {
+    int Blink1Device::pid() noexcept {
         return blink1_pid();
     }
 
-    std::optional<int> Blink1Device::getCacheIndex() const {
+    std::optional<int> Blink1Device::getCacheIndex() const noexcept {
         if (good()) {
             int cacheIndex = blink1_getCacheIndexByDev(device.get());
             if (cacheIndex != -1) {
@@ -189,7 +189,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<int> Blink1Device::clearCache() {
+    std::optional<int> Blink1Device::clearCache() noexcept {
         if (good()) {
             int cacheIndex = blink1_clearCacheDev(device.get());
             if (cacheIndex != -1) {
@@ -199,7 +199,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<std::string_view> Blink1Device::getSerial() const {
+    std::optional<std::string_view> Blink1Device::getSerial() const noexcept {
         if (good()) {
             const char* serial = blink1_getSerialForDev(device.get());
             if (serial != nullptr) {
@@ -209,7 +209,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<bool> Blink1Device::isMk2() const {
+    std::optional<bool> Blink1Device::isMk2() const noexcept {
         if (good()) {
             return 1 == blink1_isMk2(device.get());
         }

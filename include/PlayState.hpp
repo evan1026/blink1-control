@@ -11,11 +11,11 @@ namespace blink1_control {
         std::uint8_t playCount;
         std::uint8_t playPos;
 
-        PlayState();
-        PlayState(const bool playing, const std::uint8_t playStart, const std::uint8_t playEnd, const std::uint8_t playCount, const std::uint8_t playPos);
+        PlayState() noexcept;
+        PlayState(const bool playing, const std::uint8_t playStart, const std::uint8_t playEnd, const std::uint8_t playCount, const std::uint8_t playPos) noexcept;
 
-        bool operator==(const PlayState& other) const;
-        bool operator!=(const PlayState& other) const;
+        bool operator==(const PlayState& other) const noexcept;
+        bool operator!=(const PlayState& other) const noexcept;
 
         friend std::ostream& operator<<(std::ostream& os, const PlayState& patternLine);
     };

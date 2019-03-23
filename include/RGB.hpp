@@ -9,11 +9,11 @@ namespace blink1_control {
         std::uint8_t g;
         std::uint8_t b;
 
-        RGB(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b);
-        RGB();
+        RGB(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b) noexcept;
+        RGB() noexcept;
 
-        bool operator==(const RGB& other) const;
-        bool operator!=(const RGB& other) const;
+        bool operator==(const RGB& other) const noexcept;
+        bool operator!=(const RGB& other) const noexcept;
 
         friend std::ostream& operator<<(std::ostream& os, const RGB& rgb);
     };
