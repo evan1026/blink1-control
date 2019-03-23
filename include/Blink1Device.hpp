@@ -25,40 +25,40 @@ namespace blink1_control {
             Blink1Device(const std::string& stringInitializer, const STRING_INIT_TYPE initType) noexcept;
             Blink1Device(const char* stringInitializer, const STRING_INIT_TYPE initType) noexcept;
 
-            bool good() const noexcept;
-            operator bool() const noexcept;
+            [[nodiscard]] bool good() const noexcept;
+            [[nodiscard]] operator bool() const noexcept;
 
-            std::optional<int> getVersion() const noexcept;
+            [[nodiscard]] std::optional<int> getVersion() const noexcept;
 
             bool fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) noexcept;
             bool fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) noexcept;
             bool setRGB(const RGB& rgb) noexcept;
             bool setRGBN(const RGBN& rgbn) noexcept;
-            std::optional<PatternLine> readRGBWithFade(const std::uint8_t ledn) const noexcept;
-            std::optional<RGB> readRGB(const std::uint8_t ledn) const noexcept;
+            [[nodiscard]] std::optional<PatternLine> readRGBWithFade(const std::uint8_t ledn) const noexcept;
+            [[nodiscard]] std::optional<RGB> readRGB(const std::uint8_t ledn) const noexcept;
 
             bool play(const std::uint8_t pos) noexcept;
             bool playLoop(const std::uint8_t startpos, const std::uint8_t endpos, const std::uint8_t count) noexcept;
             bool stop() noexcept;
-            std::optional<PlayState> readPlayState() const noexcept;
+            [[nodiscard]] std::optional<PlayState> readPlayState() const noexcept;
 
             bool writePatternLine(const PatternLine& line, const std::uint8_t pos) noexcept;
             bool writePatternLineN(const PatternLineN& line, const std::uint8_t pos) noexcept;
-            std::optional<PatternLine> readPatternLine(const std::uint8_t pos) const noexcept;
-            std::optional<PatternLineN> readPatternLineN(const std::uint8_t pos) const noexcept;
+            [[nodiscard]] std::optional<PatternLine> readPatternLine(const std::uint8_t pos) const noexcept;
+            [[nodiscard]] std::optional<PatternLineN> readPatternLineN(const std::uint8_t pos) const noexcept;
             bool savePattern() noexcept;
 
             static void enableDegamma() noexcept;
             static void disableDegamma() noexcept;
 
-            static int vid() noexcept;
-            static int pid() noexcept;
+            [[nodiscard]] static int vid() noexcept;
+            [[nodiscard]] static int pid() noexcept;
 
-            std::optional<int> getCacheIndex() const noexcept;
+            [[nodiscard]] std::optional<int> getCacheIndex() const noexcept;
             std::optional<int> clearCache() noexcept;
 
-            std::optional<std::string_view> getSerial() const noexcept;
+            [[nodiscard]] std::optional<std::string_view> getSerial() const noexcept;
 
-            std::optional<bool> isMk2() const noexcept;
+            [[nodiscard]] std::optional<bool> isMk2() const noexcept;
     };
 }
