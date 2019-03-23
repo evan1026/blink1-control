@@ -21,8 +21,9 @@ namespace blink1_control {
             enum class STRING_INIT_TYPE { PATH, SERIAL };
 
             Blink1Device();
-            Blink1Device(int id);
-            Blink1Device(std::string stringInitializer, STRING_INIT_TYPE initType);
+            Blink1Device(const int id);
+            Blink1Device(const std::string& stringInitializer, const STRING_INIT_TYPE initType);
+            Blink1Device(const char* stringInitializer, const STRING_INIT_TYPE initType);
 
             bool good() const;
             operator bool() const;
@@ -56,7 +57,7 @@ namespace blink1_control {
             std::optional<int> getCacheIndex() const;
             std::optional<int> clearCache();
 
-            std::optional<std::string> getSerial() const;
+            std::optional<std::string_view> getSerial() const;
 
             std::optional<bool> isMk2() const;
     };

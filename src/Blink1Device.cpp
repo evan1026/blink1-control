@@ -5,13 +5,15 @@ namespace blink1_control {
 
     Blink1Device::Blink1Device(int id) : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
 
-    Blink1Device::Blink1Device(std::string stringInitializer, STRING_INIT_TYPE initType) {
+    Blink1Device::Blink1Device(const std::string& stringInitializer, STRING_INIT_TYPE initType) : Blink1Device(stringInitializer.c_str(), initType) {}
+
+    Blink1Device::Blink1Device(const char* stringInitializer, STRING_INIT_TYPE initType) {
         switch (initType) {
             case STRING_INIT_TYPE::PATH:
-                device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openByPath(stringInitializer.c_str()), Blink1Device::destroyBlinkDevice);
+                device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openByPath(stringInitializer), Blink1Device::destroyBlinkDevice);
                 break;
             case STRING_INIT_TYPE::SERIAL:
-                device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openBySerial(stringInitializer.c_str()), Blink1Device::destroyBlinkDevice);
+                device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openBySerial(stringInitializer), Blink1Device::destroyBlinkDevice);
                 break;
             default:
                 device = nullptr;
@@ -197,11 +199,11 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<std::string> Blink1Device::getSerial() const {
+    std::optional<std::string_view> Blink1Device::getSerial() const {
         if (good()) {
             const char* serial = blink1_getSerialForDev(device.get());
             if (serial != nullptr) {
-                return std::string(serial);
+                return serial;
             }
         }
         return std::nullopt;
