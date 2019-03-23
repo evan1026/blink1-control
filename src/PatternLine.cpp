@@ -1,8 +1,9 @@
 #include "PatternLine.hpp"
 namespace blink1_control {
     PatternLine::PatternLine() : fadeMillis(), rgb() {}
-    PatternLine::PatternLine(RGB _rgb, std::uint16_t _fadeMillis) : fadeMillis(_fadeMillis), rgb(_rgb) {}
-    PatternLine::PatternLine(std::uint8_t _r, std::uint8_t _g, std::uint8_t _b, std::uint16_t _fadeMillis) : fadeMillis(_fadeMillis), rgb(_r, _g, _b) {}
+    PatternLine::PatternLine(const RGB& _rgb, const std::uint16_t _fadeMillis) : fadeMillis(_fadeMillis), rgb(_rgb) {}
+    PatternLine::PatternLine(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint16_t _fadeMillis)
+        : fadeMillis(_fadeMillis), rgb(_r, _g, _b) {}
 
     bool PatternLine::operator==(const PatternLine& other) const {
         return fadeMillis == other.fadeMillis && rgb == other.rgb;

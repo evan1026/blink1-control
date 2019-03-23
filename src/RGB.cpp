@@ -1,7 +1,7 @@
 #include "RGB.hpp"
 
 namespace blink1_control {
-    RGB::RGB(std::uint8_t _r, std::uint8_t _g, std::uint8_t _b) : r(_r), g(_g), b(_b) {}
+    RGB::RGB(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b) : r(_r), g(_g), b(_b) {}
     RGB::RGB() : r(0), g(0), b(0) {}
 
     bool RGB::operator==(const RGB& other) const {

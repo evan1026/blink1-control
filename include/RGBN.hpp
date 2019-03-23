@@ -10,7 +10,7 @@ namespace blink1_control {
         std::uint8_t b;
         std::uint8_t n;
 
-        RGBN(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t n);
+        RGBN(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b, const std::uint8_t n);
         RGBN();
 
         bool operator==(const RGBN& other) const;

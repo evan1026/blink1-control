@@ -2,7 +2,7 @@
 
 namespace blink1_control {
         PlayState::PlayState() : playing(false), playStart(0), playEnd(0), playCount(0), playPos(0) {}
-        PlayState::PlayState(bool _playing, std::uint8_t _playStart, std::uint8_t _playEnd, std::uint8_t _playCount, std::uint8_t _playPos)
+        PlayState::PlayState(const bool _playing, const std::uint8_t _playStart, const std::uint8_t _playEnd, const std::uint8_t _playCount, const std::uint8_t _playPos)
             : playing(_playing), playStart(_playStart), playEnd(_playEnd), playCount(_playCount), playPos(_playPos)
             {}
 

@@ -12,7 +12,7 @@ namespace blink1_control {
         std::uint8_t playPos;
 
         PlayState();
-        PlayState(bool playing, std::uint8_t playStart, std::uint8_t playEnd, std::uint8_t playCount, std::uint8_t playPos);
+        PlayState(const bool playing, const std::uint8_t playStart, const std::uint8_t playEnd, const std::uint8_t playCount, const std::uint8_t playPos);
 
         bool operator==(const PlayState& other) const;
         bool operator!=(const PlayState& other) const;

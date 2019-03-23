@@ -38,38 +38,35 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    bool Blink1Device::fadeToRGB(std::uint16_t fadeMillis, RGB rgb) {
+    bool Blink1Device::fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) {
         if (good()) {
-            int retVal = blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
-            return retVal == 0;
+            return 0 == blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
         }
         return false;
     }
 
-    bool Blink1Device::fadeToRGBN(std::uint16_t fadeMillis, RGBN rgbn) {
+    bool Blink1Device::fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) {
         if (good()) {
-            int retVal = blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
-            return retVal == 0;
+            return 0 == blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
         }
         return false;
     }
 
-    bool Blink1Device::setRGB(RGB rgb) {
+    bool Blink1Device::setRGB(const RGB& rgb) {
         if (good()) {
-            int retVal = blink1_setRGB(device.get(), rgb.r, rgb.g, rgb.b);
-            return retVal == 0;
+            return 0 == blink1_setRGB(device.get(), rgb.r, rgb.g, rgb.b);
         }
         return false;
     }
 
-    bool Blink1Device::setRGBN(RGBN rgbn) {
+    bool Blink1Device::setRGBN(const RGBN& rgbn) {
         return fadeToRGBN(0, rgbn);
     }
 
-    std::optional<PatternLine> Blink1Device::readRGBWithFade(std::uint8_t ledn) const {
+    std::optional<PatternLine> Blink1Device::readRGBWithFade(const std::uint8_t ledn) const {
         if (good()) {
             PatternLine line;
-            int retVal = blink1_readRGB(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, ledn);
+            const auto retVal = blink1_readRGB(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, ledn);
             if (retVal == 0) {
                 return line;
             }
@@ -77,34 +74,31 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<RGB> Blink1Device::readRGB(std::uint8_t ledn) const {
-        std::optional<PatternLine> pLine = readRGBWithFade(ledn);
+    std::optional<RGB> Blink1Device::readRGB(const std::uint8_t ledn) const {
+        const auto pLine = readRGBWithFade(ledn);
         if (pLine) {
             return pLine->rgb;
         }
         return std::nullopt;
     }
 
-    bool Blink1Device::play(std::uint8_t pos) {
+    bool Blink1Device::play(const std::uint8_t pos) {
         if (good()) {
-            int retVal = blink1_play(device.get(), 1, pos);
-            return retVal == 0;
+            return 0 == blink1_play(device.get(), 1, pos);
         }
         return false;
     }
 
     bool Blink1Device::playLoop(std::uint8_t startpos, std::uint8_t endpos, std::uint8_t count) {
         if (good()) {
-            int retVal = blink1_playloop(device.get(), 1, startpos, endpos, count);
-            return retVal == 0;
+            return 0 == blink1_playloop(device.get(), 1, startpos, endpos, count);
         }
         return false;
     }
 
     bool Blink1Device::stop() {
         if (good()) {
-            int retVal = blink1_play(device.get(), 0, 0);
-            return retVal == 0;
+            return 0 == blink1_play(device.get(), 0, 0);
         }
         return false;
     }
@@ -113,7 +107,7 @@ namespace blink1_control {
         if (good()) {
             PlayState state;
             std::uint8_t playing;
-            int retVal = blink1_readPlayState(device.get(), &playing, &state.playStart, &state.playEnd, &state.playCount, &state.playPos);
+            const auto retVal = blink1_readPlayState(device.get(), &playing, &state.playStart, &state.playEnd, &state.playCount, &state.playPos);
             state.playing = (playing == 1);
             if (retVal == 0) {
                 return state;
@@ -122,24 +116,23 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    bool Blink1Device::writePatternLine(PatternLine line, std::uint8_t pos) {
+    bool Blink1Device::writePatternLine(const PatternLine& line, const std::uint8_t pos) {
         if (good()) {
-            int retVal = blink1_writePatternLine(device.get(), line.fadeMillis, line.rgb.r, line.rgb.g, line.rgb.b, pos);
-            return retVal == 0;
+            return 0 == blink1_writePatternLine(device.get(), line.fadeMillis, line.rgb.r, line.rgb.g, line.rgb.b, pos);
         }
         return false;
     }
 
-    bool Blink1Device::writePatternLineN(PatternLineN line, std::uint8_t pos) {
+    bool Blink1Device::writePatternLineN(const PatternLineN& line, const std::uint8_t pos) {
         if (good()) {
-            int retVal1 = blink1_setLEDN(device.get(), line.rgbn.n);
-            int retVal2 = blink1_writePatternLine(device.get(), line.fadeMillis, line.rgbn.r, line.rgbn.g, line.rgbn.b, pos);
+            const auto retVal1 = blink1_setLEDN(device.get(), line.rgbn.n);
+            const auto retVal2 = blink1_writePatternLine(device.get(), line.fadeMillis, line.rgbn.r, line.rgbn.g, line.rgbn.b, pos);
             return retVal1 == 0 && retVal2 == 0;
         }
         return false;
     }
 
-    std::optional<PatternLine> Blink1Device::readPatternLine(std::uint8_t pos) const {
+    std::optional<PatternLine> Blink1Device::readPatternLine(const std::uint8_t pos) const {
         if (good()) {
             PatternLine line;
             int retVal = blink1_readPatternLine(device.get(), &line.fadeMillis, &line.rgb.r, &line.rgb.g, &line.rgb.b, pos);
@@ -150,7 +143,7 @@ namespace blink1_control {
         return std::nullopt;
     }
 
-    std::optional<PatternLineN> Blink1Device::readPatternLineN(std::uint8_t pos) const {
+    std::optional<PatternLineN> Blink1Device::readPatternLineN(const std::uint8_t pos) const {
         if (good()) {
             PatternLineN line;
             int retVal = blink1_readPatternLineN(device.get(), &line.fadeMillis, &line.rgbn.r, &line.rgbn.g, &line.rgbn.b, &line.rgbn.n, pos);
@@ -163,8 +156,7 @@ namespace blink1_control {
 
     bool Blink1Device::savePattern() {
         if (good()) {
-            int retVal = blink1_savePattern(device.get());
-            return retVal == 0;
+            return 0 == blink1_savePattern(device.get());
         }
         return false;
     }
@@ -217,8 +209,7 @@ namespace blink1_control {
 
     std::optional<bool> Blink1Device::isMk2() const {
         if (good()) {
-            int deviceIsMk2 = blink1_isMk2(device.get());
-            return deviceIsMk2 == 1;
+            return 1 == blink1_isMk2(device.get());
         }
         return std::nullopt;
     }

@@ -10,8 +10,8 @@ namespace blink1_control {
         RGB rgb;
 
         PatternLine();
-        PatternLine(RGB _rgb, std::uint16_t _fadeMillis);
-        PatternLine(std::uint8_t _r, std::uint8_t _g, std::uint8_t _b, std::uint16_t _fadeMillis);
+        PatternLine(const RGB& _rgb, const std::uint16_t _fadeMillis);
+        PatternLine(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint16_t _fadeMillis);
 
         bool operator==(const PatternLine& other) const;
         bool operator!=(const PatternLine& other) const;

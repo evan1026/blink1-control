@@ -29,22 +29,22 @@ namespace blink1_control {
 
             std::optional<int> getVersion() const;
 
-            bool fadeToRGB(std::uint16_t fadeMillis, RGB rgb);
-            bool fadeToRGBN(std::uint16_t fadeMillis, RGBN rgbn);
-            bool setRGB(RGB rgb);
-            bool setRGBN(RGBN rgbn);
-            std::optional<PatternLine> readRGBWithFade(std::uint8_t ledn) const;
-            std::optional<RGB> readRGB(std::uint8_t ledn) const;
+            bool fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb);
+            bool fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn);
+            bool setRGB(const RGB& rgb);
+            bool setRGBN(const RGBN& rgbn);
+            std::optional<PatternLine> readRGBWithFade(const std::uint8_t ledn) const;
+            std::optional<RGB> readRGB(const std::uint8_t ledn) const;
 
-            bool play(std::uint8_t pos);
-            bool playLoop(std::uint8_t startpos, std::uint8_t endpos, std::uint8_t count);
+            bool play(const std::uint8_t pos);
+            bool playLoop(const std::uint8_t startpos, const std::uint8_t endpos, const std::uint8_t count);
             bool stop();
             std::optional<PlayState> readPlayState() const;
 
-            bool writePatternLine(PatternLine line, std::uint8_t pos);
-            bool writePatternLineN(PatternLineN line, std::uint8_t pos);
-            std::optional<PatternLine> readPatternLine(std::uint8_t pos) const;
-            std::optional<PatternLineN> readPatternLineN(std::uint8_t pos) const;
+            bool writePatternLine(const PatternLine& line, const std::uint8_t pos);
+            bool writePatternLineN(const PatternLineN& line, const std::uint8_t pos);
+            std::optional<PatternLine> readPatternLine(const std::uint8_t pos) const;
+            std::optional<PatternLineN> readPatternLineN(const std::uint8_t pos) const;
             bool savePattern();
 
             static void enableDegamma();
