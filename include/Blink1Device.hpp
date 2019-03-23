@@ -21,7 +21,7 @@ namespace blink1_control {
             enum class STRING_INIT_TYPE { PATH, SERIAL };
 
             Blink1Device() noexcept;
-            Blink1Device(const int id) noexcept;
+            Blink1Device(const std::uint32_t id) noexcept;
             Blink1Device(const std::string& stringInitializer, const STRING_INIT_TYPE initType) noexcept;
             Blink1Device(const char* stringInitializer, const STRING_INIT_TYPE initType) noexcept;
 

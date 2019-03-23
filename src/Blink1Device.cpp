@@ -3,7 +3,7 @@
 namespace blink1_control {
     Blink1Device::Blink1Device() noexcept : device(blink1_open(), Blink1Device::destroyBlinkDevice) {}
 
-    Blink1Device::Blink1Device(int id) noexcept : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
+    Blink1Device::Blink1Device(const std::uint32_t id) noexcept : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
 
     Blink1Device::Blink1Device(const std::string& stringInitializer, STRING_INIT_TYPE initType) noexcept : Blink1Device(stringInitializer.c_str(), initType) {}
 
