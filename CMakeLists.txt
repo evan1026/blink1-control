@@ -23,7 +23,12 @@ set(SOURCES
 )
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
-set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion -Wmisleading-indentation")
+set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    # Set specific warnings if they ever exist
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(WARNINGS "${WARNINGS} -Wmisleading-indentation")
+endif()
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES COMPILE_FLAGS "${WARNINGS}")
 
 set(CXX_STANDARD_REQUIRED ON)
@@ -43,11 +48,12 @@ if (DOXYGEN_FOUND)
     )
 endif(DOXYGEN_FOUND)
 
-###########
-# PUGIXML #
-###########
-add_subdirectory(${LIB_DIR}/pugixml)
-target_link_libraries(${EXECUTABLE_NAME} pugixml)
+########
+# JSON #
+########
+set(JSON_BuildTests OFF CACHE INTERNAL "")
+add_subdirectory(${LIB_DIR}/json)
+target_link_libraries(${EXECUTABLE_NAME} nlohmann_json::nlohmann_json)
 
 ###############
 # BLINK1-TOOL #
@@ -90,12 +96,15 @@ set(TEST_SOURCES
 
 enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main pugixml)
+target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main nlohmann_json::nlohmann_json)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
 
 # Coverage
 if (CMAKE_BUILD_TYPE MATCHES Debug)
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        message(FATAL_ERROR "Clang does not support coverage. Cannot generate coverage commands.")
+    endif()
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
     include(CodeCoverage)
     APPEND_COVERAGE_COMPILER_FLAGS()

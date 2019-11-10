@@ -1,12 +1,12 @@
 [submodule "blink1-tool"]
 	path = lib/blink1-tool
 	url = git@github.com:todbot/blink1-tool.git
-[submodule "pugixml"]
-	path = lib/pugixml
-	url = git@github.com:zeux/pugixml.git
 [submodule "cmake-modules"]
 	path = cmake-modules
 	url = git@github.com:bilke/cmake-modules.git
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = git@github.com:google/googletest.git
+[submodule "lib/json"]
+	path = lib/json
+	url = git@github.com:nlohmann/json.git
