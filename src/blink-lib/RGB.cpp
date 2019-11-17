@@ -1,4 +1,4 @@
-#include "RGB.hpp"
+#include "blink-lib/RGB.hpp"
 
 namespace blink1_control {
     RGB::RGB(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b) noexcept : r(_r), g(_g), b(_b) {}

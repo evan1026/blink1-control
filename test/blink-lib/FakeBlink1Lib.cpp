@@ -5,9 +5,9 @@
 #include "gtest/gtest.h"
 #include "blink1-lib.h"
 
-#include "RGB.hpp"
-#include "PlayState.hpp"
-#include "PatternLineN.hpp"
+#include "blink-lib/RGB.hpp"
+#include "blink-lib/PlayState.hpp"
+#include "blink-lib/PatternLineN.hpp"
 #include "FakeBlink1Lib.hpp"
 
 using namespace blink1_control;

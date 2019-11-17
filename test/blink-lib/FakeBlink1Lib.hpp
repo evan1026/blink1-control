@@ -5,9 +5,9 @@
 #include <vector>
 #include <map>
 
-#include "RGB.hpp"
-#include "PlayState.hpp"
-#include "PatternLineN.hpp"
+#include "blink-lib/RGB.hpp"
+#include "blink-lib/PlayState.hpp"
+#include "blink-lib/PatternLineN.hpp"
 
 #include "blink1-lib.h"
 

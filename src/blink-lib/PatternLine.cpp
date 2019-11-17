@@ -1,4 +1,4 @@
-#include "PatternLine.hpp"
+#include "blink-lib/PatternLine.hpp"
 namespace blink1_control {
     PatternLine::PatternLine() noexcept : fadeMillis(), rgb() {}
     PatternLine::PatternLine(const RGB& _rgb, const std::uint16_t _fadeMillis) noexcept : fadeMillis(_fadeMillis), rgb(_rgb) {}

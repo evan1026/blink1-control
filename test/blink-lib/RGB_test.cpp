@@ -1,7 +1,7 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "RGB.hpp"
+#include "blink-lib/RGB.hpp"
 
 #define SUITE_NAME RGB_test
 

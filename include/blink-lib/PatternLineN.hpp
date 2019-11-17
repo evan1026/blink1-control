@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "RGBN.hpp"
+#include "blink-lib/RGBN.hpp"
 
 namespace blink1_control {
     struct PatternLineN {

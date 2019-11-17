@@ -1,7 +1,7 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "Blink1Device.hpp"
+#include "blink-lib/Blink1Device.hpp"
 #include "FakeBlink1Lib.hpp"
 
 using namespace blink1_control;

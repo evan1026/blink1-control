@@ -1,7 +1,7 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "PlayState.hpp"
+#include "blink-lib/PlayState.hpp"
 
 #define SUITE_NAME PlayState_test
 

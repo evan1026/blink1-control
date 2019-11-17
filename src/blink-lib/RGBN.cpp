@@ -1,4 +1,4 @@
-#include "RGBN.hpp"
+#include "blink-lib/RGBN.hpp"
 
 namespace blink1_control {
     RGBN::RGBN(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint8_t _n) noexcept

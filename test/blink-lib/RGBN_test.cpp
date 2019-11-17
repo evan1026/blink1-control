@@ -1,7 +1,7 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "RGBN.hpp"
+#include "blink-lib/RGBN.hpp"
 
 #define SUITE_NAME RGBN_test
 

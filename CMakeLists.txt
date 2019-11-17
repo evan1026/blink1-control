@@ -4,6 +4,10 @@ project(blink1-control)
 
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG_PRINTF)
+endif (CMAKE_BUILD_TYPE MATCHES Debug)
+
 ##################
 # BLINK1-CONTROL #
 ##################
@@ -14,12 +18,12 @@ include_directories(${INCLUDE_DIR})
 set(EXECUTABLE_NAME "blink1-control")
 
 set(SOURCES
-    ${SOURCE_DIR}/Blink1Device.cpp
-    ${SOURCE_DIR}/PatternLine.cpp
-    ${SOURCE_DIR}/PatternLineN.cpp
-    ${SOURCE_DIR}/PlayState.cpp
-    ${SOURCE_DIR}/RGB.cpp
-    ${SOURCE_DIR}/RGBN.cpp
+    ${SOURCE_DIR}/blink-lib/Blink1Device.cpp
+    ${SOURCE_DIR}/blink-lib/PatternLine.cpp
+    ${SOURCE_DIR}/blink-lib/PatternLineN.cpp
+    ${SOURCE_DIR}/blink-lib/PlayState.cpp
+    ${SOURCE_DIR}/blink-lib/RGB.cpp
+    ${SOURCE_DIR}/blink-lib/RGBN.cpp
 )
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
@@ -83,15 +87,15 @@ set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
-    ${TEST_SOURCE_DIR}/Blink1Device_BadInit_test.cpp
-    ${TEST_SOURCE_DIR}/Blink1Device_GoodInit_test.cpp
-    ${TEST_SOURCE_DIR}/Blink1Device_GoodInitBadFunction_test.cpp
-    ${TEST_SOURCE_DIR}/FakeBlink1Lib.cpp
-    ${TEST_SOURCE_DIR}/PatternLineN_test.cpp
-    ${TEST_SOURCE_DIR}/PatternLine_test.cpp
-    ${TEST_SOURCE_DIR}/PlayState_test.cpp
-    ${TEST_SOURCE_DIR}/RGBN_test.cpp
-    ${TEST_SOURCE_DIR}/RGB_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_BadInit_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInit_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInitBadFunction_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/PatternLineN_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/PatternLine_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/PlayState_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/RGBN_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/RGB_test.cpp
 )
 
 enable_testing()
@@ -112,4 +116,5 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME coverage
                                          EXECUTABLE ${TEST_EXECUTABLE_NAME}
                                          DEPENDENCIES ${TEST_EXECUTABLE_NAME})
+    add_definitions(-DDEBUG_PRINTF)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)

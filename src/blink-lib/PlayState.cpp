@@ -1,4 +1,4 @@
-#include "PlayState.hpp"
+#include "blink-lib/PlayState.hpp"
 
 namespace blink1_control {
         PlayState::PlayState() noexcept : playing(false), playStart(0), playEnd(0), playCount(0), playPos(0) {}

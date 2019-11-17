@@ -1,7 +1,7 @@
 #include <sstream>
 
 #include "gtest/gtest.h"
-#include "PatternLine.hpp"
+#include "blink-lib/PatternLine.hpp"
 
 #define SUITE_NAME PatternLine_test
 

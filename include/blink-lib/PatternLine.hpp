@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-#include "RGB.hpp"
+#include "blink-lib/RGB.hpp"
 
 namespace blink1_control {
     struct PatternLine {

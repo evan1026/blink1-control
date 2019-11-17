@@ -5,11 +5,11 @@
 #include <functional>
 #include <optional>
 
-#include "RGB.hpp"
-#include "RGBN.hpp"
-#include "PlayState.hpp"
-#include "PatternLine.hpp"
-#include "PatternLineN.hpp"
+#include "blink-lib/RGB.hpp"
+#include "blink-lib/RGBN.hpp"
+#include "blink-lib/PlayState.hpp"
+#include "blink-lib/PatternLine.hpp"
+#include "blink-lib/PatternLineN.hpp"
 
 namespace blink1_control {
     class Blink1Device {
