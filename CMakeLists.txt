@@ -106,15 +106,28 @@ set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
 
 # Coverage
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-        message(FATAL_ERROR "Clang does not support coverage. Cannot generate coverage commands.")
-    endif()
     list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
     include(CodeCoverage)
-    APPEND_COVERAGE_COMPILER_FLAGS()
-    set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}' '${SOURCE_DIR}/main.cpp')
-    SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME coverage
-                                         EXECUTABLE ${TEST_EXECUTABLE_NAME}
-                                         DEPENDENCIES ${TEST_EXECUTABLE_NAME})
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        set(COVERAGE_LCOV_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}' '${SOURCE_DIR}/main.cpp')
+        set(GCOV_PATH "${CMAKE_CURRENT_SOURCE_DIR}/llvm-cov.sh")
+        add_definitions(--coverage)
+        SETUP_TARGET_FOR_COVERAGE_LCOV(NAME coverage
+                                       EXECUTABLE ${TEST_EXECUTABLE_NAME}
+                                       DEPENDENCIES ${TEST_EXECUTABLE_NAME})
+    else()
+        set(COVERAGE_GCOVR_EXCLUDES '${LIB_DIR}' '${TEST_SOURCE_DIR}' '${SOURCE_DIR}/main.cpp')
+        APPEND_COVERAGE_COMPILER_FLAGS()
+        SETUP_TARGET_FOR_COVERAGE_GCOVR_HTML(NAME coverage
+                                             EXECUTABLE ${TEST_EXECUTABLE_NAME}
+                                             DEPENDENCIES ${TEST_EXECUTABLE_NAME})
+        message(STATUS "GCOVR_PATH: ${GCOVR_PATH}")
+        message(STATUS "PROJECT_SOURCE_DIR: ${PROJECT_SOURCE_DIR}")
+        message(STATUS "GCOVR_EXCLUDES: ${GCOVR_EXCLUDES}")
+        message(STATUS "PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
+    endif()
+
+
     add_definitions(-DDEBUG_PRINTF)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
