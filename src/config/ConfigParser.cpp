@@ -1,5 +1,5 @@
-#include <fstream>
 #include <iostream>
+#include <sstream>
 
 #include "config/ConfigParser.hpp"
 #include "blink-lib/PatternLineN.hpp"
@@ -13,8 +13,7 @@ namespace blink1_control {
         {"Rollup", ConditionConfig::Type::Rollup}
     };
 
-    std::optional<Config> ConfigParser::parseConfig(std::filesystem::path path) {
-        std::ifstream instream(path);
+    std::optional<Config> ConfigParser::parseConfig(std::istream& instream) noexcept {
         Json json;
 
         if (instream.good()) {
@@ -33,7 +32,7 @@ namespace blink1_control {
                 std::cout << "Error parsing json: " << err.what() << std::endl;
             }
         } else {
-            std::cout << "Error opening file: " << path << std::endl;
+            std::cout << "Error reading from stream" << std::endl;
         }
 
         return std::nullopt;
@@ -43,7 +42,7 @@ namespace blink1_control {
         bool success = true;
 
         if (json.find(arrayName) != json.end()) {
-            Json conditionsArray = json[arrayName];
+            Json conditionsArray = json.at(arrayName);
             for (auto& conditionJson : conditionsArray) {
                 success &= parseFunction(conditionJson, config);
             }
@@ -52,19 +51,19 @@ namespace blink1_control {
         return success;
     }
 
-    bool ConfigParser::parseConditions(const Json& json, Config& config) const {
+    bool ConfigParser::parseConditions(const Json& json, Config& config) const noexcept {
         return parseArray(json, config, CONDITIONS_STRING, [this](const Json& ljson, Config& lconfig){return parseCondition(ljson, lconfig);});
     }
 
-    bool ConfigParser::parseCondition(const Json& json, Config& config) const {
+    bool ConfigParser::parseCondition(const Json& json, Config& config) const noexcept {
         bool success = true;
 
         try {
             ConditionConfig condition;
-            condition.name = json["name"];
-            condition.type = types.at(json["type"]);
+            condition.name = json.at("name");
+            condition.type = types.at(json.at("type"));
 
-            for (Json patternName : json["patterns"]) {
+            for (Json patternName : json.at("patterns")) {
                 if (patternName.is_string()) {
                     condition.patterns.push_back(patternName);
                 } else {
@@ -84,7 +83,7 @@ namespace blink1_control {
         return success;
     }
 
-    bool ConfigParser::parsePatterns(const Json& json, Config& config) const {
+    bool ConfigParser::parsePatterns(const Json& json, Config& config) const noexcept {
         return parseArray(json, config, PATTERNS_STRING, [this](const Json& ljson, Config& lconfig){return parsePattern(ljson, lconfig);});
     }
 
@@ -93,14 +92,14 @@ namespace blink1_control {
 
         try {
             PatternConfig pattern;
-            pattern.name = json["name"];
-            pattern.repeat = json["repeat"];
+            pattern.name = json.at("name");
+            pattern.repeat = json.at("repeat");
 
-            for (Json line : json["lines"]) {
+            for (Json line : json.at("lines")) {
                 PatternLineN patternLine;
-                patternLine.rgbn = parseRgb(line["color"]);
-                patternLine.rgbn.n = line["led"];
-                patternLine.fadeMillis = line["time"];
+                patternLine.rgbn = parseRgb(line.at("color"));
+                patternLine.rgbn.n = line.at("led");
+                patternLine.fadeMillis = line.at("time");
                 pattern.pattern.push_back(patternLine);
             }
 

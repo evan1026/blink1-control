@@ -97,6 +97,7 @@ set(TEST_SOURCES
     ${TEST_SOURCE_DIR}/blink-lib/PlayState_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/RGBN_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/RGB_test.cpp
+    ${TEST_SOURCE_DIR}/config/ConfigParser_test.cpp
 )
 
 enable_testing()
