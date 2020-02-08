@@ -24,6 +24,7 @@ set(SOURCES
     ${SOURCE_DIR}/blink-lib/PlayState.cpp
     ${SOURCE_DIR}/blink-lib/RGB.cpp
     ${SOURCE_DIR}/blink-lib/RGBN.cpp
+    ${SOURCE_DIR}/config/ConfigParser.cpp
 )
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
