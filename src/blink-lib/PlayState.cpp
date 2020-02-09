@@ -1,6 +1,7 @@
 #include "blink-lib/PlayState.hpp"
 
 namespace blink1_control {
+    namespace blink1_lib {
         PlayState::PlayState() noexcept : playing(false), playStart(0), playEnd(0), playCount(0), playPos(0) {}
         PlayState::PlayState(const bool _playing, const std::uint8_t _playStart, const std::uint8_t _playEnd, const std::uint8_t _playCount, const std::uint8_t _playPos) noexcept
             : playing(_playing), playStart(_playStart), playEnd(_playEnd), playCount(_playCount), playPos(_playPos)
@@ -20,12 +21,13 @@ namespace blink1_control {
 
         std::ostream& operator<<(std::ostream& os, const PlayState& patternLine) {
             os << "PlayState{"
-               << "playing="     << (patternLine.playing ? "true" : "false")
-               << ", playStart=" << unsigned(patternLine.playStart)
-               << ", playEnd="   << unsigned(patternLine.playEnd)
-               << ", playCount=" << unsigned(patternLine.playCount)
-               << ", playPos="   << unsigned(patternLine.playPos)
-               << "}";
+                << "playing="     << (patternLine.playing ? "true" : "false")
+                << ", playStart=" << unsigned(patternLine.playStart)
+                << ", playEnd="   << unsigned(patternLine.playEnd)
+                << ", playCount=" << unsigned(patternLine.playCount)
+                << ", playPos="   << unsigned(patternLine.playPos)
+                << "}";
             return os;
         }
+    }
 }

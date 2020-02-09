@@ -15,14 +15,14 @@ typedef struct hid_device_ {} hid_device_;
 
 namespace fake_blink1_lib {
     extern std::vector<blink1_device*> blink1_devices;
-    extern std::map<long, blink1_control::RGB> ledColors;
+    extern std::map<long, blink1_control::blink1_lib::RGB> ledColors;
     extern std::map<long, uint16_t> ledFadeMillis;
-    extern std::map<long, blink1_control::PatternLineN> patternLines;
+    extern std::map<long, blink1_control::blink1_lib::PatternLineN> patternLines;
     extern int cacheIndex;
     extern std::string serial;
     extern bool isMk2;
     extern int patternLineLEDN;
-    extern blink1_control::PlayState playState;
+    extern blink1_control::blink1_lib::PlayState playState;
     extern int blink1Version;
     extern bool successfulOperation;
     extern bool successfulInit;
@@ -51,19 +51,19 @@ namespace fake_blink1_lib {
 
     bool SUCCESS(blink1_device* dev);
 
-    blink1_control::RGB GET_RGB(long n);
+    blink1_control::blink1_lib::RGB GET_RGB(long n);
 
-    void SET_RGB(blink1_control::RGB rgb, long n);
+    void SET_RGB(blink1_control::blink1_lib::RGB rgb, long n);
 
     long GET_FADE_MILLIS(long n);
 
     void SET_FADE_MILLIS(long fadeMillis, long n);
 
-    blink1_control::PatternLineN GET_PATTERN_LINE(long pos);
+    blink1_control::blink1_lib::PatternLineN GET_PATTERN_LINE(long pos);
 
-    void SET_PATTERN_LINE(blink1_control::PatternLineN line, long pos);
+    void SET_PATTERN_LINE(blink1_control::blink1_lib::PatternLineN line, long pos);
 
-    blink1_control::PlayState GET_PLAY_STATE();
+    blink1_control::blink1_lib::PlayState GET_PLAY_STATE();
 
-    void SET_PLAY_STATE(blink1_control::PlayState state);
+    void SET_PLAY_STATE(blink1_control::blink1_lib::PlayState state);
 }

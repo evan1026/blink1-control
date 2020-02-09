@@ -5,7 +5,7 @@
 
 #define SUITE_NAME RGBN_test
 
-using namespace blink1_control;
+using namespace blink1_control::blink1_lib;
 
 TEST(SUITE_NAME, TestConstructor) {
     RGBN rgbn1;

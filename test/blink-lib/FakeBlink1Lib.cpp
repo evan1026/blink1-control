@@ -10,17 +10,17 @@
 #include "blink-lib/PatternLineN.hpp"
 #include "FakeBlink1Lib.hpp"
 
-using namespace blink1_control;
+using namespace blink1_control::blink1_lib;
 
 std::vector<blink1_device*> fake_blink1_lib::blink1_devices;
-std::map<long, blink1_control::RGB> fake_blink1_lib::ledColors;
+std::map<long, RGB> fake_blink1_lib::ledColors;
 std::map<long, uint16_t> fake_blink1_lib::ledFadeMillis;
-std::map<long, blink1_control::PatternLineN> fake_blink1_lib::patternLines;
+std::map<long, PatternLineN> fake_blink1_lib::patternLines;
 int fake_blink1_lib::cacheIndex = 0;
 std::string fake_blink1_lib::serial;
 bool fake_blink1_lib::isMk2;
 int fake_blink1_lib::patternLineLEDN = 0;
-blink1_control::PlayState fake_blink1_lib::playState;
+PlayState fake_blink1_lib::playState;
 int fake_blink1_lib::blink1Version = 0;
 bool fake_blink1_lib::successfulOperation = false;
 bool fake_blink1_lib::successfulInit = false;
@@ -46,7 +46,7 @@ void fake_blink1_lib::CLEAR_ALL() {
     serial = "";
     isMk2 = false;
     patternLineLEDN = 0;
-    playState = blink1_control::PlayState();
+    playState = PlayState();
     blink1Version = 0;
     successfulOperation = false;
     successfulInit = false;
@@ -103,7 +103,7 @@ RGB fake_blink1_lib::GET_RGB(long n) {
     return ledColors.at(n);
 }
 
-void fake_blink1_lib::SET_RGB(blink1_control::RGB rgb, long n) {
+void fake_blink1_lib::SET_RGB(RGB rgb, long n) {
     ledColors[n] = rgb;
 }
 
@@ -127,7 +127,7 @@ PatternLineN fake_blink1_lib::GET_PATTERN_LINE(long pos) {
     return patternLines.at(pos);
 }
 
-void fake_blink1_lib::SET_PATTERN_LINE(blink1_control::PatternLineN line, long pos) {
+void fake_blink1_lib::SET_PATTERN_LINE(PatternLineN line, long pos) {
     patternLines[pos] = line;
 }
 

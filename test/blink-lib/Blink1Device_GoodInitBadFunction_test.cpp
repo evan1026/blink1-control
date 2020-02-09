@@ -4,7 +4,7 @@
 #include "blink-lib/Blink1Device.hpp"
 #include "FakeBlink1Lib.hpp"
 
-using namespace blink1_control;
+using namespace blink1_control::blink1_lib;
 
 #define SUITE_NAME Blink1Device_GoodInitBadFunction_test
 

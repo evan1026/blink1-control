@@ -7,37 +7,38 @@
 #include "config/ConditionConfig.hpp"
 
 namespace blink1_control {
-    struct Config {
-        std::map<std::string, PatternConfig> patternConfigs;
-        std::map<std::string, ConditionConfig> conditionConfigs;
+    namespace config {
+        struct Config {
+            std::map<std::string, PatternConfig> patternConfigs;
+            std::map<std::string, ConditionConfig> conditionConfigs;
 
-        friend std::ostream& operator<<(std::ostream& os, blink1_control::Config& config) {
-            os << "{patterns: {";
-            bool first = true;
-            for (auto entryPair : config.patternConfigs) {
-                if (first) {
-                    first = false;
-                } else {
-                    os << ", ";
+            friend std::ostream& operator<<(std::ostream& os, blink1_control::config::Config& config) {
+                os << "{patterns: {";
+                bool first = true;
+                for (auto entryPair : config.patternConfigs) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        os << ", ";
+                    }
+                    os << entryPair.first << ": " << entryPair.second;
                 }
-                os << entryPair.first << ": " << entryPair.second;
-            }
-            os << "}, ";
+                os << "}, ";
 
-            os << "conditions: {";
-            first = true;
-            for (auto entryPair : config.conditionConfigs) {
-                if (first) {
-                    first = false;
-                } else {
-                    os << ", ";
+                os << "conditions: {";
+                first = true;
+                for (auto entryPair : config.conditionConfigs) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        os << ", ";
+                    }
+                    os << entryPair.first << ": " << entryPair.second;
                 }
-                os << entryPair.first << ": " << entryPair.second;
-            }
-            os << "}}";
+                os << "}}";
 
-            return os;
-        }
-    };
+                return os;
+            }
+        };
+    }
 }
-

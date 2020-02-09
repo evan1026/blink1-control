@@ -4,46 +4,9 @@
 #include "gtest/gtest.h"
 #include "config/ConfigParser.hpp"
 
-using namespace blink1_control;
+using namespace blink1_control::config;
 
 #define SUITE_NAME ConfigParser_test
-
-std::string configString = R"(
-{
-    "conditions": [
-        {
-            "name": "pm_test",
-            "type": "ProcessMonitor",
-            "patterns": []
-        },
-        {
-            "name": "rollup_test",
-            "type": "Rollup",
-            "patterns": [
-                "rollup_pattern"
-            ]
-        }
-    ],
-
-    "patterns": [
-        {
-            "name": "rollup_pattern",
-            "repeat": 7,
-            "lines": [
-                {
-                    "color": "#FFFEFD",
-                    "led": 1,
-                    "time": 50
-                },
-                {
-                    "color": "#000000",
-                    "led": 2,
-                    "time": 100
-                }
-            ]
-        }
-    ]
-})";
 
 class SUITE_NAME : public ::testing::Test {
 
@@ -66,7 +29,42 @@ class SUITE_NAME : public ::testing::Test {
 
 TEST_F(SUITE_NAME, TestParseConfig) {
     std::stringstream ss;
-    ss << configString;
+    ss << R"(
+    {
+        "conditions": [
+            {
+                "name": "pm_test",
+                "type": "ProcessMonitor",
+                "patterns": []
+            },
+            {
+                "name": "rollup_test",
+                "type": "Rollup",
+                "patterns": [
+                    "rollup_pattern"
+                ]
+            }
+        ],
+
+        "patterns": [
+            {
+                "name": "rollup_pattern",
+                "repeat": 7,
+                "lines": [
+                    {
+                        "color": "#FFFEFD",
+                        "led": 1,
+                        "time": 50
+                    },
+                    {
+                        "color": "#000000",
+                        "led": 2,
+                        "time": 100
+                    }
+                ]
+            }
+        ]
+    })";
 
     ConfigParser configParser;
     auto configOpt = configParser.parseConfig(ss);
