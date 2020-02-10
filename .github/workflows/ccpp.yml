@@ -26,6 +26,7 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:latest
         with:
           coverage: codecov
+          dependencies: libusb-1.0.0-dev
   valgrind:
     runs-on: ubuntu-latest
     steps:
@@ -35,6 +36,7 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:latest
         with:
           ctestflags: '-D ExperimentalMemCheck'
+          dependencies: libusb-1.0.0-dev
   clang-sanitizers:
     name: build with clang -fsanitize
     strategy:
@@ -55,6 +57,7 @@ jobs:
           cc: clang
           cxx: clang
           cflags: ${{ matrix.cflags }}
+          dependencies: libusb-1.0.0-dev
   clang-format:
     runs-on: ubuntu-latest
     steps:
@@ -64,6 +67,7 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:latest
         with:
           analyzer: clang-format
+          dependencies: libusb-1.0.0-dev
   clang-analyzers:
     runs-on: ubuntu-latest
     steps:
@@ -73,3 +77,4 @@ jobs:
       - uses: docker://lpenz/ghaction-cmake:latest
         with:
           analyzer: clang-tidy
+          dependencies: libusb-1.0.0-dev
