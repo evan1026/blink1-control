@@ -16,3 +16,4 @@ jobs:
         uses: docker://lpenz/ghaction-cmake:latest
         with:
           cc: ${{ matrix.cc }}
+          dependencies: libusb-dev
