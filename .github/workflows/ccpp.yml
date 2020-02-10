@@ -4,9 +4,15 @@ on: [push]
 
 jobs:
   build:
-
+    strategy:
+        matrix:
+          cc: [ gcc, clang ]
     runs-on: ubuntu-latest
-    
     steps:
-    - name: run-cmake
-      uses: lukka/run-cmake@v0.9
+      - uses: actions/checkout@master
+        with:
+          submodules: true
+      - name: ghaction-cmake
+        uses: docker://lpenz/ghaction-cmake:latest
+        with:
+          cc: ${{ matrix.cc }}
