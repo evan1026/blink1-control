@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: ghaction-cmake
+      uses: lpenz/ghaction-cmake@v0.1
+      #with:
+        # Dependencies as Debian packages to install
+        #dependencies: # optional, default is 
+        # Compiler
+        #cc: # optional, default is gcc
+        # CFLAGS
+        #cflags: # optional, default is 
+        # CXXFLAGS
+        #cxxflags: # optional, default is 
+        # Flags for ctest
+        #ctestflags: # optional, default is 
+        # Send coverage data to this service (only codecov supported)
+        #coverage: # optional, default is 
+        # Analyzer to use on files after exporting commands
+        #analyzer: # optional, default is 
