@@ -10,9 +10,11 @@ jobs:
         with:
           submodules: true
       - name: Install dependencies
-        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr
+        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr cmake
         shell: bash
       - name: ghaction-cmake
         uses: lukka/run-cmake@master
         with:
           cmakeGenerator: UnixMakefiles
+      - name: Generate coverage
+        run: make coverage
