@@ -66,10 +66,12 @@ jobs:
         with:
           analyzer: clang-format
           dependencies: libusb-1.0.0-dev libhidapi-dev
-  clang-analyzers:
+  clang-tidy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+        with:
+          submodules: true
       - uses: docker://lpenz/ghaction-cmake:latest
         with:
           analyzer: clang-tidy
