@@ -12,10 +12,17 @@ jobs:
       - name: Install dependencies
         run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr cmake
         shell: bash
-      - name: ghaction-cmake
-        uses: lukka/run-cmake@master
-        with:
-          cmakeGenerator: UnixMakefiles
-          buildDirectory: "${{ github.workspace }}/../../_temp"
+      - name: Run CMake
+        run: cd "${{ github.workspace }}/../../_temp" && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug "${{ github.workspace }}"
+      #- name: ghaction-cmake
+      #  uses: lukka/run-cmake@master
+      #  with:
+      #    cmakeGenerator: UnixMakefiles
+      #    buildDirectory: "${{ github.workspace }}/../../_temp"
       - name: Generate coverage
         run: cd "${{ github.workspace }}/../../_temp" && make coverage
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v1
+        with:
+          name: Code Coverage Report
+          path: "${{ github.workspace }}/../../_temp/coverage"
