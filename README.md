@@ -1,4 +1,4 @@
-![](https://github.com/evan1026/blink1-control/workflows/C/C++%20CI/badge.svg?branch=master)
+master: ![](https://github.com/evan1026/blink1-control/workflows/C/C++%20CI/badge.svg?branch=master)
 
 Required Libraries
 ------------------
