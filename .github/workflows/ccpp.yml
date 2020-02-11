@@ -1,0 +1,30 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Install dependencies
+        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr cmake doxygen
+        shell: bash
+      - name: Run CMake
+        run: cd "${{ github.workspace }}/../../_temp" && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug "${{ github.workspace }}"
+      - name: Generate coverage
+        run: cd "${{ github.workspace }}/../../_temp" && make coverage
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v1
+        with:
+          name: Code Coverage Report
+          path: "${{ github.workspace }}/../../_temp/coverage"
+      - name: Generate docs
+        run: cd "${{ github.workspace }}/../../_temp" && make doxygen
+      - name: Upload docs
+        uses: actions/upload-artifact@v1
+        with:
+          name: Doxygen Docs
+          path: "${{ github.workspace }}/../../_temp/html"
