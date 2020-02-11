@@ -10,7 +10,7 @@ jobs:
         with:
           submodules: true
       - name: Install dependencies
-        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr cmake doxygen dot
+        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr cmake doxygen
         shell: bash
       - name: Run CMake
         run: cd "${{ github.workspace }}/../../_temp" && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug "${{ github.workspace }}"
