@@ -4,16 +4,13 @@ on: [push]
 
 jobs:
   build:
-    strategy:
-        matrix:
-          cc: [ gcc, clang ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
         with:
           submodules: true
       - name: Install dependencies
-        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev
+        run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev gcovr
         shell: bash
       - name: ghaction-cmake
         uses: lukka/run-cmake@master
