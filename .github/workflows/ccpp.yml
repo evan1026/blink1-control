@@ -16,4 +16,4 @@ jobs:
         run: sudo apt update -m && sudo apt install libusb-1.0.0-dev libhidapi-dev
         shell: bash
       - name: ghaction-cmake
-        uses: docker://lpenz/ghaction-cmake:latest
+        uses: lukka/run-cmake:latest
