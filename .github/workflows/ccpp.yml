@@ -16,5 +16,6 @@ jobs:
         uses: lukka/run-cmake@master
         with:
           cmakeGenerator: UnixMakefiles
+          buildDirectory: "${{ github.workspace }}/../../_temp"
       - name: Generate coverage
-        run: make coverage
+        run: cd "${{ github.workspace }}/../../_temp" && make coverage
