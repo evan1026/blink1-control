@@ -7,9 +7,25 @@
 
 namespace blink1_control {
     namespace config {
+
+        /**
+         * Configuration values for a pattern which can play on the device
+         */
         struct PatternConfig {
+
+            /**
+             * The name of this pattern config
+             */
             std::string name;
+
+            /**
+             * A list of pattern lines which make up the pattern
+             */
             std::vector<blink1_lib::PatternLineN> pattern;
+
+            /**
+             * Number of times to repeat the pattern
+             */
             int repeat;
 
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::PatternConfig& config) {

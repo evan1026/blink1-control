@@ -8,8 +8,22 @@
 
 namespace blink1_control {
     namespace config {
+
+        /**
+         * The configuration for this application
+         */
         struct Config {
+
+            /**
+             * A collection of pattern configurations which maps from the name
+             * of a PatternConfig to the PatternConfig itself
+             */
             std::map<std::string, PatternConfig> patternConfigs;
+
+            /**
+             * A collection of condition configurations which maps from the name
+             * of a ConditionConfig to the ConditionConfig itself
+             */
             std::map<std::string, ConditionConfig> conditionConfigs;
 
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::Config& config) {
