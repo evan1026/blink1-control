@@ -1,3 +1,8 @@
+/**
+ * @file RGBN.hpp
+ * @brief Header file for blink1_control::blink1_lib::RGBN
+ */
+
 #pragma once
 
 #include <cstdint>
@@ -45,9 +50,28 @@ namespace blink1_control {
              */
             RGBN() noexcept;
 
+            /**
+             * Equality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are equal, false otherwise
+             */
             [[nodiscard]] bool operator==(const RGBN& other) const noexcept;
+
+            /**
+             * Inequality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are not equal, false otherwise
+             */
             [[nodiscard]] bool operator!=(const RGBN& other) const noexcept;
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param rgb RGBN object to output
+             */
             friend std::ostream& operator<<(std::ostream& os, const RGBN& rgb);
         };
     }

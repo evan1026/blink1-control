@@ -1,3 +1,8 @@
+/**
+ * @file PlayState.hpp
+ * @brief Header for blink1_control::blink1_lib::PlayState
+ */
+
 #pragma once
 
 #include <cstdint>
@@ -51,10 +56,29 @@ namespace blink1_control {
              */
             PlayState(const bool playing, const std::uint8_t playStart, const std::uint8_t playEnd, const std::uint8_t playCount, const std::uint8_t playPos) noexcept;
 
+            /**
+             * Equality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are equal, false otherwise
+             */
             [[nodiscard]] bool operator==(const PlayState& other) const noexcept;
+
+            /**
+             * Inequality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are not equal, false otherwise
+             */
             [[nodiscard]] bool operator!=(const PlayState& other) const noexcept;
 
-            friend std::ostream& operator<<(std::ostream& os, const PlayState& patternLine);
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param playState PlayState to output
+             */
+            friend std::ostream& operator<<(std::ostream& os, const PlayState& playState);
         };
     }
 }

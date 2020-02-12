@@ -1,3 +1,8 @@
+/**
+ * @file Config.hpp
+ * @brief Header file for blink1_control::config::Config
+ */
+
 #pragma once
 
 #include <map>
@@ -26,6 +31,12 @@ namespace blink1_control {
              */
             std::map<std::string, ConditionConfig> conditionConfigs;
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param config Config to output
+             */
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::Config& config) {
                 os << "{patterns: {";
                 bool first = true;

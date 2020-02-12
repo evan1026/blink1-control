@@ -1,3 +1,8 @@
+/**
+ * @file Blink1Device.hpp
+ * @brief Header file for blink1_control::blink1_lib::Blink1Device
+ */
+
 #pragma once
 
 #include <blink1-lib.h>

@@ -1,3 +1,10 @@
+/**
+ * @file ConditionConfig.hpp
+ * @brief Header file for blink1_control::config::ConditionConfig
+ */
+
+#pragma once
+
 #include <string>
 #include <vector>
 
@@ -12,7 +19,8 @@ namespace blink1_control {
          * A condition is basically just a situation that can trigger
          * an LED pattern to play.
          *
-         * Currently 2 types: ProcessMonitor and Rollup. Each is individually documented
+         * Currently 2 types: ConditionConfig::Type::ProcessMonitor
+         * and ConditionConfig::Type::Rollup. Each is individually documented
          */
         struct ConditionConfig {
 
@@ -54,6 +62,12 @@ namespace blink1_control {
              */
             std::vector<std::string> patterns;
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param configType ConditionConfig::Type to output
+             */
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::ConditionConfig::Type& configType) {
                 switch (configType) {
                     case blink1_control::config::ConditionConfig::Type::ProcessMonitor:
@@ -67,6 +81,12 @@ namespace blink1_control {
                 return os;
             }
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param config Config to output
+             */
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::ConditionConfig& config) {
                 os << "{type: " << config.type << ", name: " << config.name << ", patterns: {";
                 bool first = true;

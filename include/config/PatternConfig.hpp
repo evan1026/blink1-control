@@ -1,3 +1,8 @@
+/**
+ * @file PatternConfig.hpp
+ * @brief Header file for blink1_control::config::PatternConfig
+ */
+
 #pragma once
 
 #include <vector>
@@ -28,6 +33,12 @@ namespace blink1_control {
              */
             int repeat;
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param config PatternConfig to output
+             */
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::PatternConfig& config) {
                 os << "{name: " << config.name << ", repeat: " << config.repeat << ", pattern: {";
                 bool first = true;

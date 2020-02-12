@@ -1,3 +1,8 @@
+/**
+ * @file PatternLine.hpp
+ * @brief Header file for blink1_control::blink1_lib::PatternLine
+ */
+
 #pragma once
 
 #include <cstdint>
@@ -43,9 +48,28 @@ namespace blink1_control {
              */
             PatternLine(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint16_t _fadeMillis) noexcept;
 
+            /**
+             * Equality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are equal, false otherwise
+             */
             [[nodiscard]] bool operator==(const PatternLine& other) const noexcept;
+
+            /**
+             * Inequality operator
+             *
+             * @param other Object to compare to
+             * @return true if the objects are not equal, false otherwise
+             */
             [[nodiscard]] bool operator!=(const PatternLine& other) const noexcept;
 
+            /**
+             * Output operator
+             *
+             * @param os Output stream
+             * @param patternLine PatternLine to output
+             */
             friend std::ostream& operator<<(std::ostream& os, const PatternLine& patternLine);
         };
     }

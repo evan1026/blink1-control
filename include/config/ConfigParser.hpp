@@ -1,3 +1,8 @@
+/**
+ * @file ConfigParser.hpp
+ * @brief Header file for blink1_control::config::ConfigParser
+ */
+
 #pragma once
 
 #include <optional>
@@ -7,7 +12,9 @@
 #include "config/Config.hpp"
 #include "blink-lib/PatternLineN.hpp"
 
+// @cond DO_NOT_DOCUMENT
 using Json = nlohmann::json;
+// @endcond
 
 namespace blink1_control {
     namespace config {
