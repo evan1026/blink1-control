@@ -7,10 +7,11 @@
 
 #include <map>
 #include <memory>
+#include <ostream>
 #include <string>
 
-#include "config/PatternConfig.hpp"
 #include "config/ConditionConfig.hpp"
+#include "config/PatternConfig.hpp"
 
 namespace blink1_control {
     namespace config {

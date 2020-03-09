@@ -10,6 +10,8 @@
 
 #include "config/ConditionConfig.hpp"
 
+//TODO operator<<
+
 namespace blink1_control {
     namespace config {
 

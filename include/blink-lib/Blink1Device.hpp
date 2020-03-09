@@ -6,15 +6,15 @@
 #pragma once
 
 #include <blink1-lib.h>
-#include <memory>
 #include <functional>
+#include <memory>
 #include <optional>
 
-#include "blink-lib/RGB.hpp"
-#include "blink-lib/RGBN.hpp"
-#include "blink-lib/PlayState.hpp"
 #include "blink-lib/PatternLine.hpp"
 #include "blink-lib/PatternLineN.hpp"
+#include "blink-lib/PlayState.hpp"
+#include "blink-lib/RGB.hpp"
+#include "blink-lib/RGBN.hpp"
 
 namespace blink1_control {
     namespace blink1_lib {

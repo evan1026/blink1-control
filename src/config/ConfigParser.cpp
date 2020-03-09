@@ -1,7 +1,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "blink-lib/PatternLineN.hpp"
+#include "blink-lib.hpp"
+
 #include "config/ConfigParser.hpp"
 #include "config/ProcessMonitorConfig.hpp"
 #include "config/RollupConfig.hpp"

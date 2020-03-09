@@ -5,10 +5,11 @@
 
 #pragma once
 
-#include <vector>
+#include <ostream>
 #include <string>
+#include <vector>
 
-#include "blink-lib/PatternLineN.hpp"
+#include "blink-lib.hpp"
 
 namespace blink1_control {
     namespace config {

@@ -9,10 +9,11 @@
 
 #include <nlohmann/json.hpp>
 
+#include "blink-lib.hpp"
+
 #include "config/Config.hpp"
 #include "config/ProcessMonitorConfig.hpp"
 #include "config/RollupConfig.hpp"
-#include "blink-lib/PatternLineN.hpp"
 
 // @cond DO_NOT_DOCUMENT
 using Json = nlohmann::json;

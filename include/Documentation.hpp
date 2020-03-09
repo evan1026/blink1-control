@@ -1,8 +1,7 @@
 /**
  * @file Documentation.hpp
  * @brief This file is just a place to put documenation for the front
- *        page of the doxygen docs as well as documentation for the
- *        namespaces
+ *        page of the doxygen docs
  */
 
 // Shouldn't ever get included but hey might as well
@@ -22,17 +21,4 @@
  */
 namespace blink1_control {
 
-    /**
-     * Classes to control a blink1 device
-     */
-    namespace blink1_lib {
-
-    }
-
-    /**
-     * Configuration datatypes
-     */
-    namespace config {
-
-    }
 }
