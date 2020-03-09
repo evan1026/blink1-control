@@ -1,0 +1,52 @@
+{
+    "conditions": [
+        {
+            "name": "pm_test",
+            "type": "ProcessMonitor",
+            "patterns": [],
+            "cmd": "ps aux | grep dsa | grep -v grep"
+        },
+        {
+            "name": "pm_test2",
+            "type": "ProcessMonitor",
+            "patterns": [],
+            "cmd": "ps aux | grep asd | grep -v grep"
+        },
+        {
+            "name": "rollup_test",
+            "type": "Rollup",
+            "patterns": [
+                "rollup_pattern"
+            ],
+            "children": [
+                {
+                    "name": "pm_test",
+                    "critical": true
+                },
+                {
+                    "name": "pm_test2",
+                    "critical": false
+                }
+            ]
+        }
+    ],
+
+    "patterns": [
+        {
+            "name": "rollup_pattern",
+            "repeat": 7,
+            "lines": [
+                {
+                    "color": "#FFFEFD",
+                    "led": 1,
+                    "time": 50
+                },
+                {
+                    "color": "#000000",
+                    "led": 2,
+                    "time": 100
+                }
+            ]
+        }
+    ]
+}

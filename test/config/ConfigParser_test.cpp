@@ -3,6 +3,8 @@
 
 #include "gtest/gtest.h"
 #include "config/ConfigParser.hpp"
+#include "config/ProcessMonitorConfig.hpp"
+#include "config/RollupConfig.hpp"
 
 using namespace blink1_control::config;
 
@@ -35,13 +37,30 @@ TEST_F(SUITE_NAME, TestParseConfig) {
             {
                 "name": "pm_test",
                 "type": "ProcessMonitor",
-                "patterns": []
+                "patterns": [],
+                "cmd": "test cmd 1"
+            },
+            {
+                "name": "pm_test2",
+                "type": "ProcessMonitor",
+                "patterns": [],
+                "cmd": "test cmd 2"
             },
             {
                 "name": "rollup_test",
                 "type": "Rollup",
                 "patterns": [
                     "rollup_pattern"
+                ],
+                "children": [
+                    {
+                        "name": "pm_test",
+                        "critical": true
+                    },
+                    {
+                        "name": "pm_test2",
+                        "critical": false
+                    }
                 ]
             }
         ],
@@ -68,35 +87,50 @@ TEST_F(SUITE_NAME, TestParseConfig) {
 
     ConfigParser configParser;
     auto configOpt = configParser.parseConfig(ss);
-    EXPECT_TRUE(bool(configOpt));
+    ASSERT_TRUE(bool(configOpt));
 
     auto config = *configOpt;
-    EXPECT_EQ(2, config.conditionConfigs.size());
+    EXPECT_EQ(3, config.conditionConfigs.size());
     EXPECT_EQ(1, config.patternConfigs.size());
 
-    EXPECT_TRUE(config.conditionConfigs.find("pm_test") != config.conditionConfigs.end());
-    EXPECT_TRUE(config.conditionConfigs.find("rollup_test") != config.conditionConfigs.end());
-    EXPECT_TRUE(config.patternConfigs.find("rollup_pattern") != config.patternConfigs.end());
+    ASSERT_TRUE(config.conditionConfigs.find("pm_test") != config.conditionConfigs.end());
+    ASSERT_TRUE(config.conditionConfigs.find("pm_test2") != config.conditionConfigs.end());
+    ASSERT_TRUE(config.conditionConfigs.find("rollup_test") != config.conditionConfigs.end());
+    ASSERT_TRUE(config.patternConfigs.find("rollup_pattern") != config.patternConfigs.end());
 
-    auto pmTestConfig = config.conditionConfigs["pm_test"];
-    auto rollupTestConfig = config.conditionConfigs["rollup_test"];
-    auto rollupPatternConfig = config.patternConfigs["rollup_pattern"];
+    auto pmTestConfig = config.conditionConfigs.at("pm_test");
+    auto pmTest2Config = config.conditionConfigs.at("pm_test2");
+    auto rollupTestConfig = config.conditionConfigs.at("rollup_test");
+    auto rollupPatternConfig = config.patternConfigs.at("rollup_pattern");
 
-    EXPECT_EQ("pm_test", pmTestConfig.name);
-    EXPECT_EQ(ConditionConfig::Type::ProcessMonitor, pmTestConfig.type);
-    EXPECT_EQ(0, pmTestConfig.patterns.size());
+    EXPECT_EQ("pm_test", pmTestConfig->name);
+    EXPECT_EQ(ConditionConfig::Type::ProcessMonitor, pmTestConfig->type);
+    EXPECT_EQ(0, pmTestConfig->patterns.size());
+    EXPECT_EQ("test cmd 1", dynamic_cast<ProcessMonitorConfig&>(*pmTestConfig).cmd);
 
-    EXPECT_EQ("rollup_test", rollupTestConfig.name);
-    EXPECT_EQ(ConditionConfig::Type::Rollup, rollupTestConfig.type);
-    EXPECT_EQ(1, rollupTestConfig.patterns.size());
-    EXPECT_EQ("rollup_pattern", rollupTestConfig.patterns[0]);
+    EXPECT_EQ("pm_test2", pmTest2Config->name);
+    EXPECT_EQ(ConditionConfig::Type::ProcessMonitor, pmTest2Config->type);
+    EXPECT_EQ(0, pmTest2Config->patterns.size());
+    EXPECT_EQ("test cmd 2", dynamic_cast<ProcessMonitorConfig&>(*pmTest2Config).cmd);
 
-    EXPECT_EQ("rollup_pattern", rollupPatternConfig.name);
-    EXPECT_EQ(7, rollupPatternConfig.repeat);
-    EXPECT_EQ(2, rollupPatternConfig.pattern.size());
+    EXPECT_EQ("rollup_test", rollupTestConfig->name);
+    EXPECT_EQ(ConditionConfig::Type::Rollup, rollupTestConfig->type);
+    EXPECT_EQ(1, rollupTestConfig->patterns.size());
+    EXPECT_EQ("rollup_pattern", rollupTestConfig->patterns[0]);
 
-    auto patternLine1 = rollupPatternConfig.pattern[0];
-    auto patternLine2 = rollupPatternConfig.pattern[1];
+    auto& rollupChildren = dynamic_cast<RollupConfig&>(*rollupTestConfig).children;
+    ASSERT_EQ(2, rollupChildren.size());
+    EXPECT_EQ("pm_test", rollupChildren[0].name);
+    EXPECT_TRUE(rollupChildren[0].critical);
+    EXPECT_EQ("pm_test2", rollupChildren[1].name);
+    EXPECT_FALSE(rollupChildren[1].critical);
+
+    EXPECT_EQ("rollup_pattern", rollupPatternConfig->name);
+    EXPECT_EQ(7, rollupPatternConfig->repeat);
+    EXPECT_EQ(2, rollupPatternConfig->pattern.size());
+
+    auto patternLine1 = rollupPatternConfig->pattern[0];
+    auto patternLine2 = rollupPatternConfig->pattern[1];
 
     EXPECT_EQ(255, patternLine1.rgbn.r);
     EXPECT_EQ(254, patternLine1.rgbn.g);

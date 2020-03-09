@@ -62,6 +62,8 @@ namespace blink1_control {
              */
             std::vector<std::string> patterns;
 
+            virtual ~ConditionConfig() = default;
+
             /**
              * Output operator
              *

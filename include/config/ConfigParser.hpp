@@ -10,6 +10,8 @@
 #include <nlohmann/json.hpp>
 
 #include "config/Config.hpp"
+#include "config/ProcessMonitorConfig.hpp"
+#include "config/RollupConfig.hpp"
 #include "blink-lib/PatternLineN.hpp"
 
 // @cond DO_NOT_DOCUMENT
@@ -29,6 +31,8 @@ namespace blink1_control {
             [[nodiscard]] bool parseCondition(const Json& json, Config& config) const noexcept;
             [[nodiscard]] bool parsePatterns(const Json& json, Config& config) const noexcept;
             [[nodiscard]] bool parsePattern(const Json& json, Config& config) const;
+            [[nodiscard]] std::shared_ptr<ProcessMonitorConfig> parseProcessMonitor(const Json& json) const;
+            [[nodiscard]] std::shared_ptr<RollupConfig> parseRollup(const Json& json) const;
             [[nodiscard]] blink1_lib::RGBN parseRgb(const std::string& rgbString) const;
 
             public:

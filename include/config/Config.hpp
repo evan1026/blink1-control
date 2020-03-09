@@ -6,6 +6,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 #include <string>
 
 #include "config/PatternConfig.hpp"
@@ -23,13 +24,13 @@ namespace blink1_control {
              * A collection of pattern configurations which maps from the name
              * of a PatternConfig to the PatternConfig itself
              */
-            std::map<std::string, PatternConfig> patternConfigs;
+            std::map<std::string, std::shared_ptr<PatternConfig>> patternConfigs;
 
             /**
              * A collection of condition configurations which maps from the name
              * of a ConditionConfig to the ConditionConfig itself
              */
-            std::map<std::string, ConditionConfig> conditionConfigs;
+            std::map<std::string, std::shared_ptr<ConditionConfig>> conditionConfigs;
 
             /**
              * Output operator

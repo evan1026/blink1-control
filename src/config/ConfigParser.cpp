@@ -1,8 +1,10 @@
 #include <iostream>
 #include <sstream>
 
-#include "config/ConfigParser.hpp"
 #include "blink-lib/PatternLineN.hpp"
+#include "config/ConfigParser.hpp"
+#include "config/ProcessMonitorConfig.hpp"
+#include "config/RollupConfig.hpp"
 
 namespace blink1_control {
     namespace config {
@@ -60,13 +62,24 @@ namespace blink1_control {
             bool success = true;
 
             try {
-                ConditionConfig condition;
-                condition.name = json.at("name");
-                condition.type = types.at(json.at("type"));
+                std::shared_ptr<ConditionConfig> condition;
+
+                auto type = types.at(json.at("type"));
+                switch (type) {
+                    case ConditionConfig::Type::ProcessMonitor:
+                        condition = parseProcessMonitor(json);
+                        break;
+                    case ConditionConfig::Type::Rollup:
+                        condition = parseRollup(json);
+                        break;
+                }
+
+                condition->name = json.at("name");
+                condition->type = type;
 
                 for (Json patternName : json.at("patterns")) {
                     if (patternName.is_string()) {
-                        condition.patterns.push_back(patternName);
+                        condition->patterns.push_back(patternName);
                     } else {
                         std::cout << "Pattern name is not a string: " << patternName << std::endl;
                         success = false;
@@ -74,7 +87,7 @@ namespace blink1_control {
                 }
 
                 if (success) {
-                    config.conditionConfigs[condition.name] = condition;
+                    config.conditionConfigs.insert_or_assign(condition->name, condition);
                 }
             } catch (std::exception& err) {
                 std::cout << "Error parsing condition: " << err.what() << std::endl;
@@ -82,6 +95,23 @@ namespace blink1_control {
             }
 
             return success;
+        }
+
+        std::shared_ptr<ProcessMonitorConfig> ConfigParser::parseProcessMonitor(const Json& json) const {
+            auto pm_config = std::make_shared<ProcessMonitorConfig>();
+            pm_config->cmd = json.at("cmd");
+            return pm_config;
+        }
+
+        std::shared_ptr<RollupConfig> ConfigParser::parseRollup(const Json& json) const {
+            auto rollupConfig = std::make_shared<RollupConfig>();
+            for (Json childConfig : json.at("children")) {
+                RollupChild childCondition;
+                childCondition.name = childConfig.at("name");
+                childCondition.critical = childConfig.at("critical");
+                rollupConfig->children.push_back(childCondition);
+            }
+            return rollupConfig;
         }
 
         bool ConfigParser::parsePatterns(const Json& json, Config& config) const noexcept {
@@ -92,19 +122,19 @@ namespace blink1_control {
             bool success = true;
 
             try {
-                PatternConfig pattern;
-                pattern.name = json.at("name");
-                pattern.repeat = json.at("repeat");
+                std::shared_ptr<PatternConfig> pattern = std::make_shared<PatternConfig>();
+                pattern->name = json.at("name");
+                pattern->repeat = json.at("repeat");
 
                 for (Json line : json.at("lines")) {
                     blink1_lib::PatternLineN patternLine;
                     patternLine.rgbn = parseRgb(line.at("color"));
                     patternLine.rgbn.n = line.at("led");
                     patternLine.fadeMillis = line.at("time");
-                    pattern.pattern.push_back(patternLine);
+                    pattern->pattern.push_back(patternLine);
                 }
 
-                config.patternConfigs[pattern.name] = pattern;
+                config.patternConfigs.emplace(pattern->name, pattern);
             } catch (std::exception& err) {
                 std::cout << "Error parsing pattern: " << err.what() << std::endl;
                 success = false;
