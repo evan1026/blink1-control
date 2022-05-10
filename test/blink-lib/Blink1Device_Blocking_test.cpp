@@ -74,3 +74,24 @@ TEST_F(SUITE_NAME, TestNonBlocking) {
     auto timeAfterFadeRgbn = std::chrono::system_clock::now();
     EXPECT_LT(std::chrono::duration_cast<std::chrono::milliseconds>(timeAfterFadeRgbn - currentTime).count(), 10) << "Expected fadeToRGBN to take less than 10ms";
 }
+
+TEST_F(SUITE_NAME, TestNonBlockingOnFailure) {
+    fake_blink1_lib::SET_BLINK1_SUCCESSFUL_OPERATION(false);
+
+    RGB rgb(10, 11, 12);
+    RGBN rgbn(10, 11, 12, 20);
+    std::uint16_t fadeMillis = 100;
+
+    Blink1Device device;
+    device.setBlocking();
+
+    auto currentTime = std::chrono::system_clock::now();
+    device.fadeToRGB(fadeMillis, rgb);
+    auto timeAfterFadeRgb = std::chrono::system_clock::now();
+    EXPECT_LT(std::chrono::duration_cast<std::chrono::milliseconds>(timeAfterFadeRgb - currentTime).count(), 10) << "Expected fadeToRGB to take less than 10ms";
+
+    currentTime = std::chrono::system_clock::now();
+    device.fadeToRGBN(fadeMillis, rgbn);
+    auto timeAfterFadeRgbn = std::chrono::system_clock::now();
+    EXPECT_LT(std::chrono::duration_cast<std::chrono::milliseconds>(timeAfterFadeRgbn - currentTime).count(), 10) << "Expected fadeToRGBN to take less than 10ms";
+}

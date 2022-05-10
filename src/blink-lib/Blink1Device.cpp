@@ -46,7 +46,7 @@ namespace blink1_control {
         bool Blink1Device::fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) noexcept {
             if (good()) {
                 auto retVal = blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
-                if (blocking) {
+                if (blocking && 0 <= retVal) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(fadeMillis));
                 }
                 return 0 <= retVal;
@@ -57,7 +57,7 @@ namespace blink1_control {
         bool Blink1Device::fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) noexcept {
             if (good()) {
                 auto retVal = blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
-                if (blocking) {
+                if (blocking && 0 <= retVal) {
                     std::this_thread::sleep_for(std::chrono::milliseconds(fadeMillis));
                 }
                 return 0 <= retVal;
