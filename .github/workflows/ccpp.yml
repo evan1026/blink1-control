@@ -52,7 +52,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
       - name: Move files
-        run:
+        run: |
           rm -rf docs coverage
           mv Doxygen_Docs docs
           mv Code_Coverage_Report coverage
