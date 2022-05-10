@@ -48,7 +48,7 @@ namespace blink1_control {
                     } else {
                         os << ", ";
                     }
-                    os << entryPair.first << ": " << entryPair.second;
+                    os << entryPair.first << ": " << *entryPair.second;
                 }
                 os << "}, ";
 
@@ -60,7 +60,7 @@ namespace blink1_control {
                     } else {
                         os << ", ";
                     }
-                    os << entryPair.first << ": " << entryPair.second;
+                    os << entryPair.first << ": " << *entryPair.second;
                 }
                 os << "}}";
 
