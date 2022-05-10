@@ -9,7 +9,7 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           submodules: true
       - name: Install dependencies
@@ -20,14 +20,14 @@ jobs:
       - name: Generate coverage
         run: cd "${{ github.workspace }}/../../_temp" && make coverage
       - name: Upload coverage report
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: Code_Coverage_Report
           path: "${{ github.workspace }}/../../_temp/coverage"
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
         with:
           submodules: true
       - name: Install dependencies
@@ -38,7 +38,23 @@ jobs:
       - name: Generate docs
         run: cd "${{ github.workspace }}/../../_temp" && make doxygen
       - name: Upload docs
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: Doxygen_Docs
           path: "${{ github.workspace }}/../../_temp/html"
+  publish-artifacts:
+    needs: [coverage, docs]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      - name: Move files
+        run:
+          rm -rf docs coverage
+          mv Doxygen_Docs docs
+          mv Code_Coverage_Report coverage
+          find
+        shell: bash
+
