@@ -24,6 +24,7 @@ namespace blink1_control {
          */
         class Blink1Device {
             std::unique_ptr<blink1_device, std::function<void(blink1_device*)>> device;
+            bool blocking;
 
             static void destroyBlinkDevice(blink1_device* device) noexcept;
 
@@ -87,10 +88,17 @@ namespace blink1_control {
                  * Fades the device to another color over time. If this device has multiple LEDs,
                  * all LEDs will fade to that color.
                  *
+                 * By default this function is non-blocking to allow for processing while the
+                 * fade is occurring. This behavior can be changed with setBlocking(bool).
+                 *
                  * @param fadeMillis The amount of time in milliseconds for the fade to last
                  * @param rgb RGB color to fade to
                  *
                  * @return true if the command was successfully sent to the device, false otherwise
+                 *
+                 * @see setBlocking(bool)
+                 * @see setBlocking()
+                 * @see setNonBlocking()
                  */
                 bool fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) noexcept;
 
@@ -98,10 +106,17 @@ namespace blink1_control {
                  * Fades the device to another color over time. Only fades the LED specified in
                  * the RGBN value.
                  *
+                 * By default this function is non-blocking to allow for processing while the
+                 * fade is occurring. This behavior can be changed with setBlocking(bool).
+                 *
                  * @param fadeMillis The amount of time in milliseconds for the fade to last
                  * @param rgbn RGB color to fade to along with which LED on the device to fade to
                  *
                  * @return true if the command was successfully sent to the device, false otherwise
+                 *
+                 * @see setBlocking(bool)
+                 * @see setBlocking()
+                 * @see setNonBlocking()
                  */
                 bool fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) noexcept;
 
@@ -302,6 +317,44 @@ namespace blink1_control {
                  * @return Whether the device is a MK2 device if the device is good, std::nullopt otherwise
                  */
                 [[nodiscard]] std::optional<bool> isMk2() const noexcept;
+
+                /**
+                 * Sets the blocking mode for this device (technically just for this library for this
+                 * device, as the underlying C library does not have a blocking mode).
+                 *
+                 * When in blocking mode, fade commands will not return until the fade time is up. If
+                 * blocking mode is disabled, the fade commands will return immediately. By default,
+                 * all functions are non-blocking.
+                 *
+                 * @param blocking Whether or not to be in blocking mode
+                 *
+                 * @see fadeToRGB()
+                 * @see fadeToRGBN()
+                 */
+                void setBlocking(bool blocking) noexcept;
+
+                /**
+                 * Sets the device to be in blocking mode.
+                 *
+                 * @see setBlocking(bool)
+                 */
+                void setBlocking() noexcept;
+
+                /**
+                 * Sets the device to be in non-blocking mode.
+                 *
+                 * @see setBlocking(bool)
+                 */
+                void setNonBlocking() noexcept;
+
+                /**
+                 * Returns whether the device is in blocking mode.
+                 *
+                 * @return Whether blocking mode is set.
+                 *
+                 * @see setBlocking(bool)
+                 */
+                [[nodiscard]] bool isBlocking() const noexcept;
         };
     }
 }

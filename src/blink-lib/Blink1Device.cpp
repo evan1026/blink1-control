@@ -1,14 +1,16 @@
 #include "blink-lib/Blink1Device.hpp"
 
+#include <thread>
+
 namespace blink1_control {
     namespace blink1_lib {
-        Blink1Device::Blink1Device() noexcept : device(blink1_open(), Blink1Device::destroyBlinkDevice) {}
+        Blink1Device::Blink1Device() noexcept : device(blink1_open(), Blink1Device::destroyBlinkDevice), blocking(false) {}
 
-        Blink1Device::Blink1Device(const std::uint32_t id) noexcept : device(blink1_openById(id), Blink1Device::destroyBlinkDevice) {}
+        Blink1Device::Blink1Device(const std::uint32_t id) noexcept : device(blink1_openById(id), Blink1Device::destroyBlinkDevice), blocking(false) {}
 
         Blink1Device::Blink1Device(const std::string& stringInitializer, STRING_INIT_TYPE initType) noexcept : Blink1Device(stringInitializer.c_str(), initType) {}
 
-        Blink1Device::Blink1Device(const char* stringInitializer, STRING_INIT_TYPE initType) noexcept {
+        Blink1Device::Blink1Device(const char* stringInitializer, STRING_INIT_TYPE initType) noexcept : blocking(false) {
             switch (initType) {
                 case STRING_INIT_TYPE::PATH:
                     device = std::unique_ptr<blink1_device, std::function<void(blink1_device*)>>(blink1_openByPath(stringInitializer), Blink1Device::destroyBlinkDevice);
@@ -43,14 +45,22 @@ namespace blink1_control {
 
         bool Blink1Device::fadeToRGB(const std::uint16_t fadeMillis, const RGB& rgb) noexcept {
             if (good()) {
-                return 0 <= blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
+                auto retVal = blink1_fadeToRGB(device.get(), fadeMillis, rgb.r, rgb.g, rgb.b);
+                if (blocking) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(fadeMillis));
+                }
+                return 0 <= retVal;
             }
             return false;
         }
 
         bool Blink1Device::fadeToRGBN(const std::uint16_t fadeMillis, const RGBN& rgbn) noexcept {
             if (good()) {
-                return 0 <= blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
+                auto retVal = blink1_fadeToRGBN(device.get(), fadeMillis, rgbn.r, rgbn.g, rgbn.b, rgbn.n);
+                if (blocking) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(fadeMillis));
+                }
+                return 0 <= retVal;
             }
             return false;
         }
@@ -215,6 +225,22 @@ namespace blink1_control {
                 return 1 == blink1_isMk2(device.get());
             }
             return std::nullopt;
+        }
+
+        void Blink1Device::setBlocking(bool _blocking) noexcept {
+            blocking = _blocking;
+        }
+
+        void Blink1Device::setBlocking() noexcept {
+            setBlocking(true);
+        }
+
+        void Blink1Device::setNonBlocking() noexcept {
+            setBlocking(false);
+        }
+
+        bool Blink1Device::isBlocking() const noexcept {
+            return blocking;
         }
     }
 }

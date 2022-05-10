@@ -89,6 +89,7 @@ set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_BadInit_test.cpp
+    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_Blocking_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInit_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInitBadFunction_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
