@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Head</title>
   <style media="screen" type="text/css">
-  
+
     body
     {
       color: #000000;
@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-02-12 04:14:47</td>
+            <td class="headerValue">2022-05-10 08:52:40</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">12</td>
@@ -298,12 +298,12 @@
       <td width="75%" align="left" class="srcHeader src">Source</td>
     </tr>
 
-    
+
     <tr>
     <td align="right" class="lineno"><pre>1</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>#include &quot;blink-lib/PlayState.hpp&quot;</pre></td>
+    <td align="left" class="src "><pre>#include "blink-lib/PlayState.hpp"</pre></td>
     </tr>
 
     <tr>
@@ -330,7 +330,7 @@
     <tr>
     <td align="right" class="lineno"><pre>5</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>81</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>85</pre></td>
     <td align="left" class="src coveredLine"><pre>        PlayState::PlayState() noexcept : playing(false), playStart(0), playEnd(0), playCount(0), playPos(0) {}</pre></td>
     </tr>
 
@@ -400,7 +400,7 @@
     <tr>
     <td align="right" class="lineno"><pre>15</pre></td>
     <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 5 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 1 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>11</pre></td>
     <td align="left" class="src coveredLine"><pre>                &amp;&amp; playPos == other.playPos;</pre></td>
     </tr>
 
@@ -457,49 +457,49 @@
     <td align="right" class="lineno"><pre>23</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>            os &lt;&lt; &quot;PlayState{&quot;</pre></td>
+    <td align="left" class="src "><pre>            os &lt;&lt; "PlayState{"</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;playing=&quot;     &lt;&lt; (patternLine.playing ? &quot;true&quot; : &quot;false&quot;)</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; "playing="     &lt;&lt; (patternLine.playing ? "true" : "false")</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>25</pre></td>
     <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;, playStart=&quot; &lt;&lt; unsigned(patternLine.playStart)</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; ", playStart=" &lt;&lt; unsigned(patternLine.playStart)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>26</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;, playEnd=&quot;   &lt;&lt; unsigned(patternLine.playEnd)</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; ", playEnd="   &lt;&lt; unsigned(patternLine.playEnd)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>27</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;, playCount=&quot; &lt;&lt; unsigned(patternLine.playCount)</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; ", playCount=" &lt;&lt; unsigned(patternLine.playCount)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>28</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;, playPos=&quot;   &lt;&lt; unsigned(patternLine.playPos)</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; ", playPos="   &lt;&lt; unsigned(patternLine.playPos)</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>                &lt;&lt; &quot;}&quot;;</pre></td>
+    <td align="left" class="src coveredLine"><pre>                &lt;&lt; "}";</pre></td>
     </tr>
 
     <tr>
@@ -535,7 +535,7 @@
 
   <table width="100%" border="0" cellspacing="0" cellpadding="0">
     <tr><td class="hr"><td></tr>
-    <tr><td class="footer">Generated by: <a href="http://gcovr.com">GCOVR (Version 3.4)</a></td></tr>
+    <tr><td class="footer">Generated by: <a href="http://gcovr.com">GCOVR (Version 4.2)</a></td></tr>
   </table>
   <br>
 
