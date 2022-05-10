@@ -37,14 +37,94 @@
             "repeat": 7,
             "lines": [
                 {
-                    "color": "#FFFEFD",
-                    "led": 1,
-                    "time": 50
+                    "color": "#FFFFFF",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#FFFFFF",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#FF0000",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#FF0000",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#FFFF00",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#FFFF00",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#00FF00",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#00FF00",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#00FFFF",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#00FFFF",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#0000FF",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#0000FF",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#FF00FF",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#FF00FF",
+                    "led": 0,
+                    "time": 1000
+                },
+                {
+                    "color": "#FFFFFF",
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#FFFFFF",
+                    "led": 0,
+                    "time": 1000
                 },
                 {
                     "color": "#000000",
-                    "led": 2,
-                    "time": 100
+                    "led": 0,
+                    "time": 500
+                },
+                {
+                    "color": "#000000",
+                    "led": 0,
+                    "time": 1000
                 }
             ]
         }
