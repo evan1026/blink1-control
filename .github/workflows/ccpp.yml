@@ -43,6 +43,7 @@ jobs:
           name: Doxygen_Docs
           path: "${{ github.workspace }}/../../_temp/html"
   publish-artifacts:
+    runs-on: ubuntu-latest
     needs: [coverage, docs]
     steps:
       - uses: actions/checkout@v3
