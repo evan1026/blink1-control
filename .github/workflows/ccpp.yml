@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  DEPENDENCIES: libusb-1.0-0-dev libudev-dev gcovr cmake doxygen
+
 jobs:
   coverage:
     runs-on: ubuntu-latest
@@ -13,7 +16,7 @@ jobs:
         with:
           submodules: true
       - name: Install dependencies
-        run: sudo apt update -m && sudo apt install libusb-1.0-0-dev libhidapi-dev gcovr cmake doxygen
+        run: sudo apt update -m && sudo apt install $DEPENDENCIES
         shell: bash
       - name: Run CMake
         run: cd "${{ runner.temp }}" && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug "${{ github.workspace }}"
@@ -31,7 +34,7 @@ jobs:
         with:
           submodules: true
       - name: Install dependencies
-        run: sudo apt update -m && sudo apt install libusb-1.0-0-dev libhidapi-dev gcovr cmake doxygen
+        run: sudo apt update -m && sudo apt install $DEPENDENCIES
         shell: bash
       - name: Run CMake
         run: cd "${{ runner.temp }}" && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug "${{ github.workspace }}"

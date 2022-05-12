@@ -2,4 +2,4 @@ master: ![](https://github.com/evan1026/blink1-control/workflows/C/C++%20CI/badg
 
 Required Libraries
 ------------------
-libusb-1.0-0-dev libhidapi-dev
+libusb-1.0-0-dev libudev-dev

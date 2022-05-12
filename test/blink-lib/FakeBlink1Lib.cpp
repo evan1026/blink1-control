@@ -165,7 +165,7 @@ blink1_device* blink1_openById(uint32_t id) {
     return blink1_open();
 }
 
-void blink1_close(blink1_device* dev) {
+void blink1_close_internal(blink1_device* dev) {
     auto loc = std::find(fake_blink1_lib::blink1_devices.begin(), fake_blink1_lib::blink1_devices.end(), dev);
     if (loc != fake_blink1_lib::blink1_devices.end()) {
         fake_blink1_lib::blink1_devices.erase(loc);
