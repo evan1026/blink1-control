@@ -5,11 +5,12 @@
 
 #pragma once
 
+#include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
 
-#include "blink-lib.hpp"
+#include "config/PatternCommand.hpp"
 
 namespace blink1_control {
     namespace config {
@@ -27,7 +28,7 @@ namespace blink1_control {
             /**
              * A list of pattern lines which make up the pattern
              */
-            std::vector<blink1_lib::PatternLineN> pattern;
+            std::vector<std::unique_ptr<PatternCommand>> pattern;
 
             /**
              * Number of times to repeat the pattern
@@ -43,13 +44,13 @@ namespace blink1_control {
             friend std::ostream& operator<<(std::ostream& os, blink1_control::config::PatternConfig& config) {
                 os << "{name: " << config.name << ", repeat: " << config.repeat << ", pattern: {";
                 bool first = true;
-                for (auto configPattern : config.pattern) {
+                for (auto& configPattern : config.pattern) {
                     if (first) {
                         first = false;
                     } else {
                         os << ", ";
                     }
-                    os << configPattern;
+                    os << *configPattern;
                 }
                 os << "}}";
 

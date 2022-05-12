@@ -44,7 +44,6 @@ int main(int argc, const char* argv[]) {
     auto config = parser.parseConfig(configFileStream);
 
     Blink1Device blinkDevice;
-    blinkDevice.setBlocking();
 
     if (!blinkDevice.good()) {
         std::cout << "Could not open blink1 device\n";
@@ -59,8 +58,8 @@ int main(int argc, const char* argv[]) {
             for (int i = 0; i < pattern.repeat && LOOPING; ++i) {
                 std::cout << "    Playing iteration " << i << "/" << pattern.repeat << "\n";
                 for (auto& patternLine : pattern.pattern) {
-                    std::cout << "        Playing " << patternLine << "\n";
-                    blinkDevice.fadeToRGBN(patternLine.fadeMillis, patternLine.rgbn);
+                    std::cout << "        Playing " << *patternLine << "\n";
+                    patternLine->execute(blinkDevice);
                 }
             }
         }

@@ -79,6 +79,9 @@ TEST_F(SUITE_NAME, TestParseConfig) {
                         "color": "#000000",
                         "led": 2,
                         "time": 100
+                    },
+                    {
+                        "time": 1234
                     }
                 ]
             }
@@ -127,22 +130,31 @@ TEST_F(SUITE_NAME, TestParseConfig) {
 
     EXPECT_EQ("rollup_pattern", rollupPatternConfig->name);
     EXPECT_EQ(7, rollupPatternConfig->repeat);
-    EXPECT_EQ(2, rollupPatternConfig->pattern.size());
+    EXPECT_EQ(3, rollupPatternConfig->pattern.size());
 
-    auto patternLine1 = rollupPatternConfig->pattern[0];
-    auto patternLine2 = rollupPatternConfig->pattern[1];
+    auto& patternLine1 = *rollupPatternConfig->pattern[0];
+    auto& patternLine2 = *rollupPatternConfig->pattern[1];
+    auto& patternLine3 = *rollupPatternConfig->pattern[2];
 
-    EXPECT_EQ(255, patternLine1.rgbn.r);
-    EXPECT_EQ(254, patternLine1.rgbn.g);
-    EXPECT_EQ(253, patternLine1.rgbn.b);
-    EXPECT_EQ(1, patternLine1.rgbn.n);
-    EXPECT_EQ(50, patternLine1.fadeMillis);
+    EXPECT_EQ(typeid(FadeCommand&), typeid(patternLine1));
+    auto& fadeCommand1 = dynamic_cast<FadeCommand&>(patternLine1);
+    EXPECT_EQ(255, fadeCommand1.fadeParams.rgbn.r);
+    EXPECT_EQ(254, fadeCommand1.fadeParams.rgbn.g);
+    EXPECT_EQ(253, fadeCommand1.fadeParams.rgbn.b);
+    EXPECT_EQ(1, fadeCommand1.fadeParams.rgbn.n);
+    EXPECT_EQ(50, fadeCommand1.fadeParams.fadeMillis);
 
-    EXPECT_EQ(0, patternLine2.rgbn.r);
-    EXPECT_EQ(0, patternLine2.rgbn.g);
-    EXPECT_EQ(0, patternLine2.rgbn.b);
-    EXPECT_EQ(2, patternLine2.rgbn.n);
-    EXPECT_EQ(100, patternLine2.fadeMillis);
+    EXPECT_EQ(typeid(FadeCommand&), typeid(patternLine2));
+    auto& fadeCommand2 = dynamic_cast<FadeCommand&>(patternLine2);
+    EXPECT_EQ(0, fadeCommand2.fadeParams.rgbn.r);
+    EXPECT_EQ(0, fadeCommand2.fadeParams.rgbn.g);
+    EXPECT_EQ(0, fadeCommand2.fadeParams.rgbn.b);
+    EXPECT_EQ(2, fadeCommand2.fadeParams.rgbn.n);
+    EXPECT_EQ(100, fadeCommand2.fadeParams.fadeMillis);
+
+    EXPECT_EQ(typeid(WaitCommand&), typeid(patternLine3));
+    auto& waitCommand = dynamic_cast<WaitCommand&>(patternLine3);
+    EXPECT_EQ(std::chrono::milliseconds(1234), waitCommand.waitTime);
 }
 
 TEST_F(SUITE_NAME, TestBadStreams) {
@@ -226,6 +238,32 @@ TEST_F(SUITE_NAME, TestBadRgb) {
                 "lines": [
                     {
                         "color": "asdasd",
+                        "led": 1,
+                        "time": 50
+                    }
+                ]
+            }
+        ]
+    })";
+
+    ConfigParser configParser;
+    auto configOpt = configParser.parseConfig(ss);
+    EXPECT_FALSE(bool(configOpt));
+}
+
+TEST_F(SUITE_NAME, TestInvalidCommand) {
+    std::stringstream ss;
+    ss << R"(
+    {
+        "conditions": [
+        ],
+
+        "patterns": [
+            {
+                "name": "rollup_pattern",
+                "repeat": 7,
+                "lines": [
+                    {
                         "led": 1,
                         "time": 50
                     }

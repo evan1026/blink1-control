@@ -9,6 +9,7 @@
 #include "config/ConditionConfig.hpp"
 #include "config/Config.hpp"
 #include "config/ConfigParser.hpp"
+#include "config/PatternCommand.hpp"
 #include "config/PatternConfig.hpp"
 #include "config/ProcessMonitorConfig.hpp"
 #include "config/RollupConfig.hpp"

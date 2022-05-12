@@ -15,18 +15,10 @@
         {
             "name": "rollup_test",
             "type": "Rollup",
-            "patterns": [
-                "rollup_pattern"
-            ],
+            "patterns": ["rollup_pattern"],
             "children": [
-                {
-                    "name": "pm_test",
-                    "critical": true
-                },
-                {
-                    "name": "pm_test2",
-                    "critical": false
-                }
+                {"name": "pm_test", "critical": true},
+                {"name": "pm_test2", "critical": false}
             ]
         }
     ],
@@ -34,98 +26,38 @@
     "patterns": [
         {
             "name": "rollup_pattern",
-            "repeat": 7,
+            "repeat": 1,
             "lines": [
-                {
-                    "color": "#FFFFFF",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#FFFFFF",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#FF0000",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#FF0000",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#FFFF00",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#FFFF00",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#00FF00",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#00FF00",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#00FFFF",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#00FFFF",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#0000FF",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#0000FF",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#FF00FF",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#FF00FF",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#FFFFFF",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#FFFFFF",
-                    "led": 0,
-                    "time": 1000
-                },
-                {
-                    "color": "#000000",
-                    "led": 0,
-                    "time": 500
-                },
-                {
-                    "color": "#000000",
-                    "led": 0,
-                    "time": 1000
-                }
+                {"color": "#FFFFFF", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#FF0000", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#FFFF00", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#00FF00", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#00FFFF", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#0000FF", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#FF00FF", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#FFFFFF", "led": 0, "time": 500},
+                {"time": 500},
+                {"color": "#000000", "led": 0, "time": 500},
+                {"time": 500}
+            ]
+        },
+        {
+            "name": "police_pattern",
+            "repeat": 10,
+            "lines": [
+                {"color": "#FF0000", "led": 1, "time": 250},
+                {"color": "#0000FF", "led": 2, "time": 250},
+                {"time": 250},
+                {"color": "#0000FF", "led": 1, "time": 250},
+                {"color": "#FF0000", "led": 2, "time": 250},
+                {"time": 250}
             ]
         }
     ]

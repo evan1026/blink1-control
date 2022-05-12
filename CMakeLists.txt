@@ -25,6 +25,7 @@ set(SOURCES
     ${SOURCE_DIR}/blink-lib/RGB.cpp
     ${SOURCE_DIR}/blink-lib/RGBN.cpp
     ${SOURCE_DIR}/config/ConfigParser.cpp
+    ${SOURCE_DIR}/config/PatternCommand.cpp
 )
 add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
 
@@ -99,6 +100,7 @@ set(TEST_SOURCES
     ${TEST_SOURCE_DIR}/blink-lib/RGBN_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/RGB_test.cpp
     ${TEST_SOURCE_DIR}/config/ConfigParser_test.cpp
+    ${TEST_SOURCE_DIR}/config/PatternCommand_test.cpp
 )
 
 enable_testing()

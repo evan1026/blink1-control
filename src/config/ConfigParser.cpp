@@ -127,12 +127,22 @@ namespace blink1_control {
                 pattern->name = json.at("name");
                 pattern->repeat = json.at("repeat");
 
-                for (Json line : json.at("lines")) {
-                    blink1_lib::PatternLineN patternLine;
-                    patternLine.rgbn = parseRgb(line.at("color"));
-                    patternLine.rgbn.n = line.at("led");
-                    patternLine.fadeMillis = line.at("time");
-                    pattern->pattern.push_back(patternLine);
+                for (const Json& line : json.at("lines")) {
+                    bool hasLed = line.contains("led");
+                    bool hasColor = line.contains("color");
+
+                    if (hasLed && hasColor) {
+                        blink1_lib::PatternLineN patternLine;
+                        patternLine.rgbn = parseRgb(line.at("color"));
+                        patternLine.rgbn.n = line.at("led");
+                        patternLine.fadeMillis = line.at("time");
+
+                        pattern->pattern.push_back(std::make_unique<FadeCommand>(patternLine));
+                    } else if (hasLed || hasColor) {
+                        throw std::runtime_error("Pattern line must contain both 'led' and 'color' or neither of them");
+                    } else {
+                        pattern->pattern.push_back(std::make_unique<WaitCommand>(std::chrono::milliseconds(line.at("time"))));
+                    }
                 }
 
                 config.patternConfigs.emplace(pattern->name, pattern);
