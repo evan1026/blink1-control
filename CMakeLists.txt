@@ -116,7 +116,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 
     if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set(COVERAGE_LCOV_EXCLUDES '/usr/*' '${LIB_DIR}/*' '${TEST_SOURCE_DIR}/*' '${SOURCE_DIR}/main.cpp')
-        set(GCOV_PATH "${CMAKE_CURRENT_SOURCE_DIR}/llvm-cov.sh")
+        set(GCOV_PATH "${CMAKE_CURRENT_SOURCE_DIR}/scripts/llvm-cov.sh")
         add_definitions(--coverage)
         SETUP_TARGET_FOR_COVERAGE_LCOV(NAME coverage
                                        EXECUTABLE ${TEST_EXECUTABLE_NAME}
