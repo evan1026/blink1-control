@@ -72,48 +72,49 @@ $(function() {
 <a href="PatternConfig_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="blink-lib_8hpp.html">blink-lib.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblink1__control.html">blink1_control</a> {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">namespace </span>config {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html">   20</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html">PatternConfig</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">   25</a></span>&#160;            std::string <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">name</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a65103c043e70594db5f57ba0420394e6">   30</a></span>&#160;            std::vector&lt;blink1_lib::PatternLineN&gt; <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a65103c043e70594db5f57ba0420394e6">pattern</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">   35</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">repeat</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">   43</a></span>&#160;            <span class="keyword">friend</span> std::ostream&amp; <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">operator&lt;&lt;</a>(std::ostream&amp; os, <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html">blink1_control::config::PatternConfig</a>&amp; config) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                os &lt;&lt; <span class="stringliteral">&quot;{name: &quot;</span> &lt;&lt; config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">name</a> &lt;&lt; <span class="stringliteral">&quot;, repeat: &quot;</span> &lt;&lt; config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">repeat</a> &lt;&lt; <span class="stringliteral">&quot;, pattern: {&quot;</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordtype">bool</span> first = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span> configPattern : config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a65103c043e70594db5f57ba0420394e6">pattern</a>) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <span class="keywordflow">if</span> (first) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                        first = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                        os &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    os &lt;&lt; configPattern;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                os &lt;&lt; <span class="stringliteral">&quot;}}&quot;</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        };</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="PatternCommand_8hpp.html">config/PatternCommand.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblink1__control.html">blink1_control</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">namespace </span>config {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html">   21</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html">PatternConfig</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">   26</a></span>&#160;            std::string <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">name</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a61e05f4c38f91e16db892169a19a576b">   31</a></span>&#160;            std::vector&lt;std::unique_ptr&lt;PatternCommand&gt;&gt; <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a61e05f4c38f91e16db892169a19a576b">pattern</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">   36</a></span>&#160;            <span class="keywordtype">int</span> <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">repeat</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">   44</a></span>&#160;            <span class="keyword">friend</span> std::ostream&amp; <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">operator&lt;&lt;</a>(std::ostream&amp; os, <a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html">blink1_control::config::PatternConfig</a>&amp; config) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                os &lt;&lt; <span class="stringliteral">&quot;{name: &quot;</span> &lt;&lt; config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">name</a> &lt;&lt; <span class="stringliteral">&quot;, repeat: &quot;</span> &lt;&lt; config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">repeat</a> &lt;&lt; <span class="stringliteral">&quot;, pattern: {&quot;</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                <span class="keywordtype">bool</span> first = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; configPattern : config.<a class="code" href="structblink1__control_1_1config_1_1PatternConfig.html#a61e05f4c38f91e16db892169a19a576b">pattern</a>) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    <span class="keywordflow">if</span> (first) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                        first = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                        os &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    os &lt;&lt; *configPattern;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                os &lt;&lt; <span class="stringliteral">&quot;}}&quot;</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_aab063515d50050583f6530172118b31c"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">blink1_control::config::PatternConfig::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:25</div></div>
-<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a51f6cd5c38ee5d54ff3fe651ba6a6714"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">blink1_control::config::PatternConfig::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, blink1_control::config::PatternConfig &amp;config)</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:43</div></div>
-<div class="ttc" id="ablink-lib_8hpp_html"><div class="ttname"><a href="blink-lib_8hpp.html">blink-lib.hpp</a></div><div class="ttdoc">Header file for blink1_control::blink1_lib.</div></div>
-<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html">blink1_control::config::PatternConfig</a></div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:20</div></div>
-<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a65103c043e70594db5f57ba0420394e6"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a65103c043e70594db5f57ba0420394e6">blink1_control::config::PatternConfig::pattern</a></div><div class="ttdeci">std::vector&lt; blink1_lib::PatternLineN &gt; pattern</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:30</div></div>
-<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a3818abe02eb27bfc2785c87f6c598347"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">blink1_control::config::PatternConfig::repeat</a></div><div class="ttdeci">int repeat</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:35</div></div>
+<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_aab063515d50050583f6530172118b31c"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c">blink1_control::config::PatternConfig::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:26</div></div>
+<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a51f6cd5c38ee5d54ff3fe651ba6a6714"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a51f6cd5c38ee5d54ff3fe651ba6a6714">blink1_control::config::PatternConfig::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;os, blink1_control::config::PatternConfig &amp;config)</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:44</div></div>
+<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a61e05f4c38f91e16db892169a19a576b"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a61e05f4c38f91e16db892169a19a576b">blink1_control::config::PatternConfig::pattern</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; PatternCommand &gt; &gt; pattern</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:31</div></div>
+<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html">blink1_control::config::PatternConfig</a></div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:21</div></div>
+<div class="ttc" id="aPatternCommand_8hpp_html"><div class="ttname"><a href="PatternCommand_8hpp.html">PatternCommand.hpp</a></div><div class="ttdoc">Header file for blink1_control::config::PatternCommand and derived classes.</div></div>
+<div class="ttc" id="astructblink1__control_1_1config_1_1PatternConfig_html_a3818abe02eb27bfc2785c87f6c598347"><div class="ttname"><a href="structblink1__control_1_1config_1_1PatternConfig.html#a3818abe02eb27bfc2785c87f6c598347">blink1_control::config::PatternConfig::repeat</a></div><div class="ttdeci">int repeat</div><div class="ttdef"><b>Definition:</b> PatternConfig.hpp:36</div></div>
 <div class="ttc" id="anamespaceblink1__control_html"><div class="ttname"><a href="namespaceblink1__control.html">blink1_control</a></div><div class="ttdef"><b>Definition:</b> Blink1Device.hpp:19</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
