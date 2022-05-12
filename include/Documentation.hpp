@@ -1,6 +1,6 @@
 /**
  * @file Documentation.hpp
- * @brief This file is just a place to put documenation for the front
+ * @brief This file is just a place to put documentation for the front
  *        page of the doxygen docs
  */
 

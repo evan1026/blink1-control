@@ -45,6 +45,8 @@ set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
 ###########
 set(DOXYGEN_GENERATE_HTML YES)
 set(DOXYGEN_GENERATE_MAN YES)
+set(DOXYGEN_GENERATE_TREEVIEW YES)
+set(DOXYGEN_HTML_EXTRA_STYLESHEET "${LIB_DIR}/doxygen-awesome-css/doxygen-awesome.css")
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
     doxygen_add_docs(
