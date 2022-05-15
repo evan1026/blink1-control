@@ -7,7 +7,7 @@ var dir_ea664ba48352c10e82f679d554c07e1e =
       [ "Config", "structblink1__control_1_1config_1_1Config.html", "structblink1__control_1_1config_1_1Config" ]
     ] ],
     [ "ConfigParser.hpp", "ConfigParser_8hpp.html", [
-      [ "ConfigParser", "classblink1__control_1_1config_1_1ConfigParser.html", "classblink1__control_1_1config_1_1ConfigParser" ]
+      [ "ConfigParser", "classblink1__control_1_1config_1_1ConfigParser.html", null ]
     ] ],
     [ "PatternCommand.hpp", "PatternCommand_8hpp.html", [
       [ "PatternCommand", "structblink1__control_1_1config_1_1PatternCommand.html", "structblink1__control_1_1config_1_1PatternCommand" ],

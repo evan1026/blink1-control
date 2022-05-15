@@ -1,7 +1,7 @@
 var structblink1__control_1_1blink1__lib_1_1PlayState =
 [
-    [ "PlayState", "structblink1__control_1_1blink1__lib_1_1PlayState.html#ac51fd9bef592305d8a09ef9e3bdd6cf5", null ],
-    [ "PlayState", "structblink1__control_1_1blink1__lib_1_1PlayState.html#ad93c8244d9ca94f977f8543e40305e8f", null ],
+    [ "PlayState", "structblink1__control_1_1blink1__lib_1_1PlayState.html#a3949310aa812fe43ab7b106b3fa0fe2c", null ],
+    [ "PlayState", "structblink1__control_1_1blink1__lib_1_1PlayState.html#a4ccc2a596d2dc2f46b82b8aa3ab075a4", null ],
     [ "operator!=", "structblink1__control_1_1blink1__lib_1_1PlayState.html#aeedabdfb52b0ba5d64207f5619c60425", null ],
     [ "operator==", "structblink1__control_1_1blink1__lib_1_1PlayState.html#a649f6970442d20b54039ef9562994b75", null ],
     [ "operator<<", "structblink1__control_1_1blink1__lib_1_1PlayState.html#a3b6e8fe56bb060addb9ed62ec0bc2029", null ],

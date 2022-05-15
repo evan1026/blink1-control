@@ -1,7 +1,7 @@
 var structblink1__control_1_1blink1__lib_1_1RGBN =
 [
     [ "RGBN", "structblink1__control_1_1blink1__lib_1_1RGBN.html#a6dc298b1eba12c415911048f22dfbd17", null ],
-    [ "RGBN", "structblink1__control_1_1blink1__lib_1_1RGBN.html#a86c26742644821874e5c0a7568cb8eca", null ],
+    [ "RGBN", "structblink1__control_1_1blink1__lib_1_1RGBN.html#a9140cb3230af33597a34be8bb958870a", null ],
     [ "operator!=", "structblink1__control_1_1blink1__lib_1_1RGBN.html#ad99dba2796e46db9d0a65b10400fc039", null ],
     [ "operator==", "structblink1__control_1_1blink1__lib_1_1RGBN.html#aab31822e342195eadb75cf70138c9d38", null ],
     [ "operator<<", "structblink1__control_1_1blink1__lib_1_1RGBN.html#a40a689b2bd251441e44704cc11c0038e", null ],

@@ -93,37 +93,35 @@ $(document).ready(function(){initNavTree('PatternLine_8hpp_source.html',''); ini
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="RGB_8hpp.html">blink-lib/RGB.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblink1__control.html">blink1_control</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">namespace </span>blink1_lib {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">   19</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">   23</a></span>&#160;            std::uint16_t <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">fadeMillis</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">   28</a></span>&#160;            <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGB.html">RGB</a> <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">rgb</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a6d636c11ddc160cdda23c455c8f0cbad">PatternLine</a>() noexcept;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGB.html">RGB</a>&amp; _rgb, const std::uint16_t _fadeMillis) noexcept;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint16_t _fadeMillis) noexcept;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            [[nodiscard]] <span class="keywordtype">bool</span> operator==(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; other) const noexcept;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            [[nodiscard]] <span class="keywordtype">bool</span> operator!=(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; other) const noexcept;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; patternLine);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        };</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceblink1__control_1_1blink1__lib.html">blink1_control::blink1_lib</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">   18</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">   22</a></span>&#160;        std::uint16_t <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">fadeMillis</a>{0};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">   27</a></span>&#160;        <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGB.html">RGB</a> <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">rgb</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#aa13982a3adf5872c914f302112b57e5e">PatternLine</a>() noexcept = default;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGB.html">RGB</a>&amp; _rgb, const std::uint16_t _fadeMillis) noexcept;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>(const std::uint8_t _r, const std::uint8_t _g, const std::uint8_t _b, const std::uint16_t _fadeMillis) noexcept;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> operator==(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; other) const noexcept;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> operator!=(const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; other) const noexcept;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, const <a class="code" href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">PatternLine</a>&amp; patternLine);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_a64a44172b87195596c2d745bbd5c238a"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">blink1_control::blink1_lib::PatternLine::rgb</a></div><div class="ttdeci">RGB rgb</div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:28</div></div>
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">blink1_control::blink1_lib::PatternLine</a></div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:19</div></div>
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1RGB_html"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1RGB.html">blink1_control::blink1_lib::RGB</a></div><div class="ttdef"><b>Definition:</b> RGB.hpp:17</div></div>
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_ab8c12e2101c2075a5301844bc98a7cd6"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">blink1_control::blink1_lib::PatternLine::fadeMillis</a></div><div class="ttdeci">std::uint16_t fadeMillis</div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:23</div></div>
+<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_a64a44172b87195596c2d745bbd5c238a"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a64a44172b87195596c2d745bbd5c238a">blink1_control::blink1_lib::PatternLine::rgb</a></div><div class="ttdeci">RGB rgb</div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:27</div></div>
+<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html">blink1_control::blink1_lib::PatternLine</a></div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:18</div></div>
+<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_aa13982a3adf5872c914f302112b57e5e"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#aa13982a3adf5872c914f302112b57e5e">blink1_control::blink1_lib::PatternLine::PatternLine</a></div><div class="ttdeci">PatternLine() noexcept=default</div></div>
+<div class="ttc" id="anamespaceblink1__control_1_1blink1__lib_html"><div class="ttname"><a href="namespaceblink1__control_1_1blink1__lib.html">blink1_control::blink1_lib</a></div><div class="ttdef"><b>Definition:</b> Blink1Device.hpp:19</div></div>
+<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1RGB_html"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1RGB.html">blink1_control::blink1_lib::RGB</a></div><div class="ttdef"><b>Definition:</b> RGB.hpp:16</div></div>
+<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_ab8c12e2101c2075a5301844bc98a7cd6"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6">blink1_control::blink1_lib::PatternLine::fadeMillis</a></div><div class="ttdeci">std::uint16_t fadeMillis</div><div class="ttdef"><b>Definition:</b> PatternLine.hpp:22</div></div>
 <div class="ttc" id="aRGB_8hpp_html"><div class="ttname"><a href="RGB_8hpp.html">RGB.hpp</a></div><div class="ttdoc">Header file for blink1_control::blink1_lib::RGB.</div></div>
-<div class="ttc" id="anamespaceblink1__control_html"><div class="ttname"><a href="namespaceblink1__control.html">blink1_control</a></div><div class="ttdef"><b>Definition:</b> Blink1Device.hpp:19</div></div>
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1PatternLine_html_a6d636c11ddc160cdda23c455c8f0cbad"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1PatternLine.html#a6d636c11ddc160cdda23c455c8f0cbad">blink1_control::blink1_lib::PatternLine::PatternLine</a></div><div class="ttdeci">PatternLine() noexcept</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
