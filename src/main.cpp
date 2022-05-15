@@ -1,17 +1,19 @@
 #include <blink1-lib.h>
+#include <csignal>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
-#include <signal.h>
+#include <span>
 
-#include "config.hpp"
 #include "blink-lib.hpp"
+#include "config.hpp"
 
-using namespace blink1_control::config;
-using namespace blink1_control::blink1_lib;
+using blink1_control::config::ConfigParser;
+using blink1_control::config::PatternConfig;
+using blink1_control::blink1_lib::Blink1Device;
 
-static bool LOOPING = true;
+static bool LOOPING = true; // NOLINT
 
 void signalCallbackHandler(int signum) {
     if (signum == SIGINT) {
@@ -26,22 +28,23 @@ void signalCallbackHandler(int signum) {
 }
 
 int main(int argc, const char* argv[]) {
-    if (argc != 2) {
-        std::cout << "Usage: " << argv[0] << " config_file\n";
+    auto args = std::span(argv, size_t(argc));
+
+    if (args.size() != 2) {
+        std::cout << "Usage: " << args[0] << " config_file\n";
         return 1;
     }
 
     signal(SIGINT, signalCallbackHandler);
 
-    ConfigParser parser;
-    std::ifstream configFileStream(argv[1]);
+    std::ifstream configFileStream(args[1]);
 
     if (!configFileStream.is_open()) {
-        std::cout << "Could not open " << argv[1] << "\n";
+        std::cout << "Could not open " << args[1] << "\n";
         return 2;
     }
 
-    auto config = parser.parseConfig(configFileStream);
+    auto config = ConfigParser::parseConfig(configFileStream);
 
     Blink1Device blinkDevice;
 

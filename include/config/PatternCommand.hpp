@@ -10,114 +10,112 @@
 
 #include "blink-lib.hpp"
 
-namespace blink1_control {
-    namespace config {
+namespace blink1_control::config {
+
+    /**
+     * Abstract class defining a command that can be in a pattern.
+     *
+     * @see PatternConfig
+     */
+    struct PatternCommand {
+        virtual ~PatternCommand() = default;
 
         /**
-         * Abstract class defining a command that can be in a pattern.
+         * Executes the command.
          *
-         * @see PatternConfig
+         * @param device The blink(1) device to execute on, if applicable.
          */
-        struct PatternCommand {
-            virtual ~PatternCommand() {}
+        virtual void execute(blink1_lib::Blink1Device& device) = 0;
 
-            /**
-             * Executes the command.
-             *
-             * @param device The blink(1) device to execute on, if applicable.
-             */
-            virtual void execute(blink1_lib::Blink1Device& device) = 0;
+        /**
+         * Output operator
+         *
+         * @param os Output stream
+         * @param config PatternCommand to output
+         */
+        friend std::ostream& operator<<(std::ostream& os, const blink1_control::config::PatternCommand& config) {
+            config.output(os);
+            return os;
+        }
 
+        private:
             /**
-             * Output operator
+             * Actual implementation of output operator
              *
              * @param os Output stream
-             * @param config PatternCommand to output
              */
-            friend std::ostream& operator<<(std::ostream& os, const blink1_control::config::PatternCommand& config) {
-                config.output(os);
-                return os;
+            virtual void output(std::ostream& os) const = 0;
+    };
+
+    /**
+     * Fades the blink(1) device (1 or all LEDs, depending on the value of N in fadeParams)
+     * to a new color according to the parameters passed in the constructor
+     */
+    struct FadeCommand : public PatternCommand {
+
+        /**
+         * All information needed to do the fade is held in this object
+         */
+        blink1_lib::PatternLineN fadeParams;
+
+        /**
+         * Constructor
+         *
+         * @param fadeParams Information about the fade (color and duration)
+         */
+        explicit FadeCommand(blink1_lib::PatternLineN fadeParams);
+
+        /**
+         * Executes the fade command on the given device.
+         *
+         * @param device The blink(1) device to execute on
+         */
+        void execute(blink1_lib::Blink1Device& device) override;
+
+        private:
+            /**
+             * Actual implementation of output operator
+             *
+             * @param os Output stream
+             */
+            void output(std::ostream& os) const override {
+                os << "FadeCommand{fadeParams: " << fadeParams << "}";
             }
+    };
 
-            private:
-                /**
-                 * Actual implementation of output operator
-                 *
-                 * @param os Output stream
-                 */
-                virtual void output(std::ostream& os) const = 0;
-        };
+    /**
+     * Simply sleeps for the specified time. Used to insert delays into patterns.
+     */
+    struct WaitCommand : public PatternCommand {
 
         /**
-         * Fades the blink(1) device (1 or all LEDs, depending on the value of N in fadeParams)
-         * to a new color according to the parameters passed in the constructor
+         * How long to wait
          */
-        struct FadeCommand : public PatternCommand {
-
-            /**
-             * All information needed to do the fade is held in this object
-             */
-            blink1_lib::PatternLineN fadeParams;
-
-            /**
-             * Constructor
-             *
-             * @param fadeParams Information about the fade (color and duration)
-             */
-            FadeCommand(blink1_lib::PatternLineN fadeParams);
-
-            /**
-             * Executes the fade command on the given device.
-             *
-             * @param device The blink(1) device to execute on
-             */
-            void execute(blink1_lib::Blink1Device& device);
-
-            private:
-                /**
-                 * Actual implementation of output operator
-                 *
-                 * @param os Output stream
-                 */
-                void output(std::ostream& os) const {
-                    os << "FadeCommand{fadeParams: " << fadeParams << "}";
-                }
-        };
+        std::chrono::milliseconds waitTime;
 
         /**
-         * Simply sleeps for the specified time. Used to insert delays into patterns.
+         * Constructor.
+         *
+         * @param waitTime How long to wait
          */
-        struct WaitCommand : public PatternCommand {
+        explicit WaitCommand(std::chrono::milliseconds waitTime);
 
-            /**
-             * How long to wait
-             */
-            std::chrono::milliseconds waitTime;
+        /**
+         * Executes the sleep.
+         *
+         * @param device Ignored
+         */
+        void execute(blink1_lib::Blink1Device& device) override;
 
+        private:
             /**
-             * Constructor.
+             * Actual implementation of output operator
              *
-             * @param waitTime How long to wait
+             * @param os Output stream
              */
-            WaitCommand(std::chrono::milliseconds waitTime);
+            void output(std::ostream& os) const override {
+                os << "WaitCommand{waitTime: " << waitTime.count() << "ms}";
+            }
+    };
 
-            /**
-             * Executes the sleep.
-             *
-             * @param device Ignored
-             */
-            void execute(blink1_lib::Blink1Device& device);
-
-            private:
-                /**
-                 * Actual implementation of output operator
-                 *
-                 * @param os Output stream
-                 */
-                void output(std::ostream& os) const {
-                    os << "WaitCommand{waitTime: " << waitTime.count() << "ms}";
-                }
-        };
-
-    }
 }

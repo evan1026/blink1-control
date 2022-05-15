@@ -38,7 +38,7 @@ endif()
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES COMPILE_FLAGS "${WARNINGS}")
 
 set(CXX_STANDARD_REQUIRED ON)
-set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
+set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
 ###########
 # DOXYGEN #
@@ -109,7 +109,7 @@ enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
 target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main nlohmann_json::nlohmann_json)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
-set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 17)
+set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
 # Coverage
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -131,4 +131,11 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     endif()
 
     add_definitions(-DDEBUG_PRINTF)
+
+    set_target_properties(
+        ${EXECUTABLE_NAME}
+        PROPERTIES
+            CXX_CLANG_TIDY "clang-tidy-12"
+    )
+
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
