@@ -1,15 +1,20 @@
 [submodule "blink1-tool"]
 	path = lib/blink1-tool
 	url = https://github.com/todbot/blink1-tool.git
+	branch = main
 [submodule "cmake-modules"]
 	path = cmake-modules
 	url = https://github.com/bilke/cmake-modules.git
+	branch = master
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest.git
+	branch = main
 [submodule "lib/json"]
 	path = lib/json
 	url = https://github.com/nlohmann/json.git
+	branch = master
 [submodule "lib/doxygen-awesome-css"]
 	path = lib/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+	branch = main
