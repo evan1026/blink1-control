@@ -113,11 +113,12 @@ $(document).ready(function(){initNavTree('ConfigParser_8hpp_source.html',''); in
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;ProcessMonitorConfig&gt; parseProcessMonitor(<span class="keyword">const</span> Json&amp; json);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;RollupConfig&gt; parseRollup(<span class="keyword">const</span> Json&amp; json);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        [[nodiscard]] <span class="keyword">static</span> <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGBN.html">blink1_lib::RGBN</a> parseRgb(<span class="keyword">const</span> std::string&amp; rgbString);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            [[nodiscard]] <span class="keyword">static</span> std::optional&lt;Config&gt; <a class="code" href="classblink1__control_1_1config_1_1ConfigParser.html#a6095d2ca4e6120619f9c32f056bba52d">parseConfig</a>(std::istream&amp; instream);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> readPattern(<span class="keyword">const</span> Json&amp; json, std::vector&lt;std::unique_ptr&lt;PatternCommand&gt;&gt;&amp; commands);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            [[nodiscard]] <span class="keyword">static</span> std::optional&lt;Config&gt; <a class="code" href="classblink1__control_1_1config_1_1ConfigParser.html#a6095d2ca4e6120619f9c32f056bba52d">parseConfig</a>(std::istream&amp; instream);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    };</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructblink1__control_1_1config_1_1Config_html"><div class="ttname"><a href="structblink1__control_1_1config_1_1Config.html">blink1_control::config::Config</a></div><div class="ttdef"><b>Definition:</b> Config.hpp:21</div></div>

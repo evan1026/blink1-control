@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['fadecommand_23',['FadeCommand',['../structblink1__control_1_1config_1_1FadeCommand.html',1,'blink1_control::config::FadeCommand'],['../structblink1__control_1_1config_1_1FadeCommand.html#aed89ea99cfe5c5c94c313628c501bcd7',1,'blink1_control::config::FadeCommand::FadeCommand()']]],
-  ['fademillis_24',['fadeMillis',['../structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6',1,'blink1_control::blink1_lib::PatternLine::fadeMillis()'],['../structblink1__control_1_1blink1__lib_1_1PatternLineN.html#a76b8bab529b45ed0a56c01121babc468',1,'blink1_control::blink1_lib::PatternLineN::fadeMillis()']]],
-  ['fadeparams_25',['fadeParams',['../structblink1__control_1_1config_1_1FadeCommand.html#a35a7b4f378c12f819f1716c00f2c0811',1,'blink1_control::config::FadeCommand']]],
-  ['fadetorgb_26',['fadeToRGB',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#aabf489271190b7ecae5086dc0170689a',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['fadetorgbn_27',['fadeToRGBN',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#ad185462e25c815e44d1c22c7b492747b',1,'blink1_control::blink1_lib::Blink1Device']]]
+  ['enabledegamma_23',['enableDegamma',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a04bf802f2234109755666805b03396ff',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['execute_24',['execute',['../structblink1__control_1_1config_1_1PatternCommand.html#a397ff896d06fab9e9e2b73f83f5ef701',1,'blink1_control::config::PatternCommand::execute()'],['../structblink1__control_1_1config_1_1FadeCommand.html#ad2fbc8b994dfba2a4389f3a16596e2a1',1,'blink1_control::config::FadeCommand::execute()'],['../structblink1__control_1_1config_1_1WaitCommand.html#ac1ce3df1b63a9604aca24fb410586547',1,'blink1_control::config::WaitCommand::execute()']]]
 ];

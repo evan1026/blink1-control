@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['g_28',['g',['../structblink1__control_1_1blink1__lib_1_1RGB.html#a4bea0e6c688d3066adc99ded846e1626',1,'blink1_control::blink1_lib::RGB::g()'],['../structblink1__control_1_1blink1__lib_1_1RGBN.html#a8cc69e784c3a38ffbcd07d92e4c01bce',1,'blink1_control::blink1_lib::RGBN::g()']]],
-  ['getcacheindex_29',['getCacheIndex',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#aa4c28c89e07824036a8fe8fcf76c6574',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['getserial_30',['getSerial',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a061bb3300db9b107e0b67bd8066f7f92',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['getversion_31',['getVersion',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a11b8f84445c9afe332147bca016ced9a',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['good_32',['good',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#abd8c8e6f73d088689062b8e7a59eb4a7',1,'blink1_control::blink1_lib::Blink1Device']]]
+  ['fadecommand_25',['FadeCommand',['../structblink1__control_1_1config_1_1FadeCommand.html',1,'blink1_control::config::FadeCommand'],['../structblink1__control_1_1config_1_1FadeCommand.html#aed89ea99cfe5c5c94c313628c501bcd7',1,'blink1_control::config::FadeCommand::FadeCommand()']]],
+  ['fademillis_26',['fadeMillis',['../structblink1__control_1_1blink1__lib_1_1PatternLine.html#ab8c12e2101c2075a5301844bc98a7cd6',1,'blink1_control::blink1_lib::PatternLine::fadeMillis()'],['../structblink1__control_1_1blink1__lib_1_1PatternLineN.html#a76b8bab529b45ed0a56c01121babc468',1,'blink1_control::blink1_lib::PatternLineN::fadeMillis()']]],
+  ['fadeparams_27',['fadeParams',['../structblink1__control_1_1config_1_1FadeCommand.html#a35a7b4f378c12f819f1716c00f2c0811',1,'blink1_control::config::FadeCommand']]],
+  ['fadetorgb_28',['fadeToRGB',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#aabf489271190b7ecae5086dc0170689a',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['fadetorgbn_29',['fadeToRGBN',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#ad185462e25c815e44d1c22c7b492747b',1,'blink1_control::blink1_lib::Blink1Device']]]
 ];
