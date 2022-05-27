@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['readpatternline_158',['readPatternLine',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#aee510a41d5fcc8212c156a1f647259da',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['readpatternlinen_159',['readPatternLineN',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a58ab824d8e65ffe720793cbc2bee2efc',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['readplaystate_160',['readPlayState',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a7a31af0f606dd04ee37e8d9ed846ec48',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['readrgb_161',['readRGB',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a156cbbf738a7f2a731c6b291d62efdb2',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['readrgbwithfade_162',['readRGBWithFade',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#ac73a6cd42530c6c839b816476adb992e',1,'blink1_control::blink1_lib::Blink1Device']]],
-  ['rgb_163',['RGB',['../structblink1__control_1_1blink1__lib_1_1RGB.html#adbd0bc83abe5a476721f8644c0594d32',1,'blink1_control::blink1_lib::RGB::RGB(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b) noexcept'],['../structblink1__control_1_1blink1__lib_1_1RGB.html#a5ea7dda1459a8120e405d2dafa830c7f',1,'blink1_control::blink1_lib::RGB::RGB() noexcept=default']]],
-  ['rgbn_164',['RGBN',['../structblink1__control_1_1blink1__lib_1_1RGBN.html#a6dc298b1eba12c415911048f22dfbd17',1,'blink1_control::blink1_lib::RGBN::RGBN(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b, const std::uint8_t n) noexcept'],['../structblink1__control_1_1blink1__lib_1_1RGBN.html#a9140cb3230af33597a34be8bb958870a',1,'blink1_control::blink1_lib::RGBN::RGBN() noexcept=default']]]
+  ['readpatternline_161',['readPatternLine',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#aee510a41d5fcc8212c156a1f647259da',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['readpatternlinen_162',['readPatternLineN',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a58ab824d8e65ffe720793cbc2bee2efc',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['readplaystate_163',['readPlayState',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a7a31af0f606dd04ee37e8d9ed846ec48',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['readrgb_164',['readRGB',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a156cbbf738a7f2a731c6b291d62efdb2',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['readrgbwithfade_165',['readRGBWithFade',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#ac73a6cd42530c6c839b816476adb992e',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['rgb_166',['RGB',['../structblink1__control_1_1blink1__lib_1_1RGB.html#adbd0bc83abe5a476721f8644c0594d32',1,'blink1_control::blink1_lib::RGB::RGB(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b) noexcept'],['../structblink1__control_1_1blink1__lib_1_1RGB.html#a5ea7dda1459a8120e405d2dafa830c7f',1,'blink1_control::blink1_lib::RGB::RGB() noexcept=default']]],
+  ['rgbn_167',['RGBN',['../structblink1__control_1_1blink1__lib_1_1RGBN.html#a6dc298b1eba12c415911048f22dfbd17',1,'blink1_control::blink1_lib::RGBN::RGBN(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b, const std::uint8_t n) noexcept'],['../structblink1__control_1_1blink1__lib_1_1RGBN.html#a9140cb3230af33597a34be8bb958870a',1,'blink1_control::blink1_lib::RGBN::RGBN() noexcept=default']]]
 ];
