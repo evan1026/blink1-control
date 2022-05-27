@@ -3,6 +3,7 @@ var dir_17ad4a5512d55e08e9bf21c125f0ab5d =
     [ "Blink1Device.hpp", "Blink1Device_8hpp.html", [
       [ "Blink1Device", "classblink1__control_1_1blink1__lib_1_1Blink1Device.html", "classblink1__control_1_1blink1__lib_1_1Blink1Device" ]
     ] ],
+    [ "FakeBlink1Lib.hpp", "FakeBlink1Lib_8hpp_source.html", null ],
     [ "PatternLine.hpp", "PatternLine_8hpp.html", [
       [ "PatternLine", "structblink1__control_1_1blink1__lib_1_1PatternLine.html", "structblink1__control_1_1blink1__lib_1_1PatternLine" ]
     ] ],

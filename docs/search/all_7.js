@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['n_35',['n',['../structblink1__control_1_1blink1__lib_1_1RGBN.html#aac731844b38f7c55f25b94dd443a8614',1,'blink1_control::blink1_lib::RGBN']]],
-  ['name_36',['name',['../structblink1__control_1_1config_1_1ConditionConfig.html#ae8f613813b2f98de5d3ab7878e623e11',1,'blink1_control::config::ConditionConfig::name()'],['../structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c',1,'blink1_control::config::PatternConfig::name()'],['../structblink1__control_1_1config_1_1RollupChild.html#a669ee6c6e4f041b116b692c94da8eef3',1,'blink1_control::config::RollupChild::name()']]]
+  ['isblocking_34',['isBlocking',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a013ac750bdaa86dfe342f57715667bdc',1,'blink1_control::blink1_lib::Blink1Device']]],
+  ['ismk2_35',['isMk2',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a27608006b41e2eea5053357cff25e42d',1,'blink1_control::blink1_lib::Blink1Device']]]
 ];
