@@ -21,7 +21,7 @@ namespace fake_blink1_lib {
     extern int cacheIndex;
     extern std::string serial;
     extern bool isMk2;
-    extern int patternLineLEDN;
+    extern uint8_t patternLineLEDN;
     extern blink1_control::blink1_lib::PlayState playState;
     extern int blink1Version;
     extern bool successfulOperation;
@@ -55,9 +55,9 @@ namespace fake_blink1_lib {
 
     void SET_RGB(blink1_control::blink1_lib::RGB rgb, long n);
 
-    long GET_FADE_MILLIS(long n);
+    uint16_t GET_FADE_MILLIS(long n);
 
-    void SET_FADE_MILLIS(long fadeMillis, long n);
+    void SET_FADE_MILLIS(uint16_t fadeMillis, long n);
 
     blink1_control::blink1_lib::PatternLineN GET_PATTERN_LINE(long pos);
 

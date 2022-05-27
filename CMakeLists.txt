@@ -27,7 +27,21 @@ set(SOURCES
     ${SOURCE_DIR}/config/ConfigParser.cpp
     ${SOURCE_DIR}/config/PatternCommand.cpp
 )
-add_executable(${EXECUTABLE_NAME} ${SOURCE_DIR}/main.cpp ${SOURCES})
+
+set(EXECUTABLE_SOURCES
+    ${SOURCES}
+    ${SOURCE_DIR}/main.cpp
+)
+
+if (DEFINED USE_FAKE_BLINK1TOOL)
+    add_definitions(-DUSE_FAKE_BLINK1TOOL)
+    set(EXECUTABLE_SOURCES
+        ${EXECUTABLE_SOURCES}
+        ${SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
+    )
+endif (DEFINED USE_FAKE_BLINK1TOOL)
+
+add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
 
 set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -80,7 +94,10 @@ add_custom_target(libblink1_target DEPENDS ${LIB_BLINK1_LOC})
 add_library(libblink1 STATIC IMPORTED GLOBAL)
 set_target_properties(libblink1 PROPERTIES IMPORTED_LOCATION ${LIB_BLINK1_LOC})
 add_dependencies(libblink1 libblink1_target)
-target_link_libraries(${EXECUTABLE_NAME} libblink1)
+
+if (NOT DEFINED USE_FAKE_BLINK1TOOL)
+    target_link_libraries(${EXECUTABLE_NAME} libblink1)
+endif (NOT DEFINED USE_FAKE_BLINK1TOOL)
 
 ###########
 # Testing #
@@ -91,11 +108,11 @@ set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
+    ${SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_BadInit_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_Blocking_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInit_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInitBadFunction_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
     ${TEST_SOURCE_DIR}/blink-lib/PatternLineN_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/PatternLine_test.cpp
     ${TEST_SOURCE_DIR}/blink-lib/PlayState_test.cpp

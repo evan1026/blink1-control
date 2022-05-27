@@ -9,6 +9,10 @@
 #include "blink-lib.hpp"
 #include "config.hpp"
 
+#ifdef USE_FAKE_BLINK1TOOL
+    #include "blink-lib/FakeBlink1Lib.hpp"
+#endif
+
 using blink1_control::config::ConfigParser;
 using blink1_control::config::PatternConfig;
 using blink1_control::blink1_lib::Blink1Device;
@@ -45,6 +49,12 @@ int main(int argc, const char* argv[]) {
     }
 
     auto config = ConfigParser::parseConfig(configFileStream);
+
+
+#ifdef USE_FAKE_BLINK1TOOL
+    fake_blink1_lib::SET_BLINK1_SUCCESSFUL_OPERATION(true);
+    fake_blink1_lib::SET_BLINK1_SUCCESSFUL_INIT(true);
+#endif
 
     Blink1Device blinkDevice;
 

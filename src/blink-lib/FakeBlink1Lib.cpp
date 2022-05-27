@@ -2,13 +2,31 @@
 #include <algorithm>
 #include <map>
 
-#include "gtest/gtest.h"
+#if __has_include("gtest/gtest.h")
+    #include "gtest/gtest.h"
+#else
+    #include <iostream>
+    #include <sstream>
+    std::ostream& ADD_FAILURE() {
+        return std::cerr;
+    }
+    std::stringstream dumpStream;
+    std::ostream& EXPECT_TRUE(bool val) {
+        if (val) {
+            dumpStream.str("");
+            return dumpStream;
+        } else {
+            return std::cerr;
+        }
+    }
+#endif
+
 #include "blink1-lib.h"
 
 #include "blink-lib/RGB.hpp"
 #include "blink-lib/PlayState.hpp"
 #include "blink-lib/PatternLineN.hpp"
-#include "FakeBlink1Lib.hpp"
+#include "blink-lib/FakeBlink1Lib.hpp"
 
 using namespace blink1_control::blink1_lib;
 
@@ -19,7 +37,7 @@ std::map<long, PatternLineN> fake_blink1_lib::patternLines;
 int fake_blink1_lib::cacheIndex = 0;
 std::string fake_blink1_lib::serial;
 bool fake_blink1_lib::isMk2;
-int fake_blink1_lib::patternLineLEDN = 0;
+uint8_t fake_blink1_lib::patternLineLEDN = 0;
 PlayState fake_blink1_lib::playState;
 int fake_blink1_lib::blink1Version = 0;
 bool fake_blink1_lib::successfulOperation = false;
@@ -107,15 +125,15 @@ void fake_blink1_lib::SET_RGB(RGB rgb, long n) {
     ledColors[n] = rgb;
 }
 
-long fake_blink1_lib::GET_FADE_MILLIS(long n) {
+uint16_t fake_blink1_lib::GET_FADE_MILLIS(long n) {
     if (ledFadeMillis.find(n) == ledFadeMillis.end()) {
         ADD_FAILURE() << "LED fade millis " << n << " has not yet been initialized.";
-        return -1;
+        return 0;
     }
     return ledFadeMillis.at(n);
 }
 
-void fake_blink1_lib::SET_FADE_MILLIS(long fadeMillis, long n) {
+void fake_blink1_lib::SET_FADE_MILLIS(uint16_t fadeMillis, long n) {
     ledFadeMillis[n] = fadeMillis;
 }
 
@@ -153,15 +171,15 @@ blink1_device* blink1_open() {
     }
 }
 
-blink1_device* blink1_openByPath(const char* path) {
+blink1_device* blink1_openByPath([[maybe_unused]] const char* path) {
     return blink1_open();
 }
 
-blink1_device* blink1_openBySerial(const char* serial) {
+blink1_device* blink1_openBySerial([[maybe_unused]] const char* serial) {
     return blink1_open();
 }
 
-blink1_device* blink1_openById(uint32_t id) {
+blink1_device* blink1_openById([[maybe_unused]] uint32_t id) {
     return blink1_open();
 }
 

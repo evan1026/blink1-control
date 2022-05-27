@@ -1,7 +1,7 @@
 
 #include "gtest/gtest.h"
 #include "config/PatternCommand.hpp"
-#include "../blink-lib/FakeBlink1Lib.hpp"
+#include "blink-lib/FakeBlink1Lib.hpp"
 
 using namespace blink1_control::config;
 using namespace blink1_control::blink1_lib;
