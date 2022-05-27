@@ -118,6 +118,26 @@ namespace blink1_control::config {
         return parseArray(json, config, PATTERNS_STRING, [](const Json& ljson, Config& lconfig){return parsePattern(ljson, lconfig);});
     }
 
+    void ConfigParser::readPattern(const Json& json, std::vector<std::unique_ptr<PatternCommand>>& commands) {
+        for (const Json& line : json) {
+            bool hasLed = line.contains("led");
+            bool hasColor = line.contains("color");
+
+            if (hasLed && hasColor) {
+                blink1_lib::PatternLineN patternLine;
+                patternLine.rgbn = parseRgb(line.at("color"));
+                patternLine.rgbn.n = line.at("led");
+                patternLine.fadeMillis = line.at("time");
+
+                commands.push_back(std::make_unique<FadeCommand>(patternLine));
+            } else if (hasLed || hasColor) {
+                throw std::runtime_error("Pattern line must contain both 'led' and 'color' or neither of them");
+            } else {
+                commands.push_back(std::make_unique<WaitCommand>(std::chrono::milliseconds(line.at("time"))));
+            }
+        }
+    }
+
     bool ConfigParser::parsePattern(const Json& json, Config& config) {
         bool success = true;
 
@@ -126,22 +146,12 @@ namespace blink1_control::config {
             pattern->name = json.at("name");
             pattern->repeat = json.at("repeat");
 
-            for (const Json& line : json.at("lines")) {
-                bool hasLed = line.contains("led");
-                bool hasColor = line.contains("color");
-
-                if (hasLed && hasColor) {
-                    blink1_lib::PatternLineN patternLine;
-                    patternLine.rgbn = parseRgb(line.at("color"));
-                    patternLine.rgbn.n = line.at("led");
-                    patternLine.fadeMillis = line.at("time");
-
-                    pattern->pattern.push_back(std::make_unique<FadeCommand>(patternLine));
-                } else if (hasLed || hasColor) {
-                    throw std::runtime_error("Pattern line must contain both 'led' and 'color' or neither of them");
-                } else {
-                    pattern->pattern.push_back(std::make_unique<WaitCommand>(std::chrono::milliseconds(line.at("time"))));
-                }
+            readPattern(json.at("lines"), pattern->pattern);
+            if (json.contains("before")) {
+                readPattern(json.at("before"), pattern->before);
+            }
+            if (json.contains("after")) {
+                readPattern(json.at("after"), pattern->after);
             }
 
             config.patternConfigs.emplace(pattern->name, pattern);

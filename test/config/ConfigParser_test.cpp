@@ -83,6 +83,20 @@ TEST_F(SUITE_NAME, TestParseConfig) {
                     {
                         "time": 1234
                     }
+                ],
+                "before": [
+                    {
+                        "color": "#ABCDEF",
+                        "led": 5,
+                        "time": 10
+                    }
+                ],
+                "after": [
+                    {
+                        "color": "#FEDCBA",
+                        "led": 6,
+                        "time": 11
+                    }
                 ]
             }
         ]
@@ -155,6 +169,25 @@ TEST_F(SUITE_NAME, TestParseConfig) {
     EXPECT_EQ(typeid(WaitCommand&), typeid(patternLine3));
     auto& waitCommand = dynamic_cast<WaitCommand&>(patternLine3);
     EXPECT_EQ(std::chrono::milliseconds(1234), waitCommand.waitTime);
+
+    auto& beforeLine = *rollupPatternConfig->before[0];
+    auto& afterLine = *rollupPatternConfig->after[0];
+
+    EXPECT_EQ(typeid(FadeCommand&), typeid(beforeLine));
+    auto& beforeCommand = dynamic_cast<FadeCommand&>(beforeLine);
+    EXPECT_EQ(0xAB, beforeCommand.fadeParams.rgbn.r);
+    EXPECT_EQ(0xCD, beforeCommand.fadeParams.rgbn.g);
+    EXPECT_EQ(0xEF, beforeCommand.fadeParams.rgbn.b);
+    EXPECT_EQ(5, beforeCommand.fadeParams.rgbn.n);
+    EXPECT_EQ(10, beforeCommand.fadeParams.fadeMillis);
+
+    EXPECT_EQ(typeid(FadeCommand&), typeid(afterLine));
+    auto& afterCommand = dynamic_cast<FadeCommand&>(afterLine);
+    EXPECT_EQ(0xFE, afterCommand.fadeParams.rgbn.r);
+    EXPECT_EQ(0xDC, afterCommand.fadeParams.rgbn.g);
+    EXPECT_EQ(0xBA, afterCommand.fadeParams.rgbn.b);
+    EXPECT_EQ(6, afterCommand.fadeParams.rgbn.n);
+    EXPECT_EQ(11, afterCommand.fadeParams.fadeMillis);
 }
 
 TEST_F(SUITE_NAME, TestBadStreams) {

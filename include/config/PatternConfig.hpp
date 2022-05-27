@@ -25,6 +25,16 @@ namespace blink1_control::config {
         std::string name;
 
         /**
+         * A list of pattern lines which get played before the pattern starts
+         */
+        std::vector<std::unique_ptr<PatternCommand>> before;
+
+        /**
+         * A list of pattern lines which get played after the pattern is done
+         */
+        std::vector<std::unique_ptr<PatternCommand>> after;
+
+        /**
          * A list of pattern lines which make up the pattern
          */
         std::vector<std::unique_ptr<PatternCommand>> pattern;

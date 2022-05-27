@@ -68,12 +68,24 @@ int main(int argc, const char* argv[]) {
             PatternConfig& pattern = *it->second;
             std::cout << "Playing " << pattern.name << "\n";
 
+            std::cout << "    Playing before pattern\n";
+            for (auto& patternLine : pattern.before) {
+                std::cout << "        Playing " << *patternLine << "\n";
+                patternLine->execute(blinkDevice);
+            }
+
             for (int i = 0; i < pattern.repeat && LOOPING; ++i) {
                 std::cout << "    Playing iteration " << i << "/" << pattern.repeat << "\n";
                 for (auto& patternLine : pattern.pattern) {
                     std::cout << "        Playing " << *patternLine << "\n";
                     patternLine->execute(blinkDevice);
                 }
+            }
+
+            std::cout << "    Playing after pattern\n";
+            for (auto& patternLine : pattern.after) {
+                std::cout << "        Playing " << *patternLine << "\n";
+                patternLine->execute(blinkDevice);
             }
         }
     }

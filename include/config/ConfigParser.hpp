@@ -34,6 +34,7 @@ namespace blink1_control::config {
         [[nodiscard]] static std::shared_ptr<ProcessMonitorConfig> parseProcessMonitor(const Json& json);
         [[nodiscard]] static std::shared_ptr<RollupConfig> parseRollup(const Json& json);
         [[nodiscard]] static blink1_lib::RGBN parseRgb(const std::string& rgbString);
+        static void readPattern(const Json& json, std::vector<std::unique_ptr<PatternCommand>>& commands);
 
         public:
             /**
