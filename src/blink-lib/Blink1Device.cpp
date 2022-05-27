@@ -23,6 +23,12 @@ namespace blink1_control::blink1_lib {
         }
     }
 
+    Blink1Device::~Blink1Device() {
+        if (clearOnExit) {
+            setRGB(clearColor);
+        }
+    }
+
     void Blink1Device::destroyBlinkDevice(blink1_device* device) noexcept {
         blink1_close(device);
     }

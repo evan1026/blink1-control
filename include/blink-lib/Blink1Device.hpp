@@ -40,6 +40,17 @@ namespace blink1_control::blink1_lib {
             };
 
             /**
+             * Color to clear to if Blink1Device::clearOnExit is set to true. Defaults to black/off.
+             */
+            RGB clearColor{0, 0, 0};
+
+            /**
+             * Set to true to clear the LEDs when the destructor is called.
+             * The clear color can be changed with Blink1Device::clearColor.
+             */
+            bool clearOnExit{false};
+
+            /**
              * Default constructor
              */
             Blink1Device() noexcept;
@@ -60,6 +71,14 @@ namespace blink1_control::blink1_lib {
              * @param initType How to interpret the the string
              */
             Blink1Device(const char* stringInitializer, const STRING_INIT_TYPE initType) noexcept;
+
+            Blink1Device(const Blink1Device& other) = delete;
+            Blink1Device& operator=(const Blink1Device& other) = delete;
+
+            /**
+             * Destructor.
+             */
+            ~Blink1Device();
 
             /**
              * Returns whether or not the device is successfully connected

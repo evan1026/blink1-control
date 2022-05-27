@@ -22,7 +22,3 @@ Structure
     * Potentially try to find what the next pattern would have been in the new list and start playing from there
 
 ## Misc
-* Make sure to turn device off on exit (set LED0 to #000000)
-    * I guess we could do that in the destructor? But I'm not sure I want to to that in the library so maybe
-      I'll make a derived class for a blink1 device that turns it of when destructed
-* Add 'before' and 'after' sections to patterns so we can do something before or after the part that is repeated

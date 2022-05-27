@@ -63,6 +63,8 @@ int main(int argc, const char* argv[]) {
         return 3;
     }
 
+    blinkDevice.clearOnExit = true;
+
     while (LOOPING) {
         for (auto it = config->patternConfigs.begin(); it != config->patternConfigs.end() && LOOPING; ++it) {
             PatternConfig& pattern = *it->second;
