@@ -4,6 +4,10 @@ project(blink1-control)
 
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG_PRINTF)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -11,6 +15,7 @@ endif (CMAKE_BUILD_TYPE MATCHES Debug)
 ##################
 # BLINK1-CONTROL #
 ##################
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAG_RELEASE} -O3")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG -g")
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -156,3 +161,17 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     )
 
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
+
+################
+# OPTIMIZATION #
+################
+include(CheckIPOSupported)
+check_ipo_supported(RESULT ipo_supported OUTPUT error)
+if (ipo_supported)
+    message(STATUS "IPO/LTO enabled")
+    set_property(TARGET ${EXECUTABLE_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+    set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+else()
+    message(STATUS "IPO/LTO not supported")
+endif()
+
