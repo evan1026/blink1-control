@@ -157,7 +157,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     set_target_properties(
         ${EXECUTABLE_NAME}
         PROPERTIES
-            CXX_CLANG_TIDY "clang-tidy-12"
+            CXX_CLANG_TIDY "clang-tidy"
     )
 
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
