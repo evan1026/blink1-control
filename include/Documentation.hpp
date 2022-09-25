@@ -12,7 +12,6 @@
  * @section classes Classes
  *
  * Interesting classes:
- *     - blink1_control::blink1_lib::Blink1Device
  *     - blink1_control::config::Config
  */
 

@@ -1,10 +1,10 @@
 
 #include "gtest/gtest.h"
 #include "config/PatternCommand.hpp"
-#include "blink-lib/FakeBlink1Lib.hpp"
+#include "FakeBlink1Lib.hpp"
 
 using namespace blink1_control::config;
-using namespace blink1_control::blink1_lib;
+using namespace blink1_lib;
 
 #define FADE_SUITE_NAME FadeCommand_test
 #define WAIT_SUITE_NAME WaitCommand_test

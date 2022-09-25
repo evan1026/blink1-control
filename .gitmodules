@@ -1,7 +1,3 @@
-[submodule "blink1-tool"]
-	path = lib/blink1-tool
-	url = https://github.com/todbot/blink1-tool.git
-	branch = main
 [submodule "cmake-modules"]
 	path = cmake-modules
 	url = https://github.com/bilke/cmake-modules.git
@@ -18,3 +14,7 @@
 	path = lib/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
 	branch = main
+[submodule "lib/blink1-lib"]
+	path = lib/blink1-lib
+	url = https://github.com/evan1026/blink1-lib.git
+	branch = master

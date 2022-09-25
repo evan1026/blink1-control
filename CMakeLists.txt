@@ -23,12 +23,6 @@ include_directories(${INCLUDE_DIR})
 set(EXECUTABLE_NAME "blink1-control")
 
 set(SOURCES
-    ${SOURCE_DIR}/blink-lib/Blink1Device.cpp
-    ${SOURCE_DIR}/blink-lib/PatternLine.cpp
-    ${SOURCE_DIR}/blink-lib/PatternLineN.cpp
-    ${SOURCE_DIR}/blink-lib/PlayState.cpp
-    ${SOURCE_DIR}/blink-lib/RGB.cpp
-    ${SOURCE_DIR}/blink-lib/RGBN.cpp
     ${SOURCE_DIR}/config/ConfigParser.cpp
     ${SOURCE_DIR}/config/PatternCommand.cpp
 )
@@ -37,14 +31,6 @@ set(EXECUTABLE_SOURCES
     ${SOURCES}
     ${SOURCE_DIR}/main.cpp
 )
-
-if (DEFINED USE_FAKE_BLINK1TOOL)
-    add_definitions(-DUSE_FAKE_BLINK1TOOL)
-    set(EXECUTABLE_SOURCES
-        ${EXECUTABLE_SOURCES}
-        ${SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
-    )
-endif (DEFINED USE_FAKE_BLINK1TOOL)
 
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
 
@@ -58,6 +44,20 @@ set_target_properties(${EXECUTABLE_NAME} PROPERTIES COMPILE_FLAGS "${WARNINGS}")
 
 set(CXX_STANDARD_REQUIRED ON)
 set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
+
+##############
+# BLINK1-LIB #
+##############
+add_definitions(-DUSE_HIDAPI)
+add_subdirectory(${LIB_DIR}/blink1-lib)
+include_directories(${BLINK1_LIB_INCLUDES})
+
+if (USE_BLINK1_TESTING_LIBRARY)
+    add_definitions(-DUSE_BLINK1_TESTING_LIBRARY)
+    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIB_TESTING_LIBRARIES})
+else(USE_BLINK1_TESTING_LIBRARY)
+    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIB_LIBRARIES})
+endif(USE_BLINK1_TESTING_LIBRARY)
 
 ###########
 # DOXYGEN #
@@ -82,28 +82,6 @@ set(JSON_BuildTests OFF CACHE INTERNAL "")
 add_subdirectory(${LIB_DIR}/json)
 target_link_libraries(${EXECUTABLE_NAME} nlohmann_json::nlohmann_json)
 
-###############
-# BLINK1-TOOL #
-###############
-set(BLINK1_DIR ${LIB_DIR}/blink1-tool)
-set(LIB_BLINK1_LOC ${BLINK1_DIR}/libblink1.so)
-
-add_definitions(-DUSE_HIDAPI)
-include_directories(${BLINK1_DIR})
-include_directories(${BLINK1_DIR}/hidapi/hidapi)
-
-add_custom_command(OUTPUT ${LIB_BLINK1_LOC}
-                   COMMAND $(MAKE) lib
-                   WORKING_DIRECTORY ${BLINK1_DIR})
-add_custom_target(libblink1_target DEPENDS ${LIB_BLINK1_LOC})
-add_library(libblink1 STATIC IMPORTED GLOBAL)
-set_target_properties(libblink1 PROPERTIES IMPORTED_LOCATION ${LIB_BLINK1_LOC})
-add_dependencies(libblink1 libblink1_target)
-
-if (NOT DEFINED USE_FAKE_BLINK1TOOL)
-    target_link_libraries(${EXECUTABLE_NAME} libblink1)
-endif (NOT DEFINED USE_FAKE_BLINK1TOOL)
-
 ###########
 # Testing #
 ###########
@@ -113,23 +91,13 @@ set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 set(TEST_SOURCES
-    ${SOURCE_DIR}/blink-lib/FakeBlink1Lib.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_BadInit_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_Blocking_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInit_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/Blink1Device_GoodInitBadFunction_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/PatternLineN_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/PatternLine_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/PlayState_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/RGBN_test.cpp
-    ${TEST_SOURCE_DIR}/blink-lib/RGB_test.cpp
     ${TEST_SOURCE_DIR}/config/ConfigParser_test.cpp
     ${TEST_SOURCE_DIR}/config/PatternCommand_test.cpp
 )
 
 enable_testing()
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} gtest gtest_main gmock gmock_main nlohmann_json::nlohmann_json)
+target_link_libraries(${TEST_EXECUTABLE_NAME} ${BLINK1_LIB_TESTING_LIBRARIES} gtest gtest_main gmock gmock_main nlohmann_json::nlohmann_json)
 gtest_discover_tests(${TEST_EXECUTABLE_NAME})
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
