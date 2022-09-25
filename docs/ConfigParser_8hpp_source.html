@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('ConfigParser_8hpp_source.html',''); in
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="blink-lib_8hpp.html">blink-lib.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;blink-lib.hpp&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Config_8hpp.html">config/Config.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ProcessMonitorConfig_8hpp.html">config/ProcessMonitorConfig.hpp</a>&quot;</span></div>
@@ -112,7 +112,7 @@ $(document).ready(function(){initNavTree('ConfigParser_8hpp_source.html',''); in
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        [[nodiscard]] <span class="keyword">static</span> <span class="keywordtype">bool</span> parsePattern(<span class="keyword">const</span> Json&amp; json, <a class="code" href="structblink1__control_1_1config_1_1Config.html">Config</a>&amp; config);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;ProcessMonitorConfig&gt; parseProcessMonitor(<span class="keyword">const</span> Json&amp; json);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        [[nodiscard]] <span class="keyword">static</span> std::shared_ptr&lt;RollupConfig&gt; parseRollup(<span class="keyword">const</span> Json&amp; json);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        [[nodiscard]] <span class="keyword">static</span> <a class="code" href="structblink1__control_1_1blink1__lib_1_1RGBN.html">blink1_lib::RGBN</a> parseRgb(<span class="keyword">const</span> std::string&amp; rgbString);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        [[nodiscard]] <span class="keyword">static</span> blink1_lib::RGBN parseRgb(<span class="keyword">const</span> std::string&amp; rgbString);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> readPattern(<span class="keyword">const</span> Json&amp; json, std::vector&lt;std::unique_ptr&lt;PatternCommand&gt;&gt;&amp; commands);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">public</span>:</div>
@@ -122,12 +122,10 @@ $(document).ready(function(){initNavTree('ConfigParser_8hpp_source.html',''); in
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructblink1__control_1_1config_1_1Config_html"><div class="ttname"><a href="structblink1__control_1_1config_1_1Config.html">blink1_control::config::Config</a></div><div class="ttdef"><b>Definition:</b> Config.hpp:21</div></div>
-<div class="ttc" id="astructblink1__control_1_1blink1__lib_1_1RGBN_html"><div class="ttname"><a href="structblink1__control_1_1blink1__lib_1_1RGBN.html">blink1_control::blink1_lib::RGBN</a></div><div class="ttdef"><b>Definition:</b> RGBN.hpp:16</div></div>
 <div class="ttc" id="aProcessMonitorConfig_8hpp_html"><div class="ttname"><a href="ProcessMonitorConfig_8hpp.html">ProcessMonitorConfig.hpp</a></div><div class="ttdoc">Header file for blink1_control::config::ProcessMonitorConfig.</div></div>
 <div class="ttc" id="aclassblink1__control_1_1config_1_1ConfigParser_html_a6095d2ca4e6120619f9c32f056bba52d"><div class="ttname"><a href="classblink1__control_1_1config_1_1ConfigParser.html#a6095d2ca4e6120619f9c32f056bba52d">blink1_control::config::ConfigParser::parseConfig</a></div><div class="ttdeci">static std::optional&lt; Config &gt; parseConfig(std::istream &amp;instream)</div></div>
 <div class="ttc" id="aConfig_8hpp_html"><div class="ttname"><a href="Config_8hpp.html">Config.hpp</a></div><div class="ttdoc">Header file for blink1_control::config::Config.</div></div>
 <div class="ttc" id="anamespaceblink1__control_1_1config_html"><div class="ttname"><a href="namespaceblink1__control_1_1config.html">blink1_control::config</a></div><div class="ttdef"><b>Definition:</b> ConditionConfig.hpp:12</div></div>
-<div class="ttc" id="ablink-lib_8hpp_html"><div class="ttname"><a href="blink-lib_8hpp.html">blink-lib.hpp</a></div><div class="ttdoc">Header file for blink1_control::blink1_lib.</div></div>
 <div class="ttc" id="aRollupConfig_8hpp_html"><div class="ttname"><a href="RollupConfig_8hpp.html">RollupConfig.hpp</a></div><div class="ttdoc">Header file for blink1_control::config::RollupConfig.</div></div>
 <div class="ttc" id="aclassblink1__control_1_1config_1_1ConfigParser_html"><div class="ttname"><a href="classblink1__control_1_1config_1_1ConfigParser.html">blink1_control::config::ConfigParser</a></div><div class="ttdef"><b>Definition:</b> ConfigParser.hpp:29</div></div>
 <!-- start footer part -->

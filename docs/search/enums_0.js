@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['string_5finit_5ftype_207',['STRING_INIT_TYPE',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#adc5d3e93fcb36e0d7549e8b9d24c9168',1,'blink1_control::blink1_lib::Blink1Device']]]
+  ['type_78',['Type',['../structblink1__control_1_1config_1_1ConditionConfig.html#ab4dbec32e20ed2fee0e5d33fa2e8bf12',1,'blink1_control::config::ConditionConfig']]]
 ];

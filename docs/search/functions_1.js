@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clearcache_138',['clearCache',['../classblink1__control_1_1blink1__lib_1_1Blink1Device.html#a2e2b52181a4ad98fc49e2d419faa4b2e',1,'blink1_control::blink1_lib::Blink1Device']]]
+  ['fadecommand_61',['FadeCommand',['../structblink1__control_1_1config_1_1FadeCommand.html#aed89ea99cfe5c5c94c313628c501bcd7',1,'blink1_control::config::FadeCommand']]]
 ];

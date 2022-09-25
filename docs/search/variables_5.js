@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['n_191',['n',['../structblink1__control_1_1blink1__lib_1_1RGBN.html#aac731844b38f7c55f25b94dd443a8614',1,'blink1_control::blink1_lib::RGBN']]],
-  ['name_192',['name',['../structblink1__control_1_1config_1_1ConditionConfig.html#ae8f613813b2f98de5d3ab7878e623e11',1,'blink1_control::config::ConditionConfig::name()'],['../structblink1__control_1_1config_1_1PatternConfig.html#aab063515d50050583f6530172118b31c',1,'blink1_control::config::PatternConfig::name()'],['../structblink1__control_1_1config_1_1RollupChild.html#a669ee6c6e4f041b116b692c94da8eef3',1,'blink1_control::config::RollupChild::name()']]]
+  ['pattern_72',['pattern',['../structblink1__control_1_1config_1_1PatternConfig.html#a61e05f4c38f91e16db892169a19a576b',1,'blink1_control::config::PatternConfig']]],
+  ['patternconfigs_73',['patternConfigs',['../structblink1__control_1_1config_1_1Config.html#a25894880bd2eaaa055a19d632d5f5b28',1,'blink1_control::config::Config']]],
+  ['patterns_74',['patterns',['../structblink1__control_1_1config_1_1ConditionConfig.html#a5c3722e45a86d88115e23bfb935ecd13',1,'blink1_control::config::ConditionConfig']]]
 ];

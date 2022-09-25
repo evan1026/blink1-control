@@ -49,7 +49,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"Blink1Device_8hpp.html"
+"ConditionConfig_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

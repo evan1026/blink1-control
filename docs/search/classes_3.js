@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hid_5fdevice_5f_107',['hid_device_',['../structhid__device__.html',1,'']]]
+  ['rollupchild_47',['RollupChild',['../structblink1__control_1_1config_1_1RollupChild.html',1,'blink1_control::config']]],
+  ['rollupconfig_48',['RollupConfig',['../structblink1__control_1_1config_1_1RollupConfig.html',1,'blink1_control::config']]]
 ];
