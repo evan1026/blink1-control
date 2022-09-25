@@ -2,7 +2,7 @@ Structure
 =========
 
 ## Thread 1
-* CommandManager runs commands and based on outputs determines what patterns should be active and sends that to the PatternManager
+* Open socket with inputs that determine which patterns should be active and send them to PatternManager
 * PatternManager generates super-pattern
     * Loops through all active patterns to see which are compatible with each other
         * Two patterns are compatible if neither uses LED 0 and if the sets of their LEDs don't intersect
