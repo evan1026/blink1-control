@@ -12,6 +12,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG_PRINTF)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS yes)
+
 ##################
 # BLINK1-CONTROL #
 ##################
