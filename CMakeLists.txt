@@ -27,6 +27,7 @@ set(EXECUTABLE_NAME "blink1-control")
 set(SOURCES
     ${SOURCE_DIR}/config/ConfigParser.cpp
     ${SOURCE_DIR}/config/PatternCommand.cpp
+    ${SOURCE_DIR}/Socket.cpp
 )
 
 set(EXECUTABLE_SOURCES

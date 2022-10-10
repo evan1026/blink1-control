@@ -5,12 +5,15 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <span>
+#include <thread>
+#include <vector>
 
 #include "blink-lib.hpp"
 #include "config.hpp"
+#include "Socket.hpp"
 
 #ifdef USE_BLINK1_TESTING_LIBRARY
-    #include "FakeBlink1Lib.hpp"
+    #include "Blink1TestingLibrary.hpp"
 #endif
 
 using blink1_control::config::ConfigParser;
@@ -55,6 +58,60 @@ int main(int argc, const char* argv[]) {
     fake_blink1_lib::SET_BLINK1_SUCCESSFUL_OPERATION(true);
     fake_blink1_lib::SET_BLINK1_SUCCESSFUL_INIT(true);
 #endif
+
+    blink1_control::Socket socket(blink1_control::SocketDomain::Local, blink1_control::SocketType::Stream, blink1_control::SocketProtocol::IP);
+    if (socket.getStatus() == blink1_control::SocketStatus::NotOpen) {
+        std::cout << "Error: " << socket.getError() << "\n";
+        return 4;
+    }
+    std::cout << "Socket status: " << socket.getStatus() << ", Socket File Descriptor: " << socket.getSocketFd() << "\n";
+
+    auto bindStatus = socket.bind("./blink1-control.sock");
+    std::cout << "Bind status: " << bindStatus << ", Socket status: " << socket.getStatus() << ", Socket Bind Path: " << socket.getPath() << "\n";
+    if (bindStatus != blink1_control::SocketError::None) {
+        return 5;
+    }
+
+    auto listenStatus = socket.listen();
+    std::cout << "Listen status: " << listenStatus << ", Socket status: " << socket.getStatus() << "\n";
+    if (listenStatus != blink1_control::SocketError::None) {
+        return 6;
+    }
+
+    std::cout << "Nonblocking status: " << socket.setNonBlocking() << "\n";
+
+    std::vector<blink1_control::SocketConnection> socketConnections;
+
+    while (LOOPING) {
+        auto returnVal = socket.accept();
+
+        if (returnVal.first != blink1_control::SocketError::WouldBlockTryAgain) {
+            std::cout << "Accept status: " << returnVal.first << "\n";
+
+            if (returnVal.first == blink1_control::SocketError::None) {
+                std::cout << "New Connection Address: " << returnVal.second->getAddress() << "\n";
+                socketConnections.push_back(std::move(*returnVal.second));
+            }
+        }
+
+        for (auto it = socketConnections.begin(); it != socketConnections.end();) {
+            auto& connection = *it;
+            auto receivedData = connection.receive();
+
+            if (receivedData.first == blink1_control::SocketError::None) {
+                std::cout << "Received data: " << receivedData.second << "\n";
+                ++it;
+            } else if (receivedData.first == blink1_control::SocketError::SocketClosed) {
+                std::cout << "Connection Closed\n";
+                it = socketConnections.erase(it);
+            } else {
+                std::cout << "Error receiving: " << receivedData.first << "\n";
+                ++it;
+            }
+        }
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
 
     Blink1Device blinkDevice;
 
