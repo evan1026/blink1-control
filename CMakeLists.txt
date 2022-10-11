@@ -3,25 +3,77 @@ cmake_minimum_required(VERSION 3.10)
 project(blink1-control)
 
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAG_RELEASE} -O3")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG -g")
+set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${INCLUDE_DIR})
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
+add_definitions(-DUSE_HIDAPI)
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions(-DDEBUG_PRINTF)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS yes)
 
+#######
+# CPM #
+#######
+set(CPM_DOWNLOAD_VERSION 0.36.0)
+
+if(CPM_SOURCE_CACHE)
+  set(CPM_DOWNLOAD_LOCATION "${CPM_SOURCE_CACHE}/cpm/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
+elseif(DEFINED ENV{CPM_SOURCE_CACHE})
+  set(CPM_DOWNLOAD_LOCATION "$ENV{CPM_SOURCE_CACHE}/cpm/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
+else()
+  set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
+endif()
+
+if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION}))
+  message(STATUS "Downloading CPM.cmake to ${CPM_DOWNLOAD_LOCATION}")
+  file(DOWNLOAD
+       https://github.com/TheLartians/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake
+       ${CPM_DOWNLOAD_LOCATION}
+  )
+endif()
+
+include(${CPM_DOWNLOAD_LOCATION})
+
+####################
+# CPM DEPENDENCIES #
+####################
+CPMAddPackage(
+  NAME nlohmann_json
+  VERSION 3.11.2
+  GITHUB_REPOSITORY nlohmann/json
+  OPTIONS
+    "JSON_BuildTests OFF"
+)
+set(JSON_LIBRARIES nlohmann_json::nlohmann_json)
+
+CPMAddPackage(
+  NAME googletest
+  GITHUB_REPOSITORY google/googletest
+  GIT_TAG release-1.12.1
+  VERSION 1.12.1
+)
+set(GTEST_LIBRARIES gtest gtest_main gmock gmock_main)
+
+CPMAddPackage(
+  NAME blink1-lib
+  GITHUB_REPOSITORY evan1026/blink1-lib
+  VERSION 1.1.0
+)
+set(BLINK1_LIBRARIES blink1)
+set(BLINK1_TESTING_LIBRARIES blink1-testing)
+
 ##################
 # BLINK1-CONTROL #
 ##################
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAG_RELEASE} -O3")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG -g")
-set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${INCLUDE_DIR})
 set(EXECUTABLE_NAME "blink1-control")
 
 set(SOURCES
@@ -35,6 +87,7 @@ set(EXECUTABLE_SOURCES
 )
 
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
+target_link_libraries(${EXECUTABLE_NAME} ${JSON_LIBRARIES})
 
 set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -50,15 +103,11 @@ set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 ##############
 # BLINK1-LIB #
 ##############
-add_definitions(-DUSE_HIDAPI)
-add_subdirectory(${LIB_DIR}/blink1-lib)
-include_directories(${BLINK1_LIB_INCLUDES})
-
 if (USE_BLINK1_TESTING_LIBRARY)
     add_definitions(-DUSE_BLINK1_TESTING_LIBRARY)
-    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIB_TESTING_LIBRARIES})
+    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_TESTING_LIBRARIES})
 else(USE_BLINK1_TESTING_LIBRARY)
-    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIB_LIBRARIES})
+    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIBRARIES})
 endif(USE_BLINK1_TESTING_LIBRARY)
 
 ###########
@@ -77,18 +126,9 @@ if (DOXYGEN_FOUND)
     )
 endif(DOXYGEN_FOUND)
 
-########
-# JSON #
-########
-set(JSON_BuildTests OFF CACHE INTERNAL "")
-add_subdirectory(${LIB_DIR}/json)
-target_link_libraries(${EXECUTABLE_NAME} nlohmann_json::nlohmann_json)
-
 ###########
 # Testing #
 ###########
-add_subdirectory(${LIB_DIR}/googletest)
-include(GoogleTest)
 set(TEST_EXECUTABLE_NAME ${EXECUTABLE_NAME}_test)
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
@@ -98,14 +138,19 @@ set(TEST_SOURCES
 )
 
 enable_testing()
+
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} ${BLINK1_LIB_TESTING_LIBRARIES} gtest gtest_main gmock gmock_main nlohmann_json::nlohmann_json)
-gtest_discover_tests(${TEST_EXECUTABLE_NAME})
+target_link_libraries(${TEST_EXECUTABLE_NAME} ${BLINK1_TESTING_LIBRARIES} ${GTEST_LIBRARIES} ${JSON_LIBRARIES})
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
-# Coverage
+include(GoogleTest)
+gtest_discover_tests(${TEST_EXECUTABLE_NAME})
+
+############
+# COVERAGE #
+############
 if (CMAKE_BUILD_TYPE MATCHES Debug)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules")
+    list(APPEND CMAKE_MODULE_PATH "${LIB_DIR}/cmake-modules")
     include(CodeCoverage)
 
     set(COVERAGE_EXCLUDES "/usr/*" "${LIB_DIR}/*" "${TEST_SOURCE_DIR}/*" "${SOURCE_DIR}/main.cpp")
