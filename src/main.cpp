@@ -32,7 +32,7 @@ void signalCallbackHandler(int signum) {
 }
 
 int main(int argc, const char* argv[]) {
-    auto args = std::span(argv, size_t(argc));
+    auto args = std::span(argv, static_cast<size_t>(argc));
 
     if (args.size() != 2) {
         std::cout << "Usage: " << args[0] << " config_file\n";
