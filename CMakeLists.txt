@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAG_RELEASE} -O3")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG -g")
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(CMAKE_SCRIPT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include_directories(${INCLUDE_DIR})
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -20,71 +21,28 @@ endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS yes)
 
+include(${CMAKE_SCRIPT_DIR}/cpm_utilities.cmake)
+
+set(         CPM_VERSION  0.36.0  )
+set(        JSON_VERSION  3.11.2  )
+set(  BLINK1_LIB_VERSION  1.1.0   )
+set(     CXXOPTS_VERSION  3.0.0   )
+set( GOOGLE_TEST_VERSION  1.12.1  )
+set(       BOOST_VERSION  1.80.0  )
+
 #######
 # CPM #
 #######
-set(CPM_DOWNLOAD_VERSION 0.36.0)
+install_cpm(${CPM_VERSION})
 
-if(CPM_SOURCE_CACHE)
-  set(CPM_DOWNLOAD_LOCATION "${CPM_SOURCE_CACHE}/cpm/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
-elseif(DEFINED ENV{CPM_SOURCE_CACHE})
-  set(CPM_DOWNLOAD_LOCATION "$ENV{CPM_SOURCE_CACHE}/cpm/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
-else()
-  set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM_${CPM_DOWNLOAD_VERSION}.cmake")
-endif()
-
-if(NOT (EXISTS ${CPM_DOWNLOAD_LOCATION}))
-  message(STATUS "Downloading CPM.cmake to ${CPM_DOWNLOAD_LOCATION}")
-  file(DOWNLOAD
-       https://github.com/TheLartians/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake
-       ${CPM_DOWNLOAD_LOCATION}
-  )
-endif()
-
-include(${CPM_DOWNLOAD_LOCATION})
-
-####################
-# CPM DEPENDENCIES #
-####################
-set(JSON_VERSION         3.11.2  )
-set(BLINK1_LIB_VERSION   1.1.0   )
-set(CXXOPTS_VERSION      3.0.0   )
-set(GOOGLE_TEST_VERSION  1.12.1  )
-set(BOOST_VERSION        1.80.0  )
 CPMAddPackage("gh:nlohmann/json@${JSON_VERSION}")
 CPMAddPackage("gh:evan1026/blink1-lib@${BLINK1_LIB_VERSION}")
 CPMAddPackage("gh:jarro2783/cxxopts@${CXXOPTS_VERSION}")
 CPMAddPackage("gh:google/googletest@${GOOGLE_TEST_VERSION}#release-${GOOGLE_TEST_VERSION}")
 
+install_boost_library_recursively("asio" ${BOOST_VERSION})
+
 set(GTEST_LIBRARIES gtest gtest_main gmock gmock_main)
-
-CPMAddPackage("gh:boostorg/asio@${BOOST_VERSION}#boost-${BOOST_VERSION}")
-
-get_target_property(asio_libs Boost::asio INTERFACE_LINK_LIBRARIES)
-set(processed_libs "")
-while (asio_libs)
-
-    list(GET asio_libs 0 first_library)
-
-    string(REPLACE "::" ";" library_name_parts ${first_library})
-    list(GET library_name_parts 1 library_name)
-
-    CPMAddPackage("gh:boostorg/${library_name}@${BOOST_VERSION}#boost-${BOOST_VERSION}")
-
-    get_target_property(new_lib_libs ${first_library} INTERFACE_LINK_LIBRARIES)
-
-    if (new_lib_libs)
-        foreach (lib ${new_lib_libs})
-            if (NOT ${lib} IN_LIST processed_libs AND NOT ${lib} IN_LIST asio_libs)
-                list(APPEND asio_libs ${lib})
-            endif()
-        endforeach()
-    endif()
-
-    list(APPEND processed_libs ${first_library})
-    list(REMOVE_AT asio_libs 0)
-
-endwhile (asio_libs)
 
 ##################
 # BLINK1-CONTROL #
