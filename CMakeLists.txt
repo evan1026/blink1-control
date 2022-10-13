@@ -46,30 +46,13 @@ include(${CPM_DOWNLOAD_LOCATION})
 ####################
 # CPM DEPENDENCIES #
 ####################
-CPMAddPackage(
-  NAME nlohmann_json
-  VERSION 3.11.2
-  GITHUB_REPOSITORY nlohmann/json
-  OPTIONS
-    "JSON_BuildTests OFF"
-)
-set(JSON_LIBRARIES nlohmann_json::nlohmann_json)
+CPMAddPackage("gh:nlohmann/json@3.11.2")
+CPMAddPackage("gh:evan1026/blink1-lib@1.1.0")
+CPMAddPackage("gh:jarro2783/cxxopts@3.0.0")
+CPMAddPackage("gh:boostorg/boost@1.80.0#boost-1.80.0")
+CPMAddPackage("gh:google/googletest@1.12.1#release-1.12.1")
 
-CPMAddPackage(
-  NAME googletest
-  GITHUB_REPOSITORY google/googletest
-  GIT_TAG release-1.12.1
-  VERSION 1.12.1
-)
 set(GTEST_LIBRARIES gtest gtest_main gmock gmock_main)
-
-CPMAddPackage(
-  NAME blink1-lib
-  GITHUB_REPOSITORY evan1026/blink1-lib
-  VERSION 1.1.0
-)
-set(BLINK1_LIBRARIES blink1)
-set(BLINK1_TESTING_LIBRARIES blink1-testing)
 
 ##################
 # BLINK1-CONTROL #
@@ -87,7 +70,7 @@ set(EXECUTABLE_SOURCES
 )
 
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
-target_link_libraries(${EXECUTABLE_NAME} ${JSON_LIBRARIES})
+target_link_libraries(${EXECUTABLE_NAME} nlohmann_json)
 
 set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -105,9 +88,9 @@ set_property(TARGET ${EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 ##############
 if (USE_BLINK1_TESTING_LIBRARY)
     add_definitions(-DUSE_BLINK1_TESTING_LIBRARY)
-    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_TESTING_LIBRARIES})
+    target_link_libraries(${EXECUTABLE_NAME} blink1-testing)
 else(USE_BLINK1_TESTING_LIBRARY)
-    target_link_libraries(${EXECUTABLE_NAME} ${BLINK1_LIBRARIES})
+    target_link_libraries(${EXECUTABLE_NAME} blink1)
 endif(USE_BLINK1_TESTING_LIBRARY)
 
 ###########
@@ -140,7 +123,7 @@ set(TEST_SOURCES
 enable_testing()
 
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} ${BLINK1_TESTING_LIBRARIES} ${GTEST_LIBRARIES} ${JSON_LIBRARIES})
+target_link_libraries(${TEST_EXECUTABLE_NAME} ${GTEST_LIBRARIES} blink1-testing nlohmann_json)
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
 include(GoogleTest)
