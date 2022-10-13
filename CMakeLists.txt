@@ -46,13 +46,45 @@ include(${CPM_DOWNLOAD_LOCATION})
 ####################
 # CPM DEPENDENCIES #
 ####################
-CPMAddPackage("gh:nlohmann/json@3.11.2")
-CPMAddPackage("gh:evan1026/blink1-lib@1.1.0")
-CPMAddPackage("gh:jarro2783/cxxopts@3.0.0")
-CPMAddPackage("gh:boostorg/boost@1.80.0#boost-1.80.0")
-CPMAddPackage("gh:google/googletest@1.12.1#release-1.12.1")
+set(JSON_VERSION         3.11.2  )
+set(BLINK1_LIB_VERSION   1.1.0   )
+set(CXXOPTS_VERSION      3.0.0   )
+set(GOOGLE_TEST_VERSION  1.12.1  )
+set(BOOST_VERSION        1.80.0  )
+CPMAddPackage("gh:nlohmann/json@${JSON_VERSION}")
+CPMAddPackage("gh:evan1026/blink1-lib@${BLINK1_LIB_VERSION}")
+CPMAddPackage("gh:jarro2783/cxxopts@${CXXOPTS_VERSION}")
+CPMAddPackage("gh:google/googletest@${GOOGLE_TEST_VERSION}#release-${GOOGLE_TEST_VERSION}")
 
 set(GTEST_LIBRARIES gtest gtest_main gmock gmock_main)
+
+CPMAddPackage("gh:boostorg/asio@${BOOST_VERSION}#boost-${BOOST_VERSION}")
+
+get_target_property(asio_libs Boost::asio INTERFACE_LINK_LIBRARIES)
+set(processed_libs "")
+while (asio_libs)
+
+    list(GET asio_libs 0 first_library)
+
+    string(REPLACE "::" ";" library_name_parts ${first_library})
+    list(GET library_name_parts 1 library_name)
+
+    CPMAddPackage("gh:boostorg/${library_name}@${BOOST_VERSION}#boost-${BOOST_VERSION}")
+
+    get_target_property(new_lib_libs ${first_library} INTERFACE_LINK_LIBRARIES)
+
+    if (new_lib_libs)
+        foreach (lib ${new_lib_libs})
+            if (NOT ${lib} IN_LIST processed_libs AND NOT ${lib} IN_LIST asio_libs)
+                list(APPEND asio_libs ${lib})
+            endif()
+        endforeach()
+    endif()
+
+    list(APPEND processed_libs ${first_library})
+    list(REMOVE_AT asio_libs 0)
+
+endwhile (asio_libs)
 
 ##################
 # BLINK1-CONTROL #
@@ -70,7 +102,7 @@ set(EXECUTABLE_SOURCES
 )
 
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
-target_link_libraries(${EXECUTABLE_NAME} nlohmann_json)
+target_link_libraries(${EXECUTABLE_NAME} nlohmann_json Boost::asio cxxopts)
 
 set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
