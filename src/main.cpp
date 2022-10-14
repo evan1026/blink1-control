@@ -10,7 +10,7 @@
 #include "config.hpp"
 
 #ifdef USE_BLINK1_TESTING_LIBRARY
-    #include "FakeBlink1Lib.hpp"
+    #include "Blink1TestingLibrary.hpp"
 #endif
 
 using blink1_control::config::ConfigParser;
@@ -31,25 +31,25 @@ void signalCallbackHandler(int signum) {
     }
 }
 
-int main(int argc, const char* argv[]) {
+std::optional<blink1_control::config::Config> parseArgs(int argc, const char* argv[]) {
     auto args = std::span(argv, static_cast<size_t>(argc));
 
     if (args.size() != 2) {
         std::cout << "Usage: " << args[0] << " config_file\n";
-        return 1;
+        return std::nullopt;
     }
-
-    signal(SIGINT, signalCallbackHandler);
 
     std::ifstream configFileStream(args[1]);
 
     if (!configFileStream.is_open()) {
         std::cout << "Could not open " << args[1] << "\n";
-        return 2;
+        return std::nullopt;
     }
 
-    auto config = ConfigParser::parseConfig(configFileStream);
+    return ConfigParser::parseConfig(configFileStream);
+}
 
+void runPatterns(std::optional<blink1_control::config::Config> config) {
 
 #ifdef USE_BLINK1_TESTING_LIBRARY
     fake_blink1_lib::SET_BLINK1_SUCCESSFUL_OPERATION(true);
@@ -60,7 +60,7 @@ int main(int argc, const char* argv[]) {
 
     if (!blinkDevice.good()) {
         std::cout << "Could not open blink1 device\n";
-        return 3;
+        return;
     }
 
     blinkDevice.clearOnExit = true;
@@ -91,4 +91,17 @@ int main(int argc, const char* argv[]) {
             }
         }
     }
+}
+
+int main(int argc, const char* argv[]) {
+
+    signal(SIGINT, signalCallbackHandler);
+
+    auto config = parseArgs(argc, argv);
+
+    if (!config) {
+        return 1;
+    }
+
+    runPatterns(config);
 }
