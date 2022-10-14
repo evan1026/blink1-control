@@ -5,6 +5,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <span>
+#include <boost/asio.hpp>
 
 #include "blink-lib.hpp"
 #include "config.hpp"
@@ -93,6 +94,13 @@ void runPatterns(std::optional<blink1_control::config::Config> config) {
     }
 }
 
+void cleanSocketFile() {
+    std::filesystem::remove("./blink1-control.sock");
+}
+
+namespace ba = boost::asio;
+namespace bal = boost::asio::local;
+
 int main(int argc, const char* argv[]) {
 
     signal(SIGINT, signalCallbackHandler);
@@ -101,6 +109,23 @@ int main(int argc, const char* argv[]) {
 
     if (!config) {
         return 1;
+    }
+
+    std::atexit(cleanSocketFile);
+
+    ba::io_context ioc;
+    bal::stream_protocol::endpoint ep("./blink1-control.sock");
+    bal::stream_protocol::acceptor acceptor(ioc, ep);
+    bal::stream_protocol::socket socket(ioc);
+
+    while (LOOPING) {
+        bal::stream_protocol::iostream clientIos;
+        acceptor.accept(clientIos.socket());
+
+        std::string data;
+        clientIos << "Hello, World!\n";
+        std::getline(clientIos, data);
+        std::cout << data << "\n";
     }
 
     runPatterns(config);

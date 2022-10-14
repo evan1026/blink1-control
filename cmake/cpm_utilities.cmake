@@ -4,10 +4,12 @@ function(install_boost_library_recursively library_name boost_version)
         VERSION ${boost_version}
         GIT_TAG boost-${boost_version}
         GITHUB_REPOSITORY "boostorg/${library_name}"
+        EXCLUDE_FROM_ALL yes
     )
 
     set(PROCESSED_BOOST_LIBRARIES "${PROCESSED_BOOST_LIBRARIES};${library_name}" CACHE INTERNAL "")
 
+    set_target_properties(boost_${library_name} PROPERTIES INTERFACE_SYSTEM_INCLUDE_DIRECTORIES $<TARGET_PROPERTY:boost_${library_name},INTERFACE_INCLUDE_DIRECTORIES>)
     get_target_property(libs Boost::${library_name} INTERFACE_LINK_LIBRARIES)
 
     while (libs)
