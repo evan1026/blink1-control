@@ -27,6 +27,7 @@ namespace blink1_control::config {
                 bool success = true;
                 success &= parseConditions(json, config);
                 success &= parsePatterns(json, config);
+                success &= parseTopLevelVars(json, config);
 
                 if (success) {
                     return std::make_optional(config);
@@ -39,6 +40,14 @@ namespace blink1_control::config {
         }
 
         return std::nullopt;
+    }
+
+    bool ConfigParser::parseTopLevelVars(const Json& json, Config& config) {
+        if (json.find("socketPath") != json.end()) {
+            config.socketPath = json.at("socketPath");
+        }
+
+        return true;
     }
 
     static bool parseArray(const Json& json, Config& config, const std::string& arrayName, const std::function<bool(const Json&, Config&)>& parseFunction) {

@@ -33,13 +33,20 @@ namespace blink1_control::config {
         std::map<std::string, std::shared_ptr<ConditionConfig>> conditionConfigs;
 
         /**
+         * Path to the socket file. Defaults to './blink1-control.sock'
+         */
+        std::string socketPath = "./blink1-control.sock";
+
+        /**
          * Output operator
          *
          * @param os Output stream
          * @param config Config to output
          */
         friend std::ostream& operator<<(std::ostream& os, blink1_control::config::Config& config) {
-            os << "{patterns: {";
+            os << "{socketPath: \"" << config.socketPath << "\", ";
+
+            os << "patterns: {";
             bool first = true;
             for (auto& entryPair : config.patternConfigs) {
                 if (first) {

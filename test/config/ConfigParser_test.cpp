@@ -33,6 +33,7 @@ TEST_F(SUITE_NAME, TestParseConfig) {
     std::stringstream ss;
     ss << R"(
     {
+        "socketPath": "path.sock",
         "conditions": [
             {
                 "name": "pm_test",
@@ -107,6 +108,7 @@ TEST_F(SUITE_NAME, TestParseConfig) {
     ASSERT_TRUE(bool(configOpt));
 
     auto config = *configOpt;
+    EXPECT_EQ("path.sock", config.socketPath);
     EXPECT_EQ(3, config.conditionConfigs.size());
     EXPECT_EQ(1, config.patternConfigs.size());
 
@@ -308,4 +310,19 @@ TEST_F(SUITE_NAME, TestInvalidCommand) {
     ConfigParser configParser;
     auto configOpt = configParser.parseConfig(ss);
     EXPECT_FALSE(bool(configOpt));
+}
+
+TEST_F(SUITE_NAME, TestDefaultValues) {
+    std::stringstream ss;
+    ss << R"(
+    {
+        "conditions": [],
+        "patterns": []
+    })";
+
+    ConfigParser configParser;
+    auto configOpt = configParser.parseConfig(ss);
+    EXPECT_TRUE(configOpt);
+
+    EXPECT_EQ("./blink1-control.sock", configOpt->socketPath);
 }

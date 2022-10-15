@@ -31,6 +31,7 @@ namespace blink1_control::config {
         [[nodiscard]] static bool parseCondition(const Json& json, Config& config);
         [[nodiscard]] static bool parsePatterns(const Json& json, Config& config);
         [[nodiscard]] static bool parsePattern(const Json& json, Config& config);
+        [[nodiscard]] static bool parseTopLevelVars(const Json& json, Config& config);
         [[nodiscard]] static std::shared_ptr<ProcessMonitorConfig> parseProcessMonitor(const Json& json);
         [[nodiscard]] static std::shared_ptr<RollupConfig> parseRollup(const Json& json);
         [[nodiscard]] static blink1_lib::RGBN parseRgb(const std::string& rgbString);
