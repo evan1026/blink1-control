@@ -9,9 +9,7 @@ namespace bal = boost::asio::local;
 
 static void runIo(std::shared_ptr<ba::io_context> ioContext) {
     ba::io_service::work work(*ioContext);
-    std::cout << "Starting I/O service\n";
     ioContext->run();
-    std::cout << "I/O service finished\n";
 }
 
 namespace blink1_control::network {

@@ -105,13 +105,6 @@ int main(int argc, const char* argv[]) {
 
     blink1_control::network::NetworkManager networkManager(config->socketPath);
 
-    std::cout << "Starting\n";
-    networkManager.start();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << "Stopping\n";
-    networkManager.stop();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    std::cout << "Starting\n";
     networkManager.start();
 
     runPatterns(config);
