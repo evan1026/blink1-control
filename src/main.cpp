@@ -31,8 +31,7 @@ void signalCallbackHandler(int signum) {
     }
 }
 
-std::optional<blink1_control::config::Config> parseArgs(int argc, const char* argv[]) {
-    auto args = std::span(argv, static_cast<size_t>(argc));
+std::optional<blink1_control::config::Config> parseArgs(std::span<const char*>& args) {
 
     if (args.size() != 2) {
         std::cout << "Usage: " << args[0] << " config_file\n";
@@ -97,7 +96,8 @@ int main(int argc, const char* argv[]) {
 
     signal(SIGINT, signalCallbackHandler);
 
-    auto config = parseArgs(argc, argv);
+    auto args = std::span(argv, static_cast<size_t>(argc));
+    auto config = parseArgs(args);
 
     if (!config) {
         return 1;

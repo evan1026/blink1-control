@@ -7,7 +7,7 @@ namespace b = boost;
 namespace ba = boost::asio;
 namespace bal = boost::asio::local;
 
-static void runIo(std::shared_ptr<ba::io_context> ioContext) {
+static void runIo(const std::shared_ptr<ba::io_context>& ioContext) {
     ba::io_service::work work(*ioContext);
     ioContext->run();
 }
@@ -22,8 +22,17 @@ namespace blink1_control::network {
     {}
 
     NetworkManager::~NetworkManager() {
-        stop();
-        std::filesystem::remove(endpoint.path());
+        try {
+            stop();
+        } catch (const b::system::system_error& e) {
+            std::cout << e.what() << "\n";
+        }
+
+        try {
+            std::filesystem::remove(endpoint.path());
+        } catch (const std::filesystem::filesystem_error& e) {
+            std::cout << e.what() << "\n";
+        }
     }
 
     void NetworkManager::start() {
