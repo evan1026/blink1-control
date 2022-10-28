@@ -1,6 +1,5 @@
 #include <blink1-lib.h>
 #include <csignal>
-#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -94,10 +93,6 @@ void runPatterns(std::optional<blink1_control::config::Config> config) {
     }
 }
 
-void cleanSocketFile() {
-    std::filesystem::remove("./blink1-control.sock");
-}
-
 int main(int argc, const char* argv[]) {
 
     signal(SIGINT, signalCallbackHandler);
@@ -107,8 +102,6 @@ int main(int argc, const char* argv[]) {
     if (!config) {
         return 1;
     }
-
-    std::atexit(cleanSocketFile);
 
     blink1_control::network::NetworkManager networkManager(config->socketPath);
 

@@ -1,6 +1,7 @@
 #include "network/NetworkManager.hpp"
 
 #include <iostream>
+#include <filesystem>
 
 namespace b = boost;
 namespace ba = boost::asio;
@@ -24,6 +25,7 @@ namespace blink1_control::network {
 
     NetworkManager::~NetworkManager() {
         stop();
+        std::filesystem::remove(endpoint.path());
     }
 
     void NetworkManager::start() {
