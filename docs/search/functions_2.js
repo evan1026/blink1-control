@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parseconfig_63',['parseConfig',['../classblink1__control_1_1config_1_1ConfigParser.html#a6095d2ca4e6120619f9c32f056bba52d',1,'blink1_control::config::ConfigParser']]]
+  ['networkmanager_74',['NetworkManager',['../classblink1__control_1_1network_1_1NetworkManager.html#a22e35f04394c49092c70094128a7b000',1,'blink1_control::network::NetworkManager']]]
 ];
