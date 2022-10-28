@@ -5,10 +5,10 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <span>
-#include <boost/asio.hpp>
 
 #include "blink-lib.hpp"
 #include "config.hpp"
+#include "network.hpp"
 
 #ifdef USE_BLINK1_TESTING_LIBRARY
     #include "Blink1TestingLibrary.hpp"
@@ -69,25 +69,25 @@ void runPatterns(std::optional<blink1_control::config::Config> config) {
     while (LOOPING) {
         for (auto it = config->patternConfigs.begin(); it != config->patternConfigs.end() && LOOPING; ++it) {
             PatternConfig& pattern = *it->second;
-            std::cout << "Playing " << pattern.name << "\n";
+//            std::cout << "Playing " << pattern.name << "\n";
 
-            std::cout << "    Playing before pattern\n";
+//            std::cout << "    Playing before pattern\n";
             for (auto& patternLine : pattern.before) {
-                std::cout << "        Playing " << *patternLine << "\n";
+//                std::cout << "        Playing " << *patternLine << "\n";
                 patternLine->execute(blinkDevice);
             }
 
             for (int i = 0; i < pattern.repeat && LOOPING; ++i) {
-                std::cout << "    Playing iteration " << i << "/" << pattern.repeat << "\n";
+//                std::cout << "    Playing iteration " << i << "/" << pattern.repeat << "\n";
                 for (auto& patternLine : pattern.pattern) {
-                    std::cout << "        Playing " << *patternLine << "\n";
+//                    std::cout << "        Playing " << *patternLine << "\n";
                     patternLine->execute(blinkDevice);
                 }
             }
 
-            std::cout << "    Playing after pattern\n";
+//            std::cout << "    Playing after pattern\n";
             for (auto& patternLine : pattern.after) {
-                std::cout << "        Playing " << *patternLine << "\n";
+//                std::cout << "        Playing " << *patternLine << "\n";
                 patternLine->execute(blinkDevice);
             }
         }
@@ -97,9 +97,6 @@ void runPatterns(std::optional<blink1_control::config::Config> config) {
 void cleanSocketFile() {
     std::filesystem::remove("./blink1-control.sock");
 }
-
-namespace ba = boost::asio;
-namespace bal = boost::asio::local;
 
 int main(int argc, const char* argv[]) {
 
@@ -113,20 +110,16 @@ int main(int argc, const char* argv[]) {
 
     std::atexit(cleanSocketFile);
 
-    ba::io_context ioc;
-    bal::stream_protocol::endpoint ep("./blink1-control.sock");
-    bal::stream_protocol::acceptor acceptor(ioc, ep);
-    bal::stream_protocol::socket socket(ioc);
+    blink1_control::network::NetworkManager networkManager(config->socketPath);
 
-    while (LOOPING) {
-        bal::stream_protocol::iostream clientIos;
-        acceptor.accept(clientIos.socket());
-
-        std::string data;
-        clientIos << "Hello, World!\n";
-        std::getline(clientIos, data);
-        std::cout << data << "\n";
-    }
+    std::cout << "Starting\n";
+    networkManager.start();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "Stopping\n";
+    networkManager.stop();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "Starting\n";
+    networkManager.start();
 
     runPatterns(config);
 }

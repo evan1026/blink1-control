@@ -39,8 +39,7 @@ CPMAddPackage("gh:nlohmann/json@${JSON_VERSION}")
 CPMAddPackage("gh:evan1026/blink1-lib@${BLINK1_LIB_VERSION}")
 CPMAddPackage("gh:jarro2783/cxxopts@${CXXOPTS_VERSION}")
 CPMAddPackage("gh:google/googletest@${GOOGLE_TEST_VERSION}#release-${GOOGLE_TEST_VERSION}")
-
-install_boost_library_recursively("asio" ${BOOST_VERSION})
+CPMAddPackage("gh:boostorg/boost@${BOOST_VERSION}#boost-${BOOST_VERSION}")
 
 set(GTEST_LIBRARIES gtest gtest_main gmock gmock_main)
 
@@ -52,6 +51,7 @@ set(EXECUTABLE_NAME "blink1-control")
 set(SOURCES
     ${SOURCE_DIR}/config/ConfigParser.cpp
     ${SOURCE_DIR}/config/PatternCommand.cpp
+    ${SOURCE_DIR}/network/NetworkManager.cpp
 )
 
 set(EXECUTABLE_SOURCES
@@ -60,7 +60,7 @@ set(EXECUTABLE_SOURCES
 )
 
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_SOURCES})
-target_link_libraries(${EXECUTABLE_NAME} nlohmann_json Boost::asio cxxopts)
+target_link_libraries(${EXECUTABLE_NAME} nlohmann_json Boost::asio Boost::thread cxxopts)
 
 set(WARNINGS "-Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wpedantic -Wconversion -Wsign-conversion")
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
@@ -113,7 +113,7 @@ set(TEST_SOURCES
 enable_testing()
 
 add_executable(${TEST_EXECUTABLE_NAME} ${TEST_SOURCES} ${SOURCES})
-target_link_libraries(${TEST_EXECUTABLE_NAME} ${GTEST_LIBRARIES} blink1-testing nlohmann_json)
+target_link_libraries(${TEST_EXECUTABLE_NAME} ${GTEST_LIBRARIES} blink1-testing nlohmann_json Boost::asio Boost::thread)
 set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 20)
 
 include(GoogleTest)
